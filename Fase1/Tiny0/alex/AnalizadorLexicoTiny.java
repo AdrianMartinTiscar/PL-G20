@@ -17,8 +17,9 @@ public class AnalizadorLexicoTiny {
    private static String NL = System.getProperty("line.separator");
    
    private static enum Estado {
-    INICIO, REC_POR, REC_DIV, REC_PAP, REC_PCIERR, REC_COMA, REC_IGUAL,
-    REC_MAS, REC_MENOS, REC_ID, REC_ENT, REC_0, REC_IDEC, REC_DEC, REC_COM, REC_EOF
+    INICIO, RETPCIE, RETPAP, RETEOF, RETPTOCOMA, RETID, RETIDIS, RETDIS, RETIG, RETEQ,
+    RETMAY, RETMAYEQ, RETMEN, RETMENEQ, RETMUL, RETDIV, RETIAMP, RETAMP, RETSUM, RETCERO,
+    RETRES, RETENT, RETIDEC, RETDEC, RETIEXP, RETISIGN, RETEXP
    }
 
    private Estado estado;
@@ -39,67 +40,106 @@ public class AnalizadorLexicoTiny {
      while(true) {
          switch(estado) {
            case INICIO: 
-              if(hayLetra())  transita(Estado.REC_ID);
-              else if (hayDigitoPos()) transita(Estado.REC_ENT);
-              else if (hayCero()) transita(Estado.REC_0);
-              else if (haySuma()) transita(Estado.REC_MAS);
-              else if (hayResta()) transita(Estado.REC_MENOS);
-              else if (hayMul()) transita(Estado.REC_POR);
-              else if (hayDiv()) transita(Estado.REC_DIV);
-              else if (hayPAp()) transita(Estado.REC_PAP);
-              else if (hayPCierre()) transita(Estado.REC_PCIERR);
-              else if (hayIgual()) transita(Estado.REC_IGUAL);
-              else if (hayComa()) transita(Estado.REC_COMA);
-              else if (hayAlmohadilla()) transitaIgnorando(Estado.REC_COM);
+              if(hayLetra())  transita(Estado.RETID);
+              else if (hayDigitoPos()) transita(Estado.RETENT);
+              else if (hayCero()) transita(Estado.RETCERO);
+              else if (haySuma()) transita(Estado.RETSUM);
+              else if (hayResta()) transita(Estado.RETRES);
+              else if (hayMul()) transita(Estado.RETMUL);
+              else if (hayDiv()) transita(Estado.RETDIV);
+              else if (hayPAp()) transita(Estado.RETPAP);
+              else if (hayPCierre()) transita(Estado.RETPCIE);
+              else if (hayIgual()) transita(Estado.RETIG);
               else if (haySep()) transitaIgnorando(Estado.INICIO);
-              else if (hayEOF()) transita(Estado.REC_EOF);
+              else if (hayEOF()) transita(Estado.RETEOF);
+              else if (hayPtoComa()) transita(Estado.RETPTOCOMA);
+              else if (hayExclamacion()) transita(Estado.RETIDIS);
+              else if (hayMenor()) transita(Estado.RETMEN);
+              else if (hayMayor()) transita(Estado.RETMAY);
+              else if (hayAmpersand()) transita(Estado.RETIAMP);
               else error();
               break;
-           case REC_ID: 
-              if (hayLetra() || hayDigito()) transita(Estado.REC_ID);
+           case RETID: 
+              if (hayLetra() || hayDigito()) transita(Estado.RETID);
               else return unidadId();               
               break;
-           case REC_ENT:
-               if (hayDigito()) transita(Estado.REC_ENT);
-               else if (hayPunto()) transita(Estado.REC_IDEC);
+           case RETENT:
+               if (hayDigito()) transita(Estado.RETENT);
+               else if (hayPunto()) transita(Estado.RETIDEC);
+               else if (hayExp()) transita(Estado.RETIEXP);
                else return unidadEnt();
                break;
-           case REC_0:
-               if (hayPunto()) transita(Estado.REC_IDEC);
-               else return unidadEnt();
-               break;
-           case REC_MAS:
-               if (hayDigitoPos()) transita(Estado.REC_ENT);
-               else if(hayCero()) transita(Estado.REC_0);
-               else return unidadMas();
-               break;
-           case REC_MENOS: 
-               if (hayDigitoPos()) transita(Estado.REC_ENT);
-               else if(hayCero()) transita(Estado.REC_0);
-               else return unidadMenos();
-               break;
-           case REC_POR: return unidadPor();
-           case REC_DIV: return unidadDiv();              
-           case REC_PAP: return unidadPAp();
-           case REC_PCIERR: return unidadPCierre();
-           case REC_IGUAL: return unidadIgual();
-           case REC_COMA: return unidadComa();
-           case REC_COM: 
-               if (hayNL()) transitaIgnorando(Estado.INICIO);
-               else if (hayEOF()) transita(Estado.REC_EOF);
-               else transitaIgnorando(Estado.REC_COM);
-               break;
-           case REC_EOF: return unidadEof();
-           case REC_IDEC:
-               if (hayDigitoPos()) transita(Estado.REC_DEC);
-               else if (hayCero()) transita(Estado.REC_IDEC);
+           case RETIDEC:
+               if (hayDigitoPos()) transita(Estado.RETDEC);
+               else if (hayCero()) transita(Estado.RETIDEC);
                else error();
                break;
-           case REC_DEC: 
-               if (hayDigitoPos()) transita(Estado.REC_DEC);
-               else if (hayCero()) transita(Estado.REC_IDEC);
+           case RETIEXP:
+               if (hayDigitoPos()) transita(Estado.RETEXP);
+               else if (haySuma() || hayResta()) transita(Estado.RETISIGN);
+               else error();
+               break;
+           case RETDEC: 
+               if (hayDigitoPos()) transita(Estado.RETDEC);
+               else if (hayCero()) transita(Estado.RETIDEC);
+               else if (hayExp()) transita(Estado.RETIEXP);
                else return unidadReal();
                break;
+           case RETEXP: 
+               if (hayDigito()) transita(Estado.RETEXP);
+               else return unidadReal();
+               break;
+           case RETISIGN:
+               if (hayDigitoPos()) transita(Estado.RETEXP);
+               else error();
+               break;
+           case RETCERO:
+               if (hayPunto()) transita(Estado.RETIDEC);
+               else return unidadEnt();
+               break;
+           case RETSUM:
+               if (hayDigitoPos()) transita(Estado.RETENT);
+               else if(hayCero()) transita(Estado.RETCERO);
+               else return unidadMas();
+               break;
+           case RETRES: 
+               if (hayDigitoPos()) transita(Estado.RETENT);
+               else if(hayCero()) transita(Estado.RETCERO);
+               else return unidadMenos();
+               break;
+           case RETIAMP:
+               if (hayAmpersand()) transita(Estado.RETAMP);
+               else error();
+               break;
+           case RETMEN: 
+               if (hayIgual()) transita(Estado.RETMENEQ);
+               else return unidadMenor();
+               break;
+           case RETMAY: 
+               if (hayIgual()) transita(Estado.RETMAYEQ);
+               else return unidadMayor();
+               break;
+           case RETIG: 
+               if (hayIgual()) transita(Estado.RETEQ);
+               else return unidadIgual();
+               break;
+           case RETIDIS: 
+               if (hayIgual()) transita(Estado.RETDIS);
+               else error();
+               break;
+           case RETDIS: return unidadDis();
+           case RETEQ: return unidadComparacion();
+           case RETMAYEQ: return unidadMayorIgual();
+           case RETMENEQ: return unidadMenorIgual();
+           case RETAMP: return unidadSeparador();
+           case RETMUL: return unidadMul();
+           case RETDIV: return unidadDiv();              
+           case RETPAP: return unidadPAp();
+           case RETPCIE: return unidadPCierre();
+           case RETPTOCOMA: return unidadPtoComa();
+           case RETEOF: return unidadEof();
+           
+           
          }
      }    
    }
@@ -144,28 +184,29 @@ public class AnalizadorLexicoTiny {
    private boolean hayDiv() {return sigCar == '/';}
    private boolean hayPAp() {return sigCar == '(';}
    private boolean hayPCierre() {return sigCar == ')';}
-   private boolean hayIgual() {return sigCar == '=';}
-   private boolean hayComa() {return sigCar == ',';}
+   private boolean hayIgual() {return sigCar == '=';
    private boolean hayPunto() {return sigCar == '.';}
-   private boolean hayAlmohadilla() {return sigCar == '#';}
    private boolean haySep() {return sigCar == ' ' || sigCar == '\t' || sigCar=='\n';}
+   //RETORNO DE CARRO????? HAY QUE AÑADIR MÁS?
    private boolean hayNL() {return sigCar == '\r' || sigCar == '\b' || sigCar == '\n';}
    private boolean hayEOF() {return sigCar == -1;}
    private UnidadLexica unidadId() {
      switch(lex.toString()) {
-         case "evalua":  
-            return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.EVALUA);
-         case "donde":    
-            return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.DONDE);
+         case "int":  
+            return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.INT);
+         case "real":    
+            return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.REAL);
+         case "bool":    
+             return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.BOOL);
          default:    
-            return new UnidadLexicaMultivaluada(filaInicio,columnaInicio,ClaseLexica.IDEN,lex.toString());     
+            return new UnidadLexicaMultivaluada(filaInicio,columnaInicio,ClaseLexica.ID,lex.toString());     
       }
    }  
    private UnidadLexica unidadEnt() {
-     return new UnidadLexicaMultivaluada(filaInicio,columnaInicio,ClaseLexica.ENT,lex.toString());     
+     return new UnidadLexicaMultivaluada(filaInicio,columnaInicio,ClaseLexica.NENT,lex.toString());     
    }    
    private UnidadLexica unidadReal() {
-     return new UnidadLexicaMultivaluada(filaInicio,columnaInicio,ClaseLexica.REAL,lex.toString());     
+     return new UnidadLexicaMultivaluada(filaInicio,columnaInicio,ClaseLexica.NREAL,lex.toString());     
    }    
    private UnidadLexica unidadMas() {
      return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.MAS);     
@@ -173,8 +214,8 @@ public class AnalizadorLexicoTiny {
    private UnidadLexica unidadMenos() {
      return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.MENOS);     
    }    
-   private UnidadLexica unidadPor() {
-     return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.POR);     
+   private UnidadLexica unidadMul() {
+     return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.MUL);     
    }    
    private UnidadLexica unidadDiv() {
      return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.DIV);     
@@ -188,9 +229,9 @@ public class AnalizadorLexicoTiny {
    private UnidadLexica unidadIgual() {
      return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.IGUAL);     
    }    
-   private UnidadLexica unidadComa() {
+   /*private UnidadLexica unidadComa() {
      return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.COMA);     
-   }    
+   }    */
    private UnidadLexica unidadEof() {
      return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.EOF);     
    }    

@@ -143,17 +143,30 @@ public class AnalizadorLexicoTiny {
          }
      }    
    }
+   /**Esta funcion transita de estado y lee el siguiente caracter
+    * de la entrada
+    * 
+    * @param Estado : siguiente estado al que se debe transitar
+    * */
    private void transita(Estado sig) throws IOException {
      lex.append((char)sigCar);
      sigCar();         
      estado = sig;
    }
+   /**Esta funcion transita de estado ignorando el caracter actua
+    * 
+    * @param Estado : siguiente estado al que se debe transitar
+    * */
    private void transitaIgnorando(Estado sig) throws IOException {
      sigCar();         
      filaInicio = filaActual;
      columnaInicio = columnaActual;
      estado = sig;
    }
+   /**Esta funcion se encarga de leer la entrada caracter a caracter,
+    * asi como obtener la fila y columna del caracter que se esta 
+    * leyendo
+    * */
    private void sigCar() throws IOException {
      sigCar = input.read();
      if (sigCar == NL.charAt(0)) saltaFinDeLinea();
@@ -184,12 +197,20 @@ public class AnalizadorLexicoTiny {
    private boolean hayDiv() {return sigCar == '/';}
    private boolean hayPAp() {return sigCar == '(';}
    private boolean hayPCierre() {return sigCar == ')';}
-   private boolean hayIgual() {return sigCar == '=';
+   private boolean hayIgual() {return sigCar == '=';}
    private boolean hayPunto() {return sigCar == '.';}
    private boolean haySep() {return sigCar == ' ' || sigCar == '\t' || sigCar=='\n';}
-   //RETORNO DE CARRO????? HAY QUE AÑADIR MÁS?
+   //TODO:RETORNO DE CARRO????? HAY QUE AÑADIR MÁS?
    private boolean hayNL() {return sigCar == '\r' || sigCar == '\b' || sigCar == '\n';}
    private boolean hayEOF() {return sigCar == -1;}
+   private boolean hayExp() {return sigCar == 'e' || sigCar == 'E';}
+   private boolean hayAmpersand() {return sigCar == '&';}
+   private boolean hayPtoComa() {return sigCar == ';';}
+   private boolean hayExclamacion() {return sigCar == '!';}
+   private boolean hayMenor() {return sigCar == '<';}
+   private boolean hayMayor() {return sigCar == '>';}
+   
+   //----------FUNCIONES QUE DEVUELVEN LA UNIDAD LEXICA----------------
    private UnidadLexica unidadId() {
      switch(lex.toString()) {
          case "int":  
@@ -229,12 +250,36 @@ public class AnalizadorLexicoTiny {
    private UnidadLexica unidadIgual() {
      return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.IGUAL);     
    }    
-   /*private UnidadLexica unidadComa() {
-     return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.COMA);     
-   }    */
    private UnidadLexica unidadEof() {
      return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.EOF);     
-   }    
+   }
+   private UnidadLexica unidadMenor() {
+	 return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.MENOR);     
+   }  
+   private UnidadLexica unidadMenorIgual() {
+	 return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.MENORIGUAL);     
+   } 
+   private UnidadLexica unidadMayor() {
+	 return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.MAYOR);     
+   }  
+   private UnidadLexica unidadMayorIgual() {
+	 return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.MAYORIGUAL);     
+   }
+   private UnidadLexica unidadDis() {
+	 return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.DISTINTO);     
+   }
+   private UnidadLexica unidadPtoComa() {
+	 return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.PTOCOMA);     
+   }
+   private UnidadLexica unidadComparacion() {
+     return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.COMPARACION);     
+   }
+   private UnidadLexica unidadSeparador() {
+	 return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.SEP);     
+   }
+   
+   /** Función que muestra mensaje de error en caso de recibir un caracter inesperado
+    * */
    private void error() {
      System.err.println("("+filaActual+','+columnaActual+"):Caracter inexperado");  
      System.exit(1);

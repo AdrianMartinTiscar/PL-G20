@@ -19,7 +19,7 @@ public class AnalizadorLexicoTiny {
    private static enum Estado {
     INICIO, RETPCIE, RETPAP, RETEOF, RETPTOCOMA, RETID, RETIDIS, RETDIS, RETIG, RETEQ,
     RETMAY, RETMAYEQ, RETMEN, RETMENEQ, RETMUL, RETDIV, RETIAMP, RETAMP, RETSUM, RETCERO,
-    RETRES, RETENT, RETIDEC, RETDEC, RETIEXP, RETISIGN, RETEXP
+    RETRES, RETENT, RETIDEC, RETDEC, RETIEXP, RETISIGN, RETEXP, RETDECAUX1, RETDECAUX2 
    }
 
    private Estado estado;
@@ -71,9 +71,14 @@ public class AnalizadorLexicoTiny {
                break;
            case RETIDEC:
                if (hayDigitoPos()) transita(Estado.RETDEC);
-               else if (hayCero()) transita(Estado.RETIDEC);
+               else if (hayCero()) transita(Estado.RETDECAUX1);
                else error();
                break;
+           case RETDECAUX1:
+               if (hayDigitoPos()) transita(Estado.RETDEC);
+               else if (hayCero()) transita(Estado.RETDECAUX2);
+               else return unidadReal();
+               break;    
            case RETIEXP:
                if (hayDigitoPos()) transita(Estado.RETEXP);
                else if (haySuma() || hayResta()) transita(Estado.RETISIGN);
@@ -81,9 +86,14 @@ public class AnalizadorLexicoTiny {
                break;
            case RETDEC: 
                if (hayDigitoPos()) transita(Estado.RETDEC);
-               else if (hayCero()) transita(Estado.RETIDEC);
+               else if (hayCero()) transita(Estado.RETDECAUX2);
                else if (hayExp()) transita(Estado.RETIEXP);
                else return unidadReal();
+               break;
+           case RETDECAUX2:
+               if (hayDigitoPos()) transita(Estado.RETDEC);
+               else if (hayCero()) transita(Estado.RETDECAUX2);
+               else error();
                break;
            case RETEXP: 
                if (hayDigito()) transita(Estado.RETEXP);
@@ -219,6 +229,16 @@ public class AnalizadorLexicoTiny {
             return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.REAL);
          case "bool":    
              return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.BOOL);
+         case "and":    
+             return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.AND);
+         case "or":    
+             return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.OR);
+         case "not":    
+             return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.NOT);
+         case "true":    
+             return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.TRUE);
+         case "false":    
+             return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.FALSE);
          default:    
             return new UnidadLexicaMultivaluada(filaInicio,columnaInicio,ClaseLexica.ID,lex.toString());     
       }
@@ -286,7 +306,7 @@ public class AnalizadorLexicoTiny {
    }
 
    public static void main(String arg[]) throws IOException {
-     Reader input = new InputStreamReader(new FileInputStream("input.txt"));
+     Reader input = new InputStreamReader(new FileInputStream("prueba.txt"));
      AnalizadorLexicoTiny al = new AnalizadorLexicoTiny(input);
      UnidadLexica unidad;
      do {

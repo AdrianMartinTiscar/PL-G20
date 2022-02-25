@@ -1,4 +1,4 @@
-package alex;
+package implementacion_manual;
 
 import java.io.FileInputStream;
 import java.io.Reader;
@@ -306,7 +306,7 @@ public class AnalizadorLexicoTiny {
    }
 
    public static void main(String arg[]) throws IOException {
-     Reader input = new InputStreamReader(new FileInputStream("prueba.txt"));
+     Reader input = new InputStreamReader(new FileInputStream("pruebas_tiny_0/prueba3_tiny0.txt"));
      AnalizadorLexicoTiny al = new AnalizadorLexicoTiny(input);
      UnidadLexica unidad;
      do {

@@ -1,4 +1,4 @@
-package alex;
+package implementacion_manual;
 
 public enum ClaseLexica {
  ID, NENT, NREAL, PAP, PCIERRE, IGUAL, TRUE, FALSE,

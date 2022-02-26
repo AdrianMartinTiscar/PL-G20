@@ -1,4 +1,4 @@
-package alex;
+package implementacion_jflex;
 
 //Las unidades lexicas multivaluadas tienen un lexema
 public class UnidadLexicaMultivaluada extends UnidadLexica {

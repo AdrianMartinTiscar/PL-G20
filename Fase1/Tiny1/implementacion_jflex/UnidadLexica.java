@@ -1,4 +1,4 @@
-package alex;
+package implementacion_jflex;
 
 /*Una unidad lexica se define con una clase, una fila y una columna.*/
 

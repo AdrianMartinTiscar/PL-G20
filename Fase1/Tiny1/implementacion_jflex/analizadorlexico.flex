@@ -1,4 +1,4 @@
-package implementacion_jflex
+package implementacion_jflex;
 
 %%
 %line
@@ -8,7 +8,7 @@ package implementacion_jflex
 %unicode
 
 %{
-  private ALexOperations ops;
+  private Operations ops;
   public String lexema() {return yytext();}
   public int fila() {return yyline+1;}
   public int columna() {return yycolumn+1;}
@@ -19,7 +19,7 @@ package implementacion_jflex
 %eofval}
 
 %init{
-  ops = new ALexOperations(this);
+  ops = new Operations(this);
 %init}
 
 letra  = ([A-Z]|[a-z])

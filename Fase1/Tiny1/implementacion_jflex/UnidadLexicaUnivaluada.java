@@ -1,4 +1,4 @@
-package alex;
+package implementacion_jflex;
 
 public class UnidadLexicaUnivaluada extends UnidadLexica {
    public String lexema() {throw new UnsupportedOperationException();}   

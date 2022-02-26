@@ -25,12 +25,9 @@ package implementacion_jflex;
 letra  = ([A-Z]|[a-z])
 digitoPositivo = [1-9]
 digito = ({digitoPositivo}|0)
-parteEntera = {digitoPositivo}{digito}*
+parteEntera = ({digitoPositivo}{digito}*|0)
 parteDecimal = ({digito}* {digitoPositivo}| 0)
 parteExp = (e|E) {numeroEntero}
-identificador = {letra}({letra}|{digito}|\_)*
-numeroEntero = [\+,\-]?{parteEntera}
-numeroReal = [\+,\-]?{parteEntera}\.({parteDecimal}|{parteExp}|{parteDecimal} {parteExp})
 suma = \+
 resta = \-
 mul = \*
@@ -44,7 +41,7 @@ PntComa = \;
 int = int
 real = real
 bool = bool
-literalCad = \" [^  \b, \n, \r, \â€�]* \"
+literalCad = \" [^\b\n\r\"]* \"
 true = true
 false = false
 and = and
@@ -55,7 +52,7 @@ menorIgual = <\=
 mayor = >
 mayorIgual = >=
 comparacion = \=\=
-distinto = !\=
+distinto = \!\=
 mod = \%
 corcheteAbierto = \[
 corcheteCerrado = \]
@@ -88,13 +85,13 @@ var = var
 type = type
 Com = #[^\n]*
 ignor = [ \t\r\b\n]
+identificador = {letra}({letra}|{digito}|\_)*
+numeroEntero = [\+,\-]?{parteEntera}
+numeroReal = [\+,\-]?{parteEntera}\.({parteDecimal}|{parteExp}|{parteDecimal} {parteExp})
 
 %%
 {ignor}                    {}
 {Com}                     {}
-{identificador}           {return ops.unidadId();}
-{numeroEntero}            {return ops.unidadNEnt();}
-{numeroReal}              {return ops.unidadNReal();}
 {suma}            {return ops.unidadSuma();}
 {resta}           {return ops.unidadResta();}
 {mul}             {return ops.unidadMul();}
@@ -150,5 +147,8 @@ ignor = [ \t\r\b\n]
 {nl}                    {return ops.unidadNl();}
 {var}                    {return ops.unidadVar();}
 {type}                    {return ops.unidadType();}
+{identificador}           {return ops.unidadId();}
+{numeroEntero}            {return ops.unidadNEnt();}
+{numeroReal}              {return ops.unidadNReal();}
 [^]                       {ops.error();}  
 

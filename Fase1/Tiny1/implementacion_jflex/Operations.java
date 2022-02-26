@@ -90,16 +90,16 @@ public class Operations {
   public UnidadLexica unidadLiteralCad() {
 	 return new UnidadLexicaUnivaluada(alex.fila(), alex.columna(),ClaseLexica.LITERALCAD); 
   } 
-  public UnidadLexica unidadModulo() {
+  public UnidadLexica unidadMod() {
 	 return new UnidadLexicaUnivaluada(alex.fila(), alex.columna(),ClaseLexica.MODULO); 
   }
-  public UnidadLexica unidadCorAbierto() {
+  public UnidadLexica unidadCorcheteAbierto() {
 	 return new UnidadLexicaUnivaluada(alex.fila(), alex.columna(),ClaseLexica.CORABIERTO); 
   } 
-  public UnidadLexica unidadCorCerrado() {
+  public UnidadLexica unidadCorcheteCerrado() {
      return new UnidadLexicaUnivaluada(alex.fila(), alex.columna(),ClaseLexica.CORCERRADO); 
   }
-  public UnidadLexica unidadLLaveAbierta() {
+  public UnidadLexica unidadLlaveAbierta() {
 	 return new UnidadLexicaUnivaluada(alex.fila(), alex.columna(),ClaseLexica.LLAVEABIERTA); 
   } 
   public UnidadLexica unidadLlaveCerrada() {
@@ -135,7 +135,7 @@ public class Operations {
   public UnidadLexica unidadElse() {
 	 return new UnidadLexicaUnivaluada(alex.fila(), alex.columna(),ClaseLexica.ELSE); 
   }
-  public UnidadLexica unidadEndif() {
+  public UnidadLexica unidadEndIf() {
 	 return new UnidadLexicaUnivaluada(alex.fila(), alex.columna(),ClaseLexica.ENDIF); 
   }
   public UnidadLexica unidadWhile() {
@@ -174,7 +174,7 @@ public class Operations {
   public UnidadLexica unidadWrite() {
 	 return new UnidadLexicaUnivaluada(alex.fila(), alex.columna(),ClaseLexica.WRITE); 
   }
-  public UnidadLexica unidadNL() {
+  public UnidadLexica unidadNl() {
 	 return new UnidadLexicaUnivaluada(alex.fila(), alex.columna(),ClaseLexica.NL); 
   }
   public UnidadLexica unidadVar() {

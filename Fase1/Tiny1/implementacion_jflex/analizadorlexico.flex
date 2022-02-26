@@ -44,7 +44,7 @@ PntComa = \;
 int = int
 real = real
 bool = bool
-literalCad = \â€� [^  \b, \n, \r, \â€�]* \â€�
+literalCad = \" [^  \b, \n, \r, \â€�]* \"
 true = true
 false = false
 and = and
@@ -86,8 +86,8 @@ write = write
 nl = nl
 var = var
 type = type
-Com = #[^\n]* \n
-ignor = [ â€œ â€œ\t\r\b\n]
+Com = #[^\n]*
+ignor = [ \t\r\b\n]
 
 %%
 {ignor}                    {}

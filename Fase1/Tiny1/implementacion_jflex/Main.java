@@ -8,7 +8,7 @@ import java.io.Reader;
 
 public class Main {
    public static void main(String[] args) throws FileNotFoundException, IOException {
-     Reader input = new InputStreamReader(new FileInputStream("input.txt"));
+     Reader input = new InputStreamReader(new FileInputStream("pruebas_tiny_1/prueba1_tiny1.txt"));
      AnalizadorLexicoTiny1 al = new AnalizadorLexicoTiny1(input);
      UnidadLexica unidad;
      do {

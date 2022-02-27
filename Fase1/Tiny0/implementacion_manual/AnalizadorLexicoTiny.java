@@ -305,14 +305,25 @@ public class AnalizadorLexicoTiny {
      System.exit(1);
    }
 
-   public static void main(String arg[]) throws IOException {
-     Reader input = new InputStreamReader(new FileInputStream("pruebas_tiny_0/prueba3_tiny0.txt"));
-     AnalizadorLexicoTiny al = new AnalizadorLexicoTiny(input);
-     UnidadLexica unidad;
-     do {
-       unidad = al.sigToken();
-       System.out.println(unidad);
-     }
-     while (unidad.clase() != ClaseLexica.EOF);
+   public static void main(String args[]) throws IOException {
+	 Reader input = null;
+	 if(args.length == 0) { // Si no se proporciona ruta al fichero de prueba
+		 System.out.println("Proporcione un fichero como argumento de entrada\n"
+	    	 		+ "en el siguiente formato: pruebas_tiny_0/filename.txt\n");
+	 }
+	 else { // Leer fichero de prueba
+	  	 /*String filename = "prueba1_tiny0.txt";
+	   	 input = new InputStreamReader(new FileInputStream("pruebas_tiny_0/"+filename));*/
+	    	 
+	   	 input = new InputStreamReader(new FileInputStream(args[0]));
+     
+	   	 AnalizadorLexicoTiny al = new AnalizadorLexicoTiny(input);
+	   	 UnidadLexica unidad;
+	   	 do {
+	   		 unidad = al.sigToken();
+	   		 System.out.println(unidad);
+	   	 }
+	   	 while (unidad.clase() != ClaseLexica.EOF);
+	 }
     } 
 }

@@ -3,7 +3,7 @@ package errors;
 import AnalizadorLexico_Manual.ClaseLexica;
 
 /*Esta clase es el gestor de errores*/
-public class GestionErroresTiny {
+public class GestionErroresTiny0 {
 
    public void errorLexico(int fila, int col, String lexema) {
      System.out.println("ERROR fila "+fila+","+col+": Caracter inexperado: "+lexema); 

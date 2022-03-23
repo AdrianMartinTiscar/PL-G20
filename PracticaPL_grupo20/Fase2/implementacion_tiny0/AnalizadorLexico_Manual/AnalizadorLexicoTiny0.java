@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.Reader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import errors.GestionErroresTiny0;
 
 public class AnalizadorLexicoTiny0 {
 
@@ -15,6 +16,7 @@ public class AnalizadorLexicoTiny0 {
    private int filaActual;
    private int columnaActual;
    private static String NL = System.getProperty("line.separator");
+   private GestionErroresTiny0 errores;
    
    private static enum Estado {
     INICIO, RETPCIE, RETPAP, RETEOF, RETPTOCOMA, RETID, RETIDIS, RETDIS, RETIG, RETEQ,
@@ -211,7 +213,7 @@ public class AnalizadorLexicoTiny0 {
    private boolean hayPunto() {return sigCar == '.';}
    private boolean haySep() {return sigCar == ' ' || sigCar == '\t' || sigCar=='\n';}
    //TODO:RETORNO DE CARRO????? HAY QUE AÑADIR MÁS?
-   private boolean hayNL() {return sigCar == '\r' || sigCar == '\b' || sigCar == '\n';}
+   //private boolean hayNL() {return sigCar == '\r' || sigCar == '\b' || sigCar == '\n';}
    private boolean hayEOF() {return sigCar == -1;}
    private boolean hayExp() {return sigCar == 'e' || sigCar == 'E';}
    private boolean hayAmpersand() {return sigCar == '&';}
@@ -304,8 +306,12 @@ public class AnalizadorLexicoTiny0 {
      System.err.println("("+filaActual+','+columnaActual+"):Caracter inexperado");  
      System.exit(1);
    }
+   
+   public void fijaGestionErrores(GestionErroresTiny0 errores) {
+	   this.errores = errores;
+   }
 
-   public static void main(String args[]) throws IOException {
+  /* public static void main(String args[]) throws IOException {
 	 Reader input = null;
 	 if(args.length == 0) { // Si no se proporciona ruta al fichero de prueba
 		 System.out.println("Proporcione un fichero como argumento de entrada\n"
@@ -315,7 +321,7 @@ public class AnalizadorLexicoTiny0 {
 	  	 /*String filename = "prueba1_tiny0.txt";
 	   	 input = new InputStreamReader(new FileInputStream("pruebas_tiny_0/"+filename));*/
 	    	 
-	   	 input = new InputStreamReader(new FileInputStream(args[0]));
+	 /*  	 input = new InputStreamReader(new FileInputStream(args[0]));
      
 	   	 AnalizadorLexicoTiny0 al = new AnalizadorLexicoTiny0(input);
 	   	 UnidadLexica unidad;
@@ -325,5 +331,5 @@ public class AnalizadorLexicoTiny0 {
 	   	 }
 	   	 while (unidad.clase() != ClaseLexica.EOF);
 	 }
-    } 
+    } */
 }

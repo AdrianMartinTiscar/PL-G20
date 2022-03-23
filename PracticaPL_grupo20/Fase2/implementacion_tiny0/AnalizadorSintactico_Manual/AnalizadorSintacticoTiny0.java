@@ -5,7 +5,7 @@
 package AnalizadorSintactico_Manual;
 
 
-import errors.GestionErroresTiny;
+import errors.GestionErroresTiny0;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.logging.Level;
@@ -21,11 +21,11 @@ public class AnalizadorSintacticoTiny0 {
    //AnalizadorLexito al que pedir los tokes
    private AnalizadorLexicoTiny0 alex;
    //Modulo de gestion de errores
-   private GestionErroresTiny errores;
+   private GestionErroresTiny0 errores;
 
    //Constructor
-   public AnalizadorSintacticoTiny0(Reader input) {
-      errores = new GestionErroresTiny();
+   public AnalizadorSintacticoTiny0(Reader input) throws IOException {
+      errores = new GestionErroresTiny0();
       alex = new AnalizadorLexicoTiny0(input);
 	//Pasar al analizador lexico el modulo de gestion de errores
       alex.fijaGestionErrores(errores);
@@ -202,7 +202,7 @@ public class AnalizadorSintacticoTiny0 {
    /**/
    private void sigToken() {
       try {
-        anticipo = alex.yylex();
+        anticipo = alex.sigToken();
       }
       catch(IOException e) {
         errores.errorFatal(e);

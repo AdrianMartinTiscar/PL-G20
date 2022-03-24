@@ -6,6 +6,7 @@ package AnalizadorSintactico_Manual;
 
 
 import errors.GestionErroresTiny0;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.util.logging.Level;
@@ -34,39 +35,95 @@ public class AnalizadorSintacticoTiny0 {
 
    //Llama a S para reconocer todo el programa y luego empareja fin de fichero
    public void Sp() {
-      S();
+      Programa();
       empareja(ClaseLexica.EOF);
    }
 
    //------------IMPLEMENTACION DEL ANALIZADOR SINTACTICO-----------------
 
-   /** Este método define la regla inicial de la especificación
-    * sintáctica para tiny 0
+   /** Programa -> Decs '&&' Instrucciones
     * * */
    private void Programa() {
+	 Decs();
+     empareja(ClaseLexica.SEP);
+     RDecs();
+     /*
      switch(anticipo.clase()) {
-         case EVALUA:          
-              empareja(ClaseLexica.EVALUA);
-              E0();
-              Ds();
+         case DECS:          
+              
               break;
          default: errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                          ClaseLexica.EVALUA);                                            
+                                          ClaseLexica.DECS);                                            
+   }*/
+   }
+
+   /**Decs -> Dec RDecs
+    * */
+   private void Decs() {
+	  Dec();
+	  RDecs();
+   }
+   
+   /**Dec -> int id 
+    * Dec -> bool id
+    * Dec -> real id
+    * */
+   private void Dec()  {
+	   switch(anticipo.clase()) {
+       case INT:
+           empareja(ClaseLexica.INT);
+           empareja(ClaseLexica.ID);
+           RDecs();
+           break;
+       case BOOL:
+           empareja(ClaseLexica.BOOL);
+           empareja(ClaseLexica.ID);
+           RDecs();
+           break;
+       case REAL:
+           empareja(ClaseLexica.REAL);
+           empareja(ClaseLexica.ID);
+           RDecs();
+           break;
+       default: errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
+                                       ClaseLexica.DONDE,ClaseLexica.EOF);                                       
    }
    }
 
-   private void Ds() {
-      switch(anticipo.clase()) {
-          case DONDE:
-              empareja(ClaseLexica.DONDE);
-              LDs();
-              break;
-          case EOF: break;
-          default: errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                          ClaseLexica.DONDE,ClaseLexica.EOF);                                       
-      } 
+   /**RDecs -> ';' Dec RDecs
+    * RDecs -> cadena vacia
+    * */
+   private void RDecs() {
+	      switch(anticipo.clase()) {
+	          case PTOCOMA:
+	              empareja(ClaseLexica.PTOCOMA);
+	              Dec();
+	              RDecs();
+	              break;
+	          case EOF:  break;
+	          default: errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
+	                                          ClaseLexica.DONDE,ClaseLexica.EOF);                                       
+	      } 
    }
-
+   
+   /**Instrucciones -> Inst RInstrucciones*/
+   private void Instrucciones() {
+	   Inst();
+	   RInstrucciones();
+   }
+   
+   private void Inst() {
+	      switch(anticipo.clase()) {
+	       case ID:    
+	           empareja(ClaseLexica.ID);
+	           empareja(ClaseLexica.IGUAL);
+	           Expresion();
+	           break;
+	       default:  errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
+	                                         ClaseLexica.IDEN);                                       
+	   }
+   } 
+   
    private void LDs() {
       switch(anticipo.clase()) {
        case IDEN:    

@@ -73,17 +73,17 @@ public class AnalizadorSintacticoTiny0 {
        case INT:
            empareja(ClaseLexica.INT);
            empareja(ClaseLexica.ID);
-           RDecs();
+          //RDecs();
            break;
        case BOOL:
            empareja(ClaseLexica.BOOL);
            empareja(ClaseLexica.ID);
-           RDecs();
+           //RDecs();
            break;
        case REAL:
            empareja(ClaseLexica.REAL);
            empareja(ClaseLexica.ID);
-           RDecs();
+           //RDecs();
            break;
        default: errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
                                        ClaseLexica.DONDE,ClaseLexica.EOF);                                       

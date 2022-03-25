@@ -9,9 +9,6 @@ import errors.GestionErroresTiny0;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import AnalizadorLexico_Manual.AnalizadorLexicoTiny0;
 import AnalizadorLexico_Manual.ClaseLexica;
 import AnalizadorLexico_Manual.UnidadLexica;
@@ -39,22 +36,14 @@ public class AnalizadorSintacticoTiny0 {
       empareja(ClaseLexica.EOF);
    }
 
-   //------------IMPLEMENTACION DEL ANALIZADOR SINTACTICO-----------------
+   //------------GRAMATICA ACONDICIONADA-----------------
 
    /** Programa -> Decs '&&' Instrucciones
-    * * */
+    * */
    private void Programa() {
 	 Decs();
      empareja(ClaseLexica.SEP);
-     RDecs();
-     /*
-     switch(anticipo.clase()) {
-         case DECS:          
-              
-              break;
-         default: errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                          ClaseLexica.DECS);                                            
-   }*/
+     Instrucciones();
    }
 
    /**Decs -> Dec RDecs
@@ -67,31 +56,30 @@ public class AnalizadorSintacticoTiny0 {
    /**Dec -> int id 
     * Dec -> bool id
     * Dec -> real id
+    * Símbolos de diagnostico: bool, int, real
     * */
    private void Dec()  {
 	   switch(anticipo.clase()) {
        case INT:
            empareja(ClaseLexica.INT);
            empareja(ClaseLexica.ID);
-          //RDecs();
            break;
        case BOOL:
            empareja(ClaseLexica.BOOL);
            empareja(ClaseLexica.ID);
-           //RDecs();
            break;
        case REAL:
            empareja(ClaseLexica.REAL);
            empareja(ClaseLexica.ID);
-           //RDecs();
            break;
        default: errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                       ClaseLexica.DONDE,ClaseLexica.EOF);                                       
+                                       ClaseLexica.BOOL,ClaseLexica.INT,ClaseLexica.REAL);                                       
    }
    }
 
    /**RDecs -> ';' Dec RDecs
     * RDecs -> cadena vacia
+    * Símbolos de diagnostico: ';', '&'
     * */
    private void RDecs() {
 	      switch(anticipo.clase()) {
@@ -100,18 +88,23 @@ public class AnalizadorSintacticoTiny0 {
 	              Dec();
 	              RDecs();
 	              break;
-	          case EOF:  break;
+	          case SEP:  break;
+	          //TODO: AMP¿¿??
 	          default: errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-	                                          ClaseLexica.DONDE,ClaseLexica.EOF);                                       
+	                                          ClaseLexica.PTOCOMA,ClaseLexica.SEP);                                       
 	      } 
    }
    
-   /**Instrucciones -> Inst RInstrucciones*/
+   /**Instrucciones -> Inst RInstrucciones
+    * */
    private void Instrucciones() {
 	   Inst();
 	   RInstrucciones();
    }
    
+   /**Inst -> Id '=' Expresion
+    * Símbolos de diagnostico: id
+    * */
    private void Inst() {
 	      switch(anticipo.clase()) {
 	       case ID:    
@@ -120,143 +113,275 @@ public class AnalizadorSintacticoTiny0 {
 	           Expresion();
 	           break;
 	       default:  errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-	                                         ClaseLexica.IDEN);                                       
+	                                         ClaseLexica.ID);                                       
 	   }
    } 
    
-   private void LDs() {
-      switch(anticipo.clase()) {
-       case IDEN:    
-           D();
-           RLDs();
-           break;
-       default:  errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                         ClaseLexica.IDEN);                                       
-   }
-   }   
- 
-   private void RLDs() {
-      switch(anticipo.clase()) {
-       case COMA:    
-           empareja(ClaseLexica.COMA);
-           D();
-           RLDs();
-           break;
-       case EOF: break;    
-       default:  errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                         ClaseLexica.COMA, ClaseLexica.EOF);                                       
-      }          
-   }   
+   /**RInstrucciones -> ';' Inst RInstrucciones
+    * RInstrucciones -> cadena vacia
+    * Símbolos de diagnostico: ';', 'EOF'
+    * */
+   private void RInstrucciones() {
+	      switch(anticipo.clase()) {
+	       case PTOCOMA:    
+	           empareja(ClaseLexica.PTOCOMA);
+	           Inst();
+	           RInstrucciones();
+	           break;
+	       case EOF:  break;
+	       default:  errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
+	                                         ClaseLexica.PTOCOMA, ClaseLexica.EOF);                                       
+	   }
+   } 
 
-   private void D() {
-     switch(anticipo.clase()) {       
-       case IDEN:   
-        empareja(ClaseLexica.IDEN);
-        empareja(ClaseLexica.IGUAL);
-        E0();
-        break;
-       default: errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                         ClaseLexica.IDEN);                                       
-     }
+   /**Expresion -> EO
+    * */
+   private void Expresion() {
+	   E0();
    }
-
+   
+   /**EO -> E1 RE0
+    * */
    private void E0() {
-     switch(anticipo.clase()) {
-         case IDEN: case ENT: case REAL: case PAP:
-             E1();
-             RE0();
-             break;
-         default:  errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                           ClaseLexica.IDEN,ClaseLexica.ENT,
-                                           ClaseLexica.REAL, ClaseLexica.PAP);                                    
-     }  
+	 E1();
+	 RE0();
    }
 
+   /**RE0 -> '+' E0
+    * RE0 -> '-' E0
+    * RE0 -> cadena vacia
+    * Símbolos de diagnostico: '+', '-'
+    * */
    private void RE0() {
       switch(anticipo.clase()) {
-          case MAS: case MENOS: 
-             Op0();
-             E1();
-             RE0();
+          case MAS: 
+             empareja(ClaseLexica.MAS);
+             E0();
              break;
-          case DONDE: case PCIERRE: case EOF: case COMA: break;
+          case MENOS: 
+              empareja(ClaseLexica.MENOS);
+              E1();
+              break;
+          case PCIERRE: case EOF: case PTOCOMA: break;
           default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
                                       ClaseLexica.MAS,ClaseLexica.MENOS);                                              
       } 
    }
 
+   /**E1 -> E2 RE1*/
    private void E1() {
-     switch(anticipo.clase()) {
-         case IDEN: case ENT: case REAL: case PAP:
-             E2();
-             RE1();
-             break;
-         default:  errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                           ClaseLexica.IDEN,ClaseLexica.ENT,
-                                           ClaseLexica.REAL, ClaseLexica.PAP);                                    
-     }  
+	   E2();
+	   RE1();
    }
 
+   /**RE1 -> OP1 E2 RE1
+    * RE1 -> cadena vacia
+    * Símbolos de diagnostico: and, or
+    * */
    private void RE1() {
       switch(anticipo.clase()) {
-          case POR: case DIV: 
-             Op1();
+          case AND: case OR: 
+             OP1();
              E2();
              RE1();
              break;
-          case DONDE: case PCIERRE: case EOF: case MAS: case MENOS: case COMA: break;
+          case MAS: case MENOS: case PCIERRE:
+          case PTOCOMA: case EOF: break;
           default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                      ClaseLexica.POR,ClaseLexica.DIV,
-                                      ClaseLexica.MAS, ClaseLexica.MENOS);                                              
+                                      ClaseLexica.AND,ClaseLexica.OR);                                              
       } 
    }
 
+   /**E2 -> E3 RE2*/
    private void E2() {
+	  E3();
+	  RE2();
+   }
+   
+   /**RE2 -> OP2 E3 RE2
+    * RE2 -> cadena vacia
+    * Símbolos de diagnostico: '>', '<', '=', and, or
+    * */
+   private void RE2() {
       switch(anticipo.clase()) {
-          case ENT: empareja(ClaseLexica.ENT); break;
-          case REAL: empareja(ClaseLexica.REAL); break; 
-          case IDEN: empareja(ClaseLexica.IDEN); break;
-          case PAP: 
-               empareja(ClaseLexica.PAP); 
-               E0(); 
-               empareja(ClaseLexica.PCIERRE); 
-               break;
-          default:     
+          case MAYOR: case MENOR: case COMPARACION: case DISTINTO: 
+             OP2();
+             E3();
+             RE2();
+             break;
+          case AND: case OR: case MAS: case MENOS:
+          case PTOCOMA: case PCIERRE: case EOF: break;
+          default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                      ClaseLexica.ENT,ClaseLexica.REAL,
-                                      ClaseLexica.PAP);
-   }   
+                                      ClaseLexica.MAYOR,ClaseLexica.MENOR,ClaseLexica.DISTINTO,
+                                      ClaseLexica.IGUAL,ClaseLexica.AND,ClaseLexica.OR);                                              
+      } 
+   }
+   
+   /**E3 -> E4 RE3*/
+   private void E3() {
+	  E4();
+	  RE3();
+   }
+   
+   /**RE3 -> OP3 E4 
+    * RE3 -> cadena vacia
+    * Símbolos de diagnostico: '*', '/', '!', '<', '>', '=', and, or
+    * */
+   private void RE3() {
+      switch(anticipo.clase()) {
+          case MUL: case DIV: 
+             OP3();
+             E4();
+             break;
+          case MAYOR: case MENOR: case COMPARACION: case DISTINTO: 
+          case AND: case OR: case MAS: case MENOS: case PCIERRE:
+          case PTOCOMA: case EOF: break;
+          default:    
+              errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
+            		  				  ClaseLexica.MUL, ClaseLexica.DIV,ClaseLexica.MAYOR,
+            		  				  ClaseLexica.MENOR,ClaseLexica.DISTINTO,ClaseLexica.IGUAL,
+            		  				  ClaseLexica.AND,ClaseLexica.OR);                                              
+      } 
+   }
+   
+   /**E4 -> '-' E5
+    * E4 -> not E4
+    * E4 -> E5
+    * Simbolos de diagnostico: '(', '-', false, true, id, not, numeroEntero,
+    * numeroReal
+    * */
+   private void E4() {
+	   switch(anticipo.clase()) {
+	       case MENOS:  
+	          empareja(ClaseLexica.MENOS);
+	          E5();
+	          break;
+	       case NOT:  
+		      empareja(ClaseLexica.NOT);
+		      E4();
+		      break; 
+	       case NENT: case NREAL: case ID: 
+	       case TRUE: case FALSE: case PAP:
+	    	  E5();
+	    	  break;
+	       default:    
+	           errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
+	                                   ClaseLexica.PAP,ClaseLexica.MENOS,ClaseLexica.FALSE,
+	                                   ClaseLexica.TRUE,ClaseLexica.ID,ClaseLexica.NOT,
+	                                   ClaseLexica.NENT,ClaseLexica.NREAL);                                              
+	   } 
    }
 
-   private void Op0() {
+   /**E5 -> numeroEntero
+    * E5 -> numeroReal
+    * E5 -> id
+    * E5 -> true
+    * E5 -> false
+    * E5 -> (E0)
+    * Símbolos de diagnostico: '(', false, true, id, numeroEntero,
+    * numeroReal
+    * */
+   private void E5() {
+	   switch(anticipo.clase()) {
+	       case NENT: empareja(ClaseLexica.NENT); break;
+	       case NREAL: empareja(ClaseLexica.NREAL); break; 
+	       case ID: empareja(ClaseLexica.ID); break;
+	       case TRUE: empareja(ClaseLexica.TRUE); break;
+	       case FALSE: empareja(ClaseLexica.FALSE); break;
+	       case PAP: 
+	    	   empareja(ClaseLexica.PAP); 
+	    	   E0(); 
+	    	   empareja(ClaseLexica.PCIERRE); 
+	    	   break;
+	       default:    
+	           errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
+	        		   				   ClaseLexica.PAP,ClaseLexica.FALSE,ClaseLexica.TRUE,
+	        		   				   ClaseLexica.ID,ClaseLexica.NENT,ClaseLexica.NREAL);                                              
+	   } 
+   }
+   
+   /**OP1 -> and
+    * OP1 -> or
+    * Simbolos de diagnostico: and, or
+    * */
+   private void OP1() {
      switch(anticipo.clase()) {
-         case MAS: empareja(ClaseLexica.MAS); break;  
-         case MENOS: empareja(ClaseLexica.MENOS); break;  
+         case AND: empareja(ClaseLexica.AND); break;  
+         case OR: empareja(ClaseLexica.OR); break;  
          default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                      ClaseLexica.MAS,ClaseLexica.MENOS);
+                                      ClaseLexica.AND,ClaseLexica.OR);
      }  
    }
 
-   private void Op1() {
+   /**OP2 -> '<' ROP2
+    * OP2 -> '>' ROP2
+    * OP2 -> '=='
+    * OP2 -> '!='
+    * Simbolos de diagnostico: '>', '<', '!', '='
+    * */
+   private void OP2() {
      switch(anticipo.clase()) {
-         case POR: empareja(ClaseLexica.POR); break;  
-         case DIV: empareja(ClaseLexica.DIV); break;  
+         case MAYOR: empareja(ClaseLexica.MAYOR); ROP2(); break;  
+         case MENOR: empareja(ClaseLexica.MENOR); ROP2(); break;
+         case COMPARACION: empareja(ClaseLexica.COMPARACION); break;
+         case DISTINTO: empareja(ClaseLexica.DISTINTO); break;
          default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                      ClaseLexica.POR,ClaseLexica.DIV);
+                                      ClaseLexica.MAYOR,ClaseLexica.MENOR,ClaseLexica.DISTINTO,
+                                      ClaseLexica.IGUAL);
      }  
    }
    
+   /**ROP2 -> '='
+    * ROP2 -> cadena vacia
+    * Simbolos de diagnostico: '=',(', '-', false, true, id, not, numeroEntero,
+    * numeroReal
+    * */
+   private void ROP2() {
+     switch(anticipo.clase()) {
+         case IGUAL: empareja(ClaseLexica.IGUAL); break;  
+         case PAP: case MENOS: case TRUE: case FALSE:
+         case ID: case NOT: case NENT: case NREAL: break;  
+         default:    
+              errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
+            		  				  ClaseLexica.IGUAL,ClaseLexica.PAP,ClaseLexica.MENOS,
+            		  				  ClaseLexica.FALSE,ClaseLexica.TRUE,ClaseLexica.ID,
+            		  				  ClaseLexica.NOT,ClaseLexica.NENT,ClaseLexica.NREAL);
+     }  
+   }
+   
+   /**OP3 -> '*'
+    * OP3 -> '/'
+    * Simbolos de diagnostico: '*', '/'
+    * */
+   private void OP3() {
+     switch(anticipo.clase()) {
+         case MUL: empareja(ClaseLexica.MUL); break;  
+         case DIV: empareja(ClaseLexica.DIV); break;  
+         default:    
+              errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
+                                      ClaseLexica.MUL,ClaseLexica.DIV);
+     }  
+   }
+   
+   //------------FIN GRAMATICA ACONDICIONADA-----------------
+
+   
+   /**Empareja la clase lexica esperada con la del anticipo.
+    * Si coincide lee el siguiente token, en caso contrario
+    * lanza error sinctactico.
+    * */
    private void empareja(ClaseLexica claseEsperada) {
       if (anticipo.clase() == claseEsperada)
           sigToken();
       else errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),claseEsperada);
    }
 
-   /**/
+   /**Lee el siguiente token*/
    private void sigToken() {
       try {
         anticipo = alex.sigToken();

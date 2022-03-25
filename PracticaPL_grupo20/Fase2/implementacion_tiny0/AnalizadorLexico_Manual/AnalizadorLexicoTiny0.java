@@ -212,8 +212,6 @@ public class AnalizadorLexicoTiny0 {
    private boolean hayIgual() {return sigCar == '=';}
    private boolean hayPunto() {return sigCar == '.';}
    private boolean haySep() {return sigCar == ' ' || sigCar == '\t' || sigCar=='\n';}
-   //TODO:RETORNO DE CARRO????? HAY QUE AÑADIR MÁS?
-   //private boolean hayNL() {return sigCar == '\r' || sigCar == '\b' || sigCar == '\n';}
    private boolean hayEOF() {return sigCar == -1;}
    private boolean hayExp() {return sigCar == 'e' || sigCar == 'E';}
    private boolean hayAmpersand() {return sigCar == '&';}

@@ -206,7 +206,8 @@ public class AnalizadorSintacticoTiny0 {
     * */
    private void RE2() {
       switch(anticipo.clase()) {
-          case MAYOR: case MENOR: case COMPARACION: case DISTINTO: 
+          case MAYOR: case MENOR: case COMPARACION: case DISTINTO:
+          case MAYORIGUAL: case MENORIGUAL:
              OP2();
              E3();
              RE2();
@@ -325,8 +326,10 @@ public class AnalizadorSintacticoTiny0 {
     * */
    private void OP2() {
      switch(anticipo.clase()) {
-         case MAYOR: empareja(ClaseLexica.MAYOR); ROP2(); break;  
-         case MENOR: empareja(ClaseLexica.MENOR); ROP2(); break;
+         case MAYOR:  empareja(ClaseLexica.MAYOR); ROP2(); break;
+         case MAYORIGUAL: empareja(ClaseLexica.MAYORIGUAL); break;
+         case MENOR:  empareja(ClaseLexica.MENOR); ROP2(); break;
+         case MENORIGUAL: empareja(ClaseLexica.MENORIGUAL); break;
          case COMPARACION: empareja(ClaseLexica.COMPARACION); break;
          case DISTINTO: empareja(ClaseLexica.DISTINTO); break;
          default:    

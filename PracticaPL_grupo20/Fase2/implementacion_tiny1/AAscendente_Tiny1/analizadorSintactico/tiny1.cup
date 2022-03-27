@@ -1,9 +1,8 @@
 package AAscendente_Tiny1.analizadorSintactico;
 
 import java_cup.runtime.*;
-import AAscendente_Tiny1.implementacion_jflex.AnalizadorLexicoTiny1;
+import AAscendente_Tiny1.implementacion_jflex.AnalizadorLexicoTiny;
 import AAscendente_Tiny1.implementacion_jflex.UnidadLexica;
-import AAscendente_Tiny1.implementacion_jflex.Operations;
 import AAscendente_Tiny1.gestionErroresTiny.GestionErr;
 
 scan with {: return getScanner().next_token(); :};

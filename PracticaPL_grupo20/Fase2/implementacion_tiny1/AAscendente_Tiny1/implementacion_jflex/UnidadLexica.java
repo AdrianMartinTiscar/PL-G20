@@ -14,9 +14,8 @@ public class UnidadLexica extends Symbol {
 	 this.fila = fila;
      this.columna = columna;
    }
-   public ClaseLexica clase () {return clase;}
-   public abstract String lexema(); /*Si el token es univaluado no soporta esta operacion y se lanza una excepcion*/
+   public int clase () {return sym;}
+   public String lexema(){return (String) value;};
    public int fila() {return fila;}
    public int columna() {return columna;}
-   public int clase() {return sym;}
 }

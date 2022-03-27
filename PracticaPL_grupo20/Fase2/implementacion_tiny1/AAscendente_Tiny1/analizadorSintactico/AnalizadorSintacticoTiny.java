@@ -6,10 +6,9 @@
 package AAscendente_Tiny1.analizadorSintactico;
 
 import java_cup.runtime.*;
-import AAscendente_Tiny1.implementacion_jflex.AnalizadorLexicoTiny;
+import AAscendente_Tiny1.implementacion_jflex.AnalizadorLexicoTiny1;
 import AAscendente_Tiny1.implementacion_jflex.UnidadLexica;
 import AAscendente_Tiny1.gestionErroresTiny.GestionErr;
-import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
@@ -21,11 +20,11 @@ public class AnalizadorSintacticoTiny extends java_cup.runtime.lr_parser {
 }
 
   /** Default constructor. */
-  @Deprecated
+  
   public AnalizadorSintacticoTiny() {super();}
 
   /** Constructor which sets the default scanner. */
-  @Deprecated
+ 
   public AnalizadorSintacticoTiny(java_cup.runtime.Scanner s) {super(s);}
 
   /** Constructor which sets the default scanner. */

@@ -1,0 +1,110 @@
+options  {
+  STATIC=false;
+}  
+
+PARSER_BEGIN(AnalizadorSintacticoTiny1)
+
+package ADescendente_Tiny1;
+
+public class AnalizadorSintacticoTiny1 {}
+
+PARSER_END(AnalizadorSintacticoTiny1)
+
+  SKIP:{<["\t"," ","\r","\b","\n"]>}  
+  SKIP:{<"#"(~["\n"])*>} 
+
+  TOKEN:{<#letra:["a"-"z","A"-"Z"]>}
+  TOKEN:{<#digitoPositivo:["1"-"9"]>}
+  TOKEN:{<#digito:<digitoPositivo>|"0">} 
+  TOKEN:{<#parteEntera:<digitoPositivo> (<digito>)* |"0">} 
+  TOKEN:{<#parteDecimal: (<digito>)* <digitoPositivo> |"0">}
+  TOKEN: {<#parteExp:"e" <numeroEntero>|"E" <numeroEntero>>}
+  TOKEN: {<pint:"int">}
+  TOKEN: {<real:"real">}
+  TOKEN: {<bool:"bool">}
+  TOKEN: {<ptrue:"true">}
+  TOKEN: {<pfalse:"false">}
+  TOKEN: {<string:"string">}
+  TOKEN: {<and:"and">}
+  TOKEN: {<or:"or">}
+  TOKEN: {<not:"not">}
+  TOKEN: {<pnull:"null">}
+  TOKEN: {<proc:"proc">}
+  TOKEN: {<pif:"if">}
+  TOKEN: {<then:"then">}
+  TOKEN: {<pelse:"else">}
+  TOKEN: {<endif:"endif">}
+  TOKEN: {<pwhile:"while">}
+  TOKEN: {<pdo:"do">}
+  TOKEN: {<endwhile:"endwhile">}
+  TOKEN: {<call:"call">}
+  TOKEN: {<record:"record">}
+  TOKEN: {<array:"array">}
+  TOKEN: {<of:"of">}
+  TOKEN: {<pointer:"pointer">}
+  TOKEN: {<pnew:"new">}
+  TOKEN: {<delete:"delete">}
+  TOKEN: {<read:"read">}
+  TOKEN: {<write:"write">}
+  TOKEN: {<nl:"nl">}
+  TOKEN: {<var:"var">}
+  TOKEN: {<type:"type">}
+  TOKEN: {<Separacion:"&&">}
+  TOKEN: {<PtoComa:";">}
+  TOKEN: {<igual:"=">}
+  TOKEN: {<equiv:"==">}
+  TOKEN: {<distinto:"!=">} 
+  TOKEN: {<mas: "+">}
+  TOKEN: {<menos: "-">}
+  TOKEN:{<id:<letra>(<letra>|<digito>|"_")*>}
+  TOKEN:{<numeroEntero: (["+","-"])? <parteEntera> >}
+  TOKEN:{<numeroReal: (["+","-"])? <parteEntera> "." (<parteDecimal>|<parteExp>|<parteDecimal><parteExp>) >}
+  TOKEN: {<literalCad:"\""(~["\b","\r","\n"])*"\"">} 
+
+
+  void Sp()			: {} {Programa() <EOF>}
+  void Programa()		: {} {Decs() <Separacion> Instrucciones() | Instrucciones()}
+  void Decs()			: {} {Dec() RDecs()}
+  void RDecs()			: {} {<PtoComa> Dec() RDecs() | {}}
+  void Dec()			: {} {<var> tipo() <id> | <type> tipo() <id> | <proc> <id> ParamForm() bloque()}
+  void tipo()			: {} {<pint>|<bool>|<real>|<string>|<id>|<array> "[" <numeroEntero> "]" <of> tipo() | <record> "{" campos() "}" | <pointer> tipo()}
+  void ParamForm()		: {} {"(" restoParamForm() ")"}
+  void restoParamForm() : {} {ListParamForm() | {}}
+  void ListParamForm()  : {} {Parametro() RListParamForm() }
+  void RListParamForm() : {} {<PtoComa> Parametro() RListParamForm() | {}}
+  void Parametro()		: {} {tipo() restoParametro()}
+  void restoParametro() : {} {"&" <id> | <id>}
+  void bloque()			: {} {"{" Programa() "}"}
+  void campos()			: {} {campo() RCampos()}
+  void RCampos()		: {} {<PtoComa> campo() RCampos() | {}}
+  void campo()			: {} {tipo() <id>}
+  void Instrucciones()	: {} {Inst() RInstrucciones()}
+  void RInstrucciones()	: {} {<PtoComa> Inst() RInstrucciones() | {}}
+  void Inst()			: {} {Expresion() <igual> Expresion() | <pif> Expresion() <then> InstOp() RIf() | <pwhile> Expresion() <pdo> InstOp() <endwhile> | <read> Expresion() | <write> Expresion() | <nl> | <pnew> Expresion() | <delete> Expresion() | <call> <id> paramReales() | bloque()}
+  void RIf()			: {} {<endif> | <pelse> InstOp() <endif>}
+  void InstOp()			: {} {Instrucciones() | {}}
+  void paramReales()	: {} {"(" RparamReales() ")"}
+  void RparamReales()	: {} {ListaExpresiones() | {}}
+  void ListaExpresiones() : {} {Expresion() RListaExpresiones()}
+  void RListaExpresiones(): {} {"," Expresion() RListaExpresiones () | {}}
+  void Expresion()		: {} {E0()}
+  void E0()			: {} {E1() RE0()}
+  void RE0()			: {} {<mas> E0() | <menos> E1() | {}}
+  void E1()			: {} {E2() RE1()}
+  void RE1()			: {} {OP1() E2() RE1() | {}}
+  void E2()			: {} {E3() RE2()}
+  void RE2()			: {} {OP2() E3() RE2() | {}}
+  void E3()			: {} {E4() RE3()}
+  void RE3()			: {} {OP3() E4() | {}}
+  void E4()			: {} {<menos> E5() | <not> E4() | E5()}
+  void E5()			: {} {E6() RE5()}
+  void RE5()			: {} {OP5() RE5() | {}}
+  void E6()			: {} {"*" E6() | E7()} 
+  void E7()			: {} {<numeroEntero> | <numeroReal> | <id> | <ptrue> | <pfalse> | <literalCad> | <pnull> | "(" E0() ")"}
+  void OP1()			: {} {<and> | <or>}
+  void OP2()			: {} {"<" ROP2() | ">" ROP2() | <equiv> | <distinto>}
+  void ROP2()			: {} {<igual>| {}}
+  void OP3()			: {} {"*" | "/" | "%"}
+  void OP5()			: {} {"[" Expresion() "]" | "." <id> | "->" <id>}
+
+  

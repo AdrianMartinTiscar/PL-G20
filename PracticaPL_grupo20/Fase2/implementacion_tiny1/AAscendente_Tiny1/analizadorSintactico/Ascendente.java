@@ -30,7 +30,7 @@ public class Ascendente {
 		}
 
 		input = new InputStreamReader(new FileInputStream(fich));
-		AnalizadorLexicoTiny alex = new AnalizadorLexicoTiny(input);
+		AnalizadorLexicoTiny1 alex = new AnalizadorLexicoTiny1(input);
 		AnalizadorSintacticoTiny asint = new AnalizadorSintacticoTiny(alex);
 		try {
 			asint.parse();

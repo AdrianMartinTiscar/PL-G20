@@ -15,8 +15,8 @@ public class Main {
 		    	 		+ "en el siguiente formato: pruebas_tiny_0/filename.txt\n");
 	 }
 	 else { // Leer fichero de prueba
-		 String filename = "Prueba3numeros.txt";
-		 input = new InputStreamReader(new FileInputStream("pruebas_tiny_0/"+filename));
+		 String filename = "prueba10_tiny0.txt";
+		 input = new InputStreamReader(new FileInputStream("Fase2/pruebas_tiny_0/"+filename));
 		 
 		 //input = new InputStreamReader(new FileInputStream(args[0]));
 		 AnalizadorSintacticoTiny0 asint = new AnalizadorSintacticoTiny0(input);

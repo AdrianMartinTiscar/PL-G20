@@ -10,10 +10,47 @@ public interface AnalizadorSintacticoTiny1Constants {
   int parteEntera = 6;
   int parteDecimal = 7;
   int parteExp = 8;
-  int literalCad = 9;
-  int id = 10;
-  int numeroEntero = 11;
-  int numeroReal = 12;
+  int pint = 9;
+  int real = 10;
+  int bool = 11;
+  int ptrue = 12;
+  int pfalse = 13;
+  int string = 14;
+  int and = 15;
+  int or = 16;
+  int not = 17;
+  int pnull = 18;
+  int proc = 19;
+  int pif = 20;
+  int then = 21;
+  int pelse = 22;
+  int endif = 23;
+  int pwhile = 24;
+  int pdo = 25;
+  int endwhile = 26;
+  int call = 27;
+  int record = 28;
+  int array = 29;
+  int of = 30;
+  int pointer = 31;
+  int pnew = 32;
+  int delete = 33;
+  int read = 34;
+  int write = 35;
+  int nl = 36;
+  int var = 37;
+  int type = 38;
+  int Separacion = 39;
+  int PtoComa = 40;
+  int igual = 41;
+  int equiv = 42;
+  int distinto = 43;
+  int mas = 44;
+  int menos = 45;
+  int id = 46;
+  int numeroEntero = 47;
+  int numeroReal = 48;
+  int literalCad = 49;
 
   int DEFAULT = 0;
 
@@ -27,57 +64,58 @@ public interface AnalizadorSintacticoTiny1Constants {
     "<parteEntera>",
     "<parteDecimal>",
     "<parteExp>",
-    "<literalCad>",
-    "<id>",
-    "<numeroEntero>",
-    "<numeroReal>",
-    "\"&&\"",
-    "\";\"",
-    "\"var\"",
-    "\"proc\"",
     "\"int\"",
-    "\"bool\"",
     "\"real\"",
+    "\"bool\"",
+    "\"true\"",
+    "\"false\"",
     "\"string\"",
-    "\"array\"",
-    "\"[\"",
-    "\"]\"",
-    "\"of\"",
-    "\"record\"",
-    "\"{\"",
-    "\"}\"",
-    "\"pointer\"",
-    "\"(\"",
-    "\")\"",
-    "\"&\"",
-    "\"=\"",
+    "\"and\"",
+    "\"or\"",
+    "\"not\"",
+    "\"null\"",
+    "\"proc\"",
     "\"if\"",
     "\"then\"",
-    "\"endif\"",
     "\"else\"",
+    "\"endif\"",
     "\"while\"",
     "\"do\"",
     "\"endwhile\"",
+    "\"call\"",
+    "\"record\"",
+    "\"array\"",
+    "\"of\"",
+    "\"pointer\"",
+    "\"new\"",
+    "\"delete\"",
     "\"read\"",
     "\"write\"",
     "\"nl\"",
-    "\"new\"",
-    "\"delete\"",
-    "\"call\"",
-    "\",\"",
-    "\"+\"",
-    "\"-\"",
-    "\"not\"",
-    "\"*\"",
-    "\"true\"",
-    "\"false\"",
-    "\"null\"",
-    "\"and\"",
-    "\"or\"",
-    "\"<\"",
-    "\">\"",
+    "\"var\"",
+    "\"type\"",
+    "\"&&\"",
+    "\";\"",
+    "\"=\"",
     "\"==\"",
     "\"!=\"",
+    "\"+\"",
+    "\"-\"",
+    "<id>",
+    "<numeroEntero>",
+    "<numeroReal>",
+    "<literalCad>",
+    "\"[\"",
+    "\"]\"",
+    "\"{\"",
+    "\"}\"",
+    "\"(\"",
+    "\")\"",
+    "\"&\"",
+    "\",\"",
+    "\"*\"",
+    "\"<\"",
+    "\">\"",
     "\"/\"",
     "\"%\"",
     "\".\"",

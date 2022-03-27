@@ -1,0 +1,23 @@
+# Sección de declaraciones
+
+
+type pointer point p
+
+&&
+# Sección de instrucciones
+var_1 = 5 - (-5);
+var_2 = (4 * 2) / 2 + 0.5e2 - 0.5E2 + 2.0;
+Result = var_2 % var_1;
+ar[0] = Result;
+cond = (5 > 4) and (5 != 4) and ((3 <= 2) or (3 >= 2) or (3 > 2));
+cad = "hola mundo";
+
+if (cond == true and cond != false and ar != null) then {
+	#...		
+}
+else {
+	#...
+}
+endif;
+
+	

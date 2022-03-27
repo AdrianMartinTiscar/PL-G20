@@ -1,4 +1,7 @@
-package implementacion_jflex;
+package AAscendente_Tiny1.implementacion_jflex;
+
+import AAscendente_Tiny1.analizadorSintactico.ClaseLexica;
+import java_cup.runtime.Symbol;
 
 /*Una unidad lexica se define con una clase, una fila y una columna.*/
 

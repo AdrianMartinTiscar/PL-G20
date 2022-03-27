@@ -1,4 +1,6 @@
-package implementacion_jflex;
+package AAscendente_Tiny1.implementacion_jflex;
+
+import AAscendente_Tiny1.analizadorSintactico.ClaseLexica;
 
 public class Operations {
   private AnalizadorLexicoTiny1 alex;

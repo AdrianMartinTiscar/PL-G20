@@ -1,4 +1,4 @@
-package ASintTiny1;
+package ADescendente_Tiny1;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

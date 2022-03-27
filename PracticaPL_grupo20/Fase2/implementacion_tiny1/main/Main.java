@@ -1,7 +1,9 @@
 package main;
 
+import AAscendente_Tiny1.analizadorSintactico.Ascendente;
+import ADescendente_Tiny1.Descendente;
+
 //import conCup.asint.*;
-import ASintTiny1.Descendente;
 
 public class Main {
 
@@ -15,8 +17,8 @@ public class Main {
 				Descendente des = new Descendente(args[0]);
 				des.init();
 			} else if (args[1].equals("asc")) {
-				//Ascendente asc = new Ascendente(args[0]);
-				//asc.init();
+				Ascendente asc = new Ascendente(args[0]);
+				asc.init();
 			} else
 				System.out.println(
 						"El segundo argumento debe ser desc (analisis descendente) o asc (analisis ascendente).");

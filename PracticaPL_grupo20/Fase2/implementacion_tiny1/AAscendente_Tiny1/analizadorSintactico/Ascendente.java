@@ -8,6 +8,7 @@ import java.io.Reader;
 import AAscendente_Tiny1.implementacion_jflex.ClaseLexica;
 import AAscendente_Tiny1.implementacion_jflex.UnidadLexica;
 
+
 public class Ascendente {
 	private String fich;
 

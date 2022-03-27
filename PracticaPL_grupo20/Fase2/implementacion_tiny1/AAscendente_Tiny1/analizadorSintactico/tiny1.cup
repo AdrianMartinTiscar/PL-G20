@@ -1,0 +1,86 @@
+package AAscendente_Tiny1.analizadorSintactico;
+
+import java_cup.runtime.*;
+import AAscendente_Tiny1.implementacion_jflex.AnalizadorLexicoTiny1;
+import AAscendente_Tiny1.implementacion_jflex.UnidadLexica;
+import AAscendente_Tiny1.implementacion_jflex.Operations;
+import AAscendente_Tiny1.gestionErroresTiny.GestionErr;
+
+scan with {: return getScanner().next_token(); :};
+parser code {: 
+   private GestionErr errores;
+   public void syntax_error(Symbol unidadLexica) {
+     errores.errorSintactico((UnidadLexica)unidadLexica);
+   }
+:};
+init with {: 
+   errores = new GestionErr();
+   AnalizadorLexicoTiny1 alex = (AnalizadorLexicoTiny1)getScanner();
+   alex.fijaGestionErrores(errores);
+:};
+
+terminal  ID, NENT, NREAL, PAP, PCIERRE, IGUAL, TRUE, FALSE,
+	 AND, OR, NOT, MENOR, MENORIGUAL, MAYOR, MAYORIGUAL, COMPARACION,
+	 DISTINTO, MAS, MENOS, MUL, DIV, SEP, PTOCOMA, INT, REAL, BOOL,
+	LITERALCAD, MODULO, CORABIERTO, CORCERRADO, LLAVEABIERTA, LLAVECERRADA,
+	PUNTO, FLECHA, COMA, AMP, STRING, NULL, PROC, IF, THEN, ELSE, ENDIF, WHILE,
+	DO, ENDWHILE, CALL, RECORD, ARRAY, OF, POINTER, NEW, DELETE, READ, WRITE,
+	NL, VAR, TYPE;
+
+non terminal  Programa,Decs,Dec,ParamForm,ListParamForm,Parametro,bloque,tipo,campos,campo,Instrucciones,Inst,InstOp,paramReales,ListaExpresiones,Expresion,E0,E1,E2,E3,E4,E5,E6,E7,OP1,OP2,OP3,OP5;
+
+Programa ::= Decs SEP Instrucciones | Instrucciones ;
+
+Decs ::= Decs PTOCOMA Dec | Dec ;
+
+Dec ::= VAR tipo ID | TYPE tipo ID | PROC ID ParamForm bloque;
+
+ParamForm ::= PAP ListParamForm PCIERRE | PAP PCIERRE ;
+
+ListParamForm ::= ListParamForm COMA Parametro | Parametro ;
+
+Parametro ::= tipo AMP ID | tipo ID ;
+
+bloque ::= LLAVEABIERTA Programa LLAVECERRADA ;
+
+tipo ::= INT | BOOL | REAL | STRING | ID | ARRAY CORABIERTO NENT CORCERRADO OF tipo | RECORD LLAVEABIERTA campos LLAVECERRADA | POINTER tipo ;
+
+campos ::= campos PTOCOMA campo | campo ;
+
+campo ::= tipo ID ;
+
+Instrucciones ::= Instrucciones PTOCOMA Inst  | Inst ;
+
+Inst ::= Expresion IGUAL Expresion | IF Expresion THEN InstOp ENDIF | IF Expresion THEN InstOp ELSE InstOp ENDIF | WHILE Expresion DO InstOp ENDWHILE | READ Expresion | WRITE Expresion | NL | NEW Expresion | DELETE Expresion | CALL ID paramReales | bloque ;
+
+InstOp ::= Instrucciones | ;
+
+paramReales ::= PAP ListaExpresiones PCIERRE | PAP PCIERRE ;
+
+ListaExpresiones ::= ListaExpresiones PTOCOMA Expresion | Expresion ;
+
+Expresion ::= E0 ;
+
+E0 ::= E1 MAS E0 | E1 MENOS E1 | E1 ;
+
+E1 ::= E1 OP1 E2 | E2 ;
+
+E2 ::= E2 OP2 E3 | E3 ;
+
+E3 ::= E4 OP3 E4 | E4 ;
+
+E4 ::= MENOS E5 | NOT E4 | E5;
+
+E5 ::= E5 OP5 | E6 ;
+
+E6 ::= MUL E6 | E7 ; 
+
+E7 ::= NENT | NREAL | ID | TRUE | FALSE | LITERALCAD | NULL | PAP E0 PCIERRE ;
+
+OP1 ::= AND | OR ;
+
+OP2 ::= MAYOR | MAYORIGUAL | MENOR | MENORIGUAL | COMPARACION | DISTINTO ;
+
+OP3 ::= MUL | DIV | MODULO ;
+
+OP5 ::= CORABIERTO Expresion CORCERRADO | PUNTO ID | FLECHA ID ;

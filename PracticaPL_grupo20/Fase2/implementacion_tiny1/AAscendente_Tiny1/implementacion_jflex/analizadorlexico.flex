@@ -1,9 +1,6 @@
-package AAscendente_Tiny1.implementacion_jflex;
-
-import AAscendente_Tiny1.gestionErroresTiny.GestionErr;
+package implementacion_jflex;
 
 %%
-%cup
 %line
 %column
 %class AnalizadorLexicoTiny1
@@ -12,13 +9,9 @@ import AAscendente_Tiny1.gestionErroresTiny.GestionErr;
 
 %{
   private Operations ops;
-  private GestionErr errores;
   public String lexema() {return yytext();}
   public int fila() {return yyline+1;}
   public int columna() {return yycolumn+1;}
-  public void fijaGestionErrores(GestionErr errores){
-    this.errores = errores;
-  }
 %}
 
 %eofval{

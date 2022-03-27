@@ -4,7 +4,7 @@ options  {
 
 PARSER_BEGIN(AnalizadorSintacticoTiny1)
 
-package ASintTiny1;
+package ADescendente_Tiny1;
 
 public class AnalizadorSintacticoTiny1 {}
 

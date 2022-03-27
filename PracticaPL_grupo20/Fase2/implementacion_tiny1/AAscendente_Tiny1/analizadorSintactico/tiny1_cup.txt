@@ -2,19 +2,19 @@ package asint;
 
 //----------revisar-----------
 import java_cup.runtime.*;
-import alex.AnalizadorLexicoTiny;
-import alex.UnidadLexica;
-import errors.GestionErroresTiny;
+import AAscendente_Tiny1.implementacion_jflex.AnalizadorLexicoTiny;
+import AAscendente_Tiny1.implementacion_jflex.UnidadLexica;
+import AAscendente_Tiny1.gestionErroresTiny.GestionErr;
 
 scan with {: return getScanner().next_token(); :};
 parser code {: 
-   private GestionErroresTiny errores;
+   private GestionErr errores;
    public void syntax_error(Symbol unidadLexica) {
      errores.errorSintactico((UnidadLexica)unidadLexica);
    }
 :};
 init with {: 
-   errores = new GestionErroresTiny();
+   errores = new GestionErr();
    AnalizadorLexicoTiny alex = (AnalizadorLexicoTiny)getScanner();
    alex.fijaGestionErrores(errores);
 :};

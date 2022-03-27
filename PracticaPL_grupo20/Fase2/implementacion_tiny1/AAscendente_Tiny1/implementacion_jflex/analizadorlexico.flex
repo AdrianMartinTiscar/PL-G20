@@ -1,6 +1,6 @@
-package implementacion_jflex;
+package AAscendente_Tiny1.implementacion_jflex;
 
-import AAscendente_Tiny1.gestionErroresTiny.GestionErr
+import AAscendente_Tiny1.gestionErroresTiny.GestionErr;
 
 %%
 %cup

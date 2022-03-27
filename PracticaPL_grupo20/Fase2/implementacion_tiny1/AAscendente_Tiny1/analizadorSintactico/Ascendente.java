@@ -18,7 +18,7 @@ public class Ascendente {
 
 	public void init() throws FileNotFoundException {
 		Reader input = new InputStreamReader(new FileInputStream(fich));
-		AnalizadorLexicoTiny1 al = new AnalizadorLexicoTiny1(input);
+		AnalizadorLexicoTiny al = new AnalizadorLexicoTiny(input);
 		UnidadLexica unidad;
 		try {
 			do {

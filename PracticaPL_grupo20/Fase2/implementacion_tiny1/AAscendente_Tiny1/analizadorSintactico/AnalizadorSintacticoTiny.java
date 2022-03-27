@@ -5,8 +5,11 @@
 
 package AAscendente_Tiny1.analizadorSintactico;
 
+import java_cup.runtime.*;
+import AAscendente_Tiny1.implementacion_jflex.AnalizadorLexicoTiny;
 import AAscendente_Tiny1.implementacion_jflex.UnidadLexica;
 import AAscendente_Tiny1.gestionErroresTiny.GestionErr;
+import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
@@ -14,19 +17,19 @@ import AAscendente_Tiny1.gestionErroresTiny.GestionErr;
 public class AnalizadorSintacticoTiny extends java_cup.runtime.lr_parser {
 
  public final Class getSymbolContainer() {
-    return C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\ClaseLexica.class;
+    return ClaseLexica.class;
 }
 
   /** Default constructor. */
   @Deprecated
-  public C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny() {super();}
+  public AnalizadorSintacticoTiny() {super();}
 
   /** Constructor which sets the default scanner. */
   @Deprecated
-  public C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny(java_cup.runtime.Scanner s) {super(s);}
+  public AnalizadorSintacticoTiny(java_cup.runtime.Scanner s) {super(s);}
 
   /** Constructor which sets the default scanner. */
-  public C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf) {super(s,sf);}
+  public AnalizadorSintacticoTiny(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf) {super(s,sf);}
 
   /** Production table. */
   protected static final short _production_table[][] = 
@@ -425,12 +428,12 @@ public class AnalizadorSintacticoTiny extends java_cup.runtime.lr_parser {
   public short[][] reduce_table() {return _reduce_table;}
 
   /** Instance of action encapsulation class. */
-  protected CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$actions action_obj;
+  protected CUP$AnalizadorSintacticoTiny$actions action_obj;
 
   /** Action encapsulation object initializer. */
   protected void init_actions()
     {
-      action_obj = new CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$actions(this);
+      action_obj = new CUP$AnalizadorSintacticoTiny$actions(this);
     }
 
   /** Invoke a user supplied parse action. */
@@ -442,7 +445,7 @@ public class AnalizadorSintacticoTiny extends java_cup.runtime.lr_parser {
     throws java.lang.Exception
   {
     /* call code in generated class */
-    return action_obj.CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$do_action(act_num, parser, stack, top);
+    return action_obj.CUP$AnalizadorSintacticoTiny$do_action(act_num, parser, stack, top);
   }
 
   /** Indicates start state. */
@@ -483,808 +486,808 @@ public class AnalizadorSintacticoTiny extends java_cup.runtime.lr_parser {
 
 /** Cup generated class to encapsulate user supplied action code.*/
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
-class CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$actions {
-  private final C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny parser;
+class CUP$AnalizadorSintacticoTiny$actions {
+  private final AnalizadorSintacticoTiny parser;
 
   /** Constructor */
-  CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$actions(C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny parser) {
+  CUP$AnalizadorSintacticoTiny$actions(AnalizadorSintacticoTiny parser) {
     this.parser = parser;
   }
 
   /** Method 0 with the actual generated action code for actions 0 to 300. */
-  public final java_cup.runtime.Symbol CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$do_action_part00000000(
-    int                        CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$act_num,
-    java_cup.runtime.lr_parser CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$parser,
-    java.util.Stack            CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$stack,
-    int                        CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$top)
+  public final java_cup.runtime.Symbol CUP$AnalizadorSintacticoTiny$do_action_part00000000(
+    int                        CUP$AnalizadorSintacticoTiny$act_num,
+    java_cup.runtime.lr_parser CUP$AnalizadorSintacticoTiny$parser,
+    java.util.Stack            CUP$AnalizadorSintacticoTiny$stack,
+    int                        CUP$AnalizadorSintacticoTiny$top)
     throws java.lang.Exception
     {
       /* Symbol object for return from actions */
-      java_cup.runtime.Symbol CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+      java_cup.runtime.Symbol CUP$AnalizadorSintacticoTiny$result;
 
       /* select the action based on the action number */
-      switch (CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$act_num)
+      switch (CUP$AnalizadorSintacticoTiny$act_num)
         {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 0: // Programa ::= Decs SEP Instrucciones 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Programa",0, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Programa",0, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 1: // $START ::= Programa EOF 
             {
               Object RESULT =null;
-		Object start_val = (Object)((java_cup.runtime.Symbol) CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$stack.elementAt(CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$top-1)).value;
+		Object start_val = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintacticoTiny$stack.elementAt(CUP$AnalizadorSintacticoTiny$top-1)).value;
 		RESULT = start_val;
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("$START",0, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("$START",0, RESULT);
             }
           /* ACCEPT */
-          CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$parser.done_parsing();
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          CUP$AnalizadorSintacticoTiny$parser.done_parsing();
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 2: // Programa ::= Instrucciones 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Programa",0, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Programa",0, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 3: // Decs ::= Decs PTOCOMA Dec 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Decs",1, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Decs",1, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 4: // Decs ::= Dec 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Decs",1, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Decs",1, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 5: // Dec ::= VAR tipo ID 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Dec",2, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Dec",2, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 6: // Dec ::= TYPE tipo ID 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Dec",2, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Dec",2, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 7: // Dec ::= PROC ID ParamForm bloque 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Dec",2, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Dec",2, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 8: // ParamForm ::= PAP ListParamForm PCIERRE 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("ParamForm",3, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("ParamForm",3, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 9: // ParamForm ::= PAP PCIERRE 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("ParamForm",3, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("ParamForm",3, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 10: // ListParamForm ::= ListParamForm COMA Parametro 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("ListParamForm",4, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("ListParamForm",4, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 11: // ListParamForm ::= Parametro 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("ListParamForm",4, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("ListParamForm",4, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 12: // Parametro ::= tipo AMP ID 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Parametro",5, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Parametro",5, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 13: // Parametro ::= tipo ID 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Parametro",5, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Parametro",5, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 14: // bloque ::= LLAVEABIERTA Programa LLAVECERRADA 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("bloque",6, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("bloque",6, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 15: // tipo ::= INT 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 16: // tipo ::= BOOL 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 17: // tipo ::= REAL 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 18: // tipo ::= STRING 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 19: // tipo ::= ID 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 20: // tipo ::= ARRAY CORABIERTO NENT CORCERRADO OF tipo 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 21: // tipo ::= RECORD LLAVEABIERTA campos LLAVECERRADA 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 22: // tipo ::= POINTER tipo 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("tipo",7, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 23: // campos ::= campos PTOCOMA campo 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("campos",8, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("campos",8, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 24: // campos ::= campo 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("campos",8, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("campos",8, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 25: // campo ::= tipo ID 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("campo",9, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("campo",9, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 26: // Instrucciones ::= Instrucciones PTOCOMA Inst 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Instrucciones",10, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Instrucciones",10, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 27: // Instrucciones ::= Inst 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Instrucciones",10, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Instrucciones",10, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 28: // Inst ::= Expresion IGUAL Expresion 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 29: // Inst ::= IF Expresion THEN InstOp ENDIF 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 30: // Inst ::= IF Expresion THEN InstOp ELSE InstOp ENDIF 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 31: // Inst ::= WHILE Expresion DO InstOp ENDWHILE 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 32: // Inst ::= READ Expresion 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 33: // Inst ::= WRITE Expresion 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 34: // Inst ::= NL 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 35: // Inst ::= NEW Expresion 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 36: // Inst ::= DELETE Expresion 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 37: // Inst ::= CALL ID paramReales 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 38: // Inst ::= bloque 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Inst",11, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 39: // InstOp ::= Instrucciones 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("InstOp",12, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("InstOp",12, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 40: // InstOp ::= 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("InstOp",12, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("InstOp",12, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 41: // paramReales ::= PAP ListaExpresiones PCIERRE 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("paramReales",13, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("paramReales",13, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 42: // paramReales ::= PAP PCIERRE 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("paramReales",13, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("paramReales",13, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 43: // ListaExpresiones ::= ListaExpresiones PTOCOMA Expresion 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("ListaExpresiones",14, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("ListaExpresiones",14, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 44: // ListaExpresiones ::= Expresion 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("ListaExpresiones",14, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("ListaExpresiones",14, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 45: // Expresion ::= E0 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Expresion",15, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Expresion",15, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 46: // E0 ::= E1 MAS E0 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E0",16, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E0",16, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 47: // E0 ::= E1 MENOS E1 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E0",16, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E0",16, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 48: // E0 ::= E1 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E0",16, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E0",16, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 49: // E1 ::= E1 OP1 E2 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E1",17, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E1",17, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 50: // E1 ::= E2 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E1",17, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E1",17, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 51: // E2 ::= E2 OP2 E3 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E2",18, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E2",18, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 52: // E2 ::= E3 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E2",18, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E2",18, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 53: // E3 ::= E4 OP3 E4 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E3",19, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E3",19, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 54: // E3 ::= E4 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E3",19, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E3",19, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 55: // E4 ::= MENOS E5 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E4",20, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E4",20, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 56: // E4 ::= NOT E4 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E4",20, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E4",20, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 57: // E4 ::= E5 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E4",20, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E4",20, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 58: // E5 ::= E5 OP5 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E5",21, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E5",21, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 59: // E5 ::= E6 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E5",21, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E5",21, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 60: // E6 ::= MUL E6 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E6",22, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E6",22, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 61: // E6 ::= E7 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E6",22, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E6",22, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 62: // E7 ::= NENT 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 63: // E7 ::= NREAL 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 64: // E7 ::= ID 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 65: // E7 ::= TRUE 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 66: // E7 ::= FALSE 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 67: // E7 ::= LITERALCAD 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 68: // E7 ::= NULL 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 69: // E7 ::= PAP E0 PCIERRE 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("E7",23, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 70: // OP1 ::= AND 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP1",24, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP1",24, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 71: // OP1 ::= OR 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP1",24, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP1",24, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 72: // OP2 ::= MAYOR 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP2",25, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP2",25, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 73: // OP2 ::= MAYORIGUAL 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP2",25, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP2",25, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 74: // OP2 ::= MENOR 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP2",25, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP2",25, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 75: // OP2 ::= MENORIGUAL 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP2",25, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP2",25, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 76: // OP2 ::= COMPARACION 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP2",25, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP2",25, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 77: // OP2 ::= DISTINTO 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP2",25, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP2",25, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 78: // OP3 ::= MUL 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP3",26, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP3",26, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 79: // OP3 ::= DIV 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP3",26, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP3",26, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 80: // OP3 ::= MODULO 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP3",26, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP3",26, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 81: // OP5 ::= CORABIERTO Expresion CORCERRADO 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP5",27, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP5",27, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 82: // OP5 ::= PUNTO ID 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP5",27, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP5",27, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 83: // OP5 ::= FLECHA ID 
             {
               Object RESULT =null;
 
-              CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP5",27, RESULT);
+              CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("OP5",27, RESULT);
             }
-          return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$result;
+          return CUP$AnalizadorSintacticoTiny$result;
 
           /* . . . . . .*/
           default:
             throw new Exception(
-               "Invalid action number "+CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$act_num+"found in internal parse table");
+               "Invalid action number "+CUP$AnalizadorSintacticoTiny$act_num+"found in internal parse table");
 
         }
     } /* end of method */
 
   /** Method splitting the generated action code into several parts. */
-  public final java_cup.runtime.Symbol CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$do_action(
-    int                        CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$act_num,
-    java_cup.runtime.lr_parser CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$parser,
-    java.util.Stack            CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$stack,
-    int                        CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$top)
+  public final java_cup.runtime.Symbol CUP$AnalizadorSintacticoTiny$do_action(
+    int                        CUP$AnalizadorSintacticoTiny$act_num,
+    java_cup.runtime.lr_parser CUP$AnalizadorSintacticoTiny$parser,
+    java.util.Stack            CUP$AnalizadorSintacticoTiny$stack,
+    int                        CUP$AnalizadorSintacticoTiny$top)
     throws java.lang.Exception
     {
-              return CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$do_action_part00000000(
-                               CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$act_num,
-                               CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$parser,
-                               CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$stack,
-                               CUP$C:\Users\Pilar\Desktop\Gema\PL\Practica\PracticaPL_grupo20\Fase2\implementacion_tiny1\AAscendente_Tiny1\analizadorSintactico\AnalizadorSintacticoTiny$top);
+              return CUP$AnalizadorSintacticoTiny$do_action_part00000000(
+                               CUP$AnalizadorSintacticoTiny$act_num,
+                               CUP$AnalizadorSintacticoTiny$parser,
+                               CUP$AnalizadorSintacticoTiny$stack,
+                               CUP$AnalizadorSintacticoTiny$top);
     }
 }
 

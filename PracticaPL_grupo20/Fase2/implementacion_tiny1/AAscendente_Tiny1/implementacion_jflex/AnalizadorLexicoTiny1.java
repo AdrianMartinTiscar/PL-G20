@@ -7,6 +7,7 @@ package AAscendente_Tiny1.implementacion_jflex;
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")
+public
 class AnalizadorLexicoTiny1 {
 
   /** This character denotes the end of file. */
@@ -409,7 +410,7 @@ class AnalizadorLexicoTiny1 {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  AnalizadorLexicoTiny1(java.io.Reader in) {
+  public AnalizadorLexicoTiny1(java.io.Reader in) {
     ops = new Operations(this);
     this.zzReader = in;
   }

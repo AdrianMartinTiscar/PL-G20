@@ -1,12 +1,13 @@
 package AAscendente_Tiny1.analizadorSintactico;
 
 import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import AAscendente_Tiny1.implementacion_jflex.ClaseLexica;
 import AAscendente_Tiny1.implementacion_jflex.UnidadLexica;
+import AAscendente_Tiny1.implementacion_jflex.AnalizadorLexicoTiny1;
 
 
 public class Ascendente {
@@ -18,7 +19,7 @@ public class Ascendente {
 
 	public void init() throws FileNotFoundException {
 		Reader input = new InputStreamReader(new FileInputStream(fich));
-		AnalizadorLexicoTiny al = new AnalizadorLexicoTiny(input);
+		AnalizadorLexicoTiny1 al = new AnalizadorLexicoTiny1(input);
 		UnidadLexica unidad;
 		try {
 			do {

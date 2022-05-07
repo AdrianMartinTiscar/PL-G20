@@ -1,0 +1,7 @@
+real var_1;
+int var_2;
+bool var_3
+&&
+var_1 = (-2.0065 + 1) / 2e-3;
+var_2 = 3E2 * 4.05;
+var_3 = (3 != 2) and (4 == 5) or (5 > 4);

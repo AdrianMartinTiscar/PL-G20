@@ -6,9 +6,9 @@ public class ProcesamientoPorDefecto implements Procesamiento{
 	public void procesa (Programa prog) {}
 	public void procesa (Decs_una dec){}
 	public void procesa (Decs_varias decs){}
-	public void procesa (Dec_int d){}
-	public void procesa (Dec_bool d){}
-	public void procesa (Dec_real d){}
+	public void procesa (Dec_int di){}
+	public void procesa (Dec_bool db){}
+	public void procesa (Dec_real dr){}
 	public void procesa (Inst_una ins){}
 	public void procesa (Inst_varias inss){}
 	public void procesa (Inst ins) {}
@@ -27,8 +27,8 @@ public class ProcesamientoPorDefecto implements Procesamiento{
 	public void procesa(Div exp){}
 	public void procesa(Id exp){}
 	//public void procesa(Num exp){}
-	public void procesa(NumEntero exp){}
-	public void procesa(NumReal exp){}
+	public void procesa(NumEntero ne){}
+	public void procesa(NumReal nr){}
 	public void procesa(Negacion neg){}
 	public void procesa(True t){}
 	public void procesa(False f){}

@@ -29,9 +29,9 @@ public interface Procesamiento {
 	//void procesa(Num exp);
 	void procesa (NumEntero ne);
 	void procesa (NumReal nr);
-	void procesa(Neg neg);
-	void procesa(Cierto t);
-	void procesa(Falso f);
+	void procesa(Negacion neg);
+	void procesa(True t);
+	void procesa(False f);
 	void procesa(Exp e);//TODO:revisar
 	
 }

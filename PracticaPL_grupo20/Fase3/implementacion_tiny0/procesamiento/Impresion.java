@@ -24,7 +24,7 @@ public class Impresion extends ProcesamientoPorDefecto {
 	}
 
 	public void procesa(Dec d) {
-		System.out.println(d.tipo() + "  " + d.id());
+		System.out.println(d.getTipo() + "  " + d.id());
 	}
 
 	public void procesa(Inst_una ins) {

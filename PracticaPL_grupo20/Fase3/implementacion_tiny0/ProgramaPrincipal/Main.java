@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 import AnalizadorSintactico_Manual.AnalizadorSintacticoTiny0;
+import procesamiento.Impresion;
+import procesamiento.Procesamiento;
+import procesamiento.TinyASint;
 
 public class Main {
 	
@@ -20,14 +23,18 @@ public class Main {
 		 String filename = "prueba10_tiny0.txt";
 		 input = new InputStreamReader(new FileInputStream("Fase3/pruebas_tiny_0/"+filename));
 		 
+		 asint.AnalizadorSintacticoTiny constructorast = new asint.AnalizadorSintacticoTiny(input);
+		 constructorast.Programa().procesa((Procesamiento) new Impresion());
+		 
 		 //input = new InputStreamReader(new FileInputStream(args[0]));
-		 AnalizadorSintacticoTiny0 asint = new AnalizadorSintacticoTiny0(input);
+		 
+		 /*AnalizadorSintacticoTiny0 asint = new AnalizadorSintacticoTiny0(input);
 		 try {
     	    asint.Sp();
 			System.out.println("OK");
 		 } catch (Exception e) {
 			System.out.println(e.getMessage());
-		 }
+		 }*/
 	 }
    }
 }   

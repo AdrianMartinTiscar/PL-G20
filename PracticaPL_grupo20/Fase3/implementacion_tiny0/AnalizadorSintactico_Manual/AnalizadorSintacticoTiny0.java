@@ -6,6 +6,13 @@ package AnalizadorSintactico_Manual;
 
 
 import errors.GestionErroresTiny0;
+import procesamiento.SemOps;
+import procesamiento.TinyASint.Dec;
+import procesamiento.TinyASint.Dec_int;
+import procesamiento.TinyASint.Decs;
+import procesamiento.TinyASint.Decs_varias;
+import procesamiento.TinyASint.Inst_varias;
+import procesamiento.TinyASint.Insts;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -20,6 +27,7 @@ public class AnalizadorSintacticoTiny0 {
    private AnalizadorLexicoTiny0 alex;
    //Modulo de gestion de errores
    private GestionErroresTiny0 errores;
+   private SemOps sem;
 
    //Constructor
    public AnalizadorSintacticoTiny0(Reader input) throws IOException {
@@ -28,70 +36,99 @@ public class AnalizadorSintacticoTiny0 {
 	//Pasar al analizador lexico el modulo de gestion de errores
       alex.fijaGestionErrores(errores);
       sigToken();
+      sem = new SemOps();
    }
 
-   //Llama a S para reconocer todo el programa y luego empareja fin de fichero
+   /*Llama a S para reconocer todo el programa y luego empareja fin de fichero
    public void Sp() {
       Programa();
       empareja(ClaseLexica.EOF);
-   }
+   }*/
 
    //------------GRAMATICA ACONDICIONADA-----------------
 
    /** Programa -> Decs '&&' Instrucciones
     * */
-   private void Programa() {
-	 Decs();
+   private Programa Programa() {
+	 Decs decs = Decs();
      empareja(ClaseLexica.SEP);
-     Instrucciones();
+     Insts inss = Insts();
+     empareja(ClaseLexica.EOF);
+     return sem.programa(decs, inss);
    }
 
-   /**Decs -> Dec RDecs
-    * */
-   private void Decs() {
-	  Dec();
+   /*Decs -> Dec RDecs
+    * 
+   private Decs Decs() {
+	  Decs_varias decs = Dec();
 	  RDecs();
-   }
+	  return decs;
+   }*/
    
    /**Dec -> int id 
     * Dec -> bool id
     * Dec -> real id
     * Símbolos de diagnostico: bool, int, real
     * */
-   private void Dec()  {
+   private Decs Decs()  {
 	   switch(anticipo.clase()) {
        case INT:
-           empareja(ClaseLexica.INT);
-           empareja(ClaseLexica.ID);
-           break;
        case BOOL:
-           empareja(ClaseLexica.BOOL);
-           empareja(ClaseLexica.ID);
-           break;
        case REAL:
-           empareja(ClaseLexica.REAL);
-           empareja(ClaseLexica.ID);
+    	   Dec dec = Dec();
+    	   return RestoDec(sem.Decs_una(dec));
            break;
+       case SEP:
+    	   return null;
        default: errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
                                        ClaseLexica.BOOL,ClaseLexica.INT,ClaseLexica.REAL);                                       
+	   }
    }
-   }
+   
+   private Dec Dec() {
+		UnidadLexica id;
+		switch (anticipo.clase()) {
+		case INT:
+			empareja(ClaseLexica.INT);
+			id = anticipo;
+			empareja(ClaseLexica.ID);
+			return sem.dec_int(sem.str(id.lexema(),id.fila(),id.columna()));
+		case BOOL:
+			empareja(ClaseLexica.BOOL);
+			id = anticipo;
+			empareja(ClaseLexica.ID);
+			return sem.dec_bool(sem.str(id.lexema(),id.fila(),id.columna()));
+		case REAL:
+			empareja(ClaseLexica.REAL);
+			id = anticipo;
+			empareja(ClaseLexica.ID);
+			return sem.dec_real(sem.str(id.lexema(),id.fila(),id.columna()));
+		default:
+			errores.errorSintactico(anticipo.fila(), anticipo.columna(), anticipo.clase(), ClaseLexica.INT,
+					ClaseLexica.BOOL, ClaseLexica.REAL);
+			return null;
+		}
+
+	}
 
    /**RDecs -> ';' Dec RDecs
     * RDecs -> cadena vacia
     * Símbolos de diagnostico: ';', '&'
     * */
-   private void RDecs() {
+   private Decs RDecs(Decs decsh) {
 	      switch(anticipo.clase()) {
 	          case PTOCOMA:
 	              empareja(ClaseLexica.PTOCOMA);
-	              Dec();
-	              RDecs();
+	              Dec dec = Dec();
+	              return RDecs(sem.Decs_varias(decsh,dec));
 	              break;
-	          case SEP:  break;
-	          //TODO: AMP¿¿??
-	          default: errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-	                                          ClaseLexica.PTOCOMA,ClaseLexica.SEP);                                       
+	          case SEP:  
+	        	  return decsh;
+	        	  break;
+	          default: 
+	        	  errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
+	                                          ClaseLexica.PTOCOMA,ClaseLexica.SEP); 
+	          	  return null;
 	      } 
    }
    

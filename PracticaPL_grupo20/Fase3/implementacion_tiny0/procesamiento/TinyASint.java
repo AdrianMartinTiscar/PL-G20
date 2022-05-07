@@ -370,10 +370,14 @@ public class TinyASint {
 		public StringLocalizado id() {
 			return id;
 		}
+		
+		public abstract void procesa(Procesamiento p);
+		public abstract String getTipo();
 
 	}
 
 	public static class Dec_int extends Dec {
+		private String tipo = "int";
 
 		public Dec_int(StringLocalizado id) {
 			super(id);
@@ -382,10 +386,17 @@ public class TinyASint {
 		public void procesa(Procesamiento p) {
 			p.procesa(this);
 		}
+
+		@Override
+		public String getTipo() {
+			return tipo;
+		}
+
 	}
 	
 	public static class Dec_real extends Dec {
-
+		private String tipo = "real";
+		
 		public Dec_real(StringLocalizado id) {
 			super(id);
 		}
@@ -393,9 +404,16 @@ public class TinyASint {
 		public void procesa(Procesamiento p) {
 			p.procesa(this);
 		}
+		
+		@Override
+		public String getTipo() {
+			return tipo;
+		}
+
 	}
 	
-	public static class Dec_bool extends Decs_una {
+	public static class Dec_bool extends Dec {
+		private String tipo = "bool";
 
 		public Dec_bool(StringLocalizado id) {
 			super(id);
@@ -404,6 +422,12 @@ public class TinyASint {
 		public void procesa(Procesamiento p) {
 			p.procesa(this);
 		}
+		
+		@Override
+		public String getTipo() {
+			return tipo;
+		}
+
 	}
 
 	public static abstract class Decs {

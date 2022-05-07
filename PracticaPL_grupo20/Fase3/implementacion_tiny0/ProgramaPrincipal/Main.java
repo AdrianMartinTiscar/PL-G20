@@ -1,10 +1,12 @@
-package AnalizadorSintactico_Manual;
+package ProgramaPrincipal;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+
+import AnalizadorSintactico_Manual.AnalizadorSintacticoTiny0;
 
 public class Main {
 	

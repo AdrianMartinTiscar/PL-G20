@@ -13,11 +13,12 @@ public class Impresion extends ProcesamientoPorDefecto {
 		prog.ins().procesa(this);
 	}
 
-	public void procesa(Declaracion_una dec) {
+	public void procesa(Decs_una dec) {
 		dec.dec().procesa(this);
+	
 	}
 
-	public void procesa(Declaracion_varias decs) {
+	public void procesa(Decs_varias decs) {
 		decs.dec().procesa(this);
 		decs.decs().procesa(this);
 	}
@@ -26,11 +27,11 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.println(d.tipo() + "  " + d.id());
 	}
 
-	public void procesa(Instruccion_una ins) {
+	public void procesa(Inst_una ins) {
 		ins.ins().procesa(this);
 	}
 
-	public void procesa(Instruccion_varias inss) {
+	public void procesa(Inst_varias inss) {
 		inss.ins().procesa(this);
 		inss.inss().procesa(this);
 	}
@@ -122,20 +123,24 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print(exp.id());
 	}
 
-	public void procesa(Num exp) {
+	public void procesa(NumEntero exp) {
+		System.out.print(exp.num());
+	}
+	
+	public void procesa(NumReal exp) {
 		System.out.print(exp.num());
 	}
 
-	public void procesa(Neg neg) {
+	public void procesa(Negacion neg) {
 	      System.out.print(" -");
 	      imprime_arg(neg.arg0(),5);
 	}
 
-	public void procesa(Cierto t) {
+	public void procesa(True t) {
 		System.out.print(" true ");
 	}
 
-	public void procesa(Falso f) {
+	public void procesa(False f) {
 		System.out.print(" false ");
 	}
 

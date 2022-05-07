@@ -18,7 +18,7 @@ public class Main {
 	 }
 	 else { // Leer fichero de prueba
 		 String filename = "prueba10_tiny0.txt";
-		 input = new InputStreamReader(new FileInputStream("Fase2/pruebas_tiny_0/"+filename));
+		 input = new InputStreamReader(new FileInputStream("Fase3/pruebas_tiny_0/"+filename));
 		 
 		 //input = new InputStreamReader(new FileInputStream(args[0]));
 		 AnalizadorSintacticoTiny0 asint = new AnalizadorSintacticoTiny0(input);

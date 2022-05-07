@@ -11,6 +11,7 @@ import procesamiento.TinyASint.Dec;
 import procesamiento.TinyASint.Dec_int;
 import procesamiento.TinyASint.Decs;
 import procesamiento.TinyASint.Decs_varias;
+import procesamiento.TinyASint.Exp;
 import procesamiento.TinyASint.Inst_varias;
 import procesamiento.TinyASint.Insts;
 
@@ -52,7 +53,7 @@ public class AnalizadorSintacticoTiny0 {
    private Programa Programa() {
 	 Decs decs = Decs();
      empareja(ClaseLexica.SEP);
-     Insts inss = Insts();
+     Insts inss = Instr();
      empareja(ClaseLexica.EOF);
      return sem.programa(decs, inss);
    }
@@ -132,25 +133,31 @@ public class AnalizadorSintacticoTiny0 {
 	      } 
    }
    
-   /**Instrucciones -> Inst RInstrucciones
-    * */
+   /*Instrucciones -> Inst RInstrucciones
+    * 
    private void Instrucciones() {
 	   Inst();
 	   RInstrucciones();
-   }
+   }*/
    
    /**Inst -> Id '=' Expresion
     * Símbolos de diagnostico: id
     * */
-   private void Inst() {
+   private Insts Instrs() {
 	      switch(anticipo.clase()) {
-	       case ID:    
+	       case ID:  
+	    	   UnidadLexica id = anticipo;
 	           empareja(ClaseLexica.ID);
 	           empareja(ClaseLexica.IGUAL);
-	           Expresion();
+	           UnidadLexica e ) anticipo;
+	           Exp exp = E0();
+	           return sem.instruccion(sem.str(id.lexema(), id.fila(), id.columna()),
+						exp);
 	           break;
-	       default:  errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-	                                         ClaseLexica.ID);                                       
+	       default:  
+	    	   errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
+	                                         ClaseLexica.ID);
+	    	   return null;
 	   }
    } 
    
@@ -158,30 +165,47 @@ public class AnalizadorSintacticoTiny0 {
     * RInstrucciones -> cadena vacia
     * Símbolos de diagnostico: ';', 'EOF'
     * */
-   private void RInstrucciones() {
+   private Insts RInstrucciones(Insts insh) {
 	      switch(anticipo.clase()) {
 	       case PTOCOMA:    
 	           empareja(ClaseLexica.PTOCOMA);
-	           Inst();
-	           RInstrucciones();
+	           Inst ins = Instr();
+	           return RInstrucciones(sem.inst_varias(insh, ins));
 	           break;
-	       case EOF:  break;
-	       default:  errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-	                                         ClaseLexica.PTOCOMA, ClaseLexica.EOF);                                       
+	       case EOF:  
+	    	   return insh;
+	    	   break;
+	       default:  
+	    	   errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
+	                                         ClaseLexica.PTOCOMA, ClaseLexica.EOF); 
+	    	   return null;
 	   }
    } 
 
-   /**Expresion -> EO
-    * */
+   /*Expresion -> EO
+    * 
    private void Expresion() {
 	   E0();
-   }
+   }*/
    
    /**EO -> E1 RE0
     * */
-   private void E0() {
-	 E1();
-	 RE0();
+   private Exp E0() {
+	   switch (anticipo.clase()) {
+		case EXPRES:
+		case PAP:
+		case NENT:
+		case NREAL:
+		case ID:
+		case MAS:
+		case MENOS:
+			Exp exp = E1();
+			return RE0(exp);
+		default:
+			errores.errorSintactico(anticipo.fila(), anticipo.columna(), anticipo.clase(), ClaseLexica.RESTA,
+					ClaseLexica.NOT, ClaseLexica.PAP);
+			return null;
+		}
    }
 
    /**RE0 -> '+' E0
@@ -189,99 +213,182 @@ public class AnalizadorSintacticoTiny0 {
     * RE0 -> cadena vacia
     * Símbolos de diagnostico: '+', '-'
     * */
-   private void RE0() {
+   private Exp RE0(Exp exph) {
       switch(anticipo.clase()) {
           case MAS: 
              empareja(ClaseLexica.MAS);
-             E0();
+             Exp e0 = E0();
+ 			 return sem.suma(exph, RE0(e0));
              break;
           case MENOS: 
               empareja(ClaseLexica.MENOS);
-              E1();
-              break;
-          case PCIERRE: case EOF: case PTOCOMA: break;
-          default:    
+              Exp e1 = E1();
+  			 	return sem.resta(exph, RE0(e1));
+	case PCIERRE: case EOF: case PTOCOMA: 
+        	  return exph;
+	default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                      ClaseLexica.MAS,ClaseLexica.MENOS);                                              
+                                      ClaseLexica.MAS,ClaseLexica.MENOS);  
+              return null;
       } 
    }
 
    /**E1 -> E2 RE1*/
-   private void E1() {
-	   E2();
-	   RE1();
+   private Exp E1() {
+	   switch (anticipo.clase()) {
+		case EXPRES:
+		case PAP:
+		case NENT:
+		case NREAL:
+		case ID:
+		case MAS:
+		case MENOS:
+			Exp e2 = E2();
+			return RE1(e2);
+		default:
+			errores.errorSintactico(anticipo.fila(), anticipo.columna(), anticipo.clase(), ClaseLexica.RESTA,
+					ClaseLexica.NOT, ClaseLexica.PAP);
+			return null;
+		}
    }
 
    /**RE1 -> OP1 E2 RE1
     * RE1 -> cadena vacia
     * Símbolos de diagnostico: and, or
     * */
-   private void RE1() {
+   private Exp RE1(Exp exph) {
       switch(anticipo.clase()) {
           case AND: case OR: 
-             OP1();
-             E2();
-             RE1();
+             String op = OP1();
+             Exp e2 = E2();
+             Exp eRes = RE1(e2);
+ 			 return sem.exp(op, exph, eRes);
              break;
-          case MAS: case MENOS: case PCIERRE:
-          case PTOCOMA: case EOF: break;
+          case EXPRES:
+	  	  case NENT:
+	  	  case NREAL:
+	  	  case ID:
+	  	  case EOF:
+	  	  case PTOCOMA:
+	  	  case PCIERRE:
+	  	  case MAS:
+	  	  case MENOS:
+  			  return exph;
+  			  break;
           default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
-                                      ClaseLexica.AND,ClaseLexica.OR);                                              
+                                      ClaseLexica.AND,ClaseLexica.OR);  
+              return nul;
       } 
    }
 
    /**E2 -> E3 RE2*/
-   private void E2() {
-	  E3();
-	  RE2();
+   private Exp E2() {
+	   switch (anticipo.clase()) {
+		case EXPRES:
+		case PAP:
+		case NENT:
+		case NREAL:
+		case ID:
+		case MAS:
+		case MENOS:
+			Exp e3 = E3();
+			return RE2(e3);
+		default:
+			errores.errorSintactico(anticipo.fila(), anticipo.columna(), anticipo.clase(), ClaseLexica.PAP,
+					ClaseLexica.MENOS, ClaseLexica.NOT);
+			return null;
+		}
    }
    
    /**RE2 -> OP2 E3 RE2
     * RE2 -> cadena vacia
     * Símbolos de diagnostico: '>', '<', '=', and, or
     * */
-   private void RE2() {
+   private Exp RE2(Exp exph) {
       switch(anticipo.clase()) {
           case MAYOR: case MENOR: case COMPARACION: case DISTINTO:
           case MAYORIGUAL: case MENORIGUAL:
-             OP2();
-             E3();
-             RE2();
-             break;
-          case AND: case OR: case MAS: case MENOS:
-          case PTOCOMA: case PCIERRE: case EOF: break;
+             String op = OP2();
+             Exp e3 = E3();
+             Exp eRes = RE2(e3);
+ 			 return sem.exp(op, exph,  eRes);
+          case EXPRES:
+  		case NENT:
+  		case NREAL:
+  		case ID:
+  		case EOF:
+  		case PTOCOMA:
+  		case PCIERRE:
+  		case MAS:
+  		case MENOS:
+  		case AND:
+  		case OR:
+  			return exph;
           default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
                                       ClaseLexica.MAYOR,ClaseLexica.MENOR,ClaseLexica.DISTINTO,
-                                      ClaseLexica.IGUAL,ClaseLexica.AND,ClaseLexica.OR);                                              
+                                      ClaseLexica.IGUAL,ClaseLexica.AND,ClaseLexica.OR);    
+              return null;
       } 
    }
    
    /**E3 -> E4 RE3*/
-   private void E3() {
-	  E4();
-	  RE3();
+   private Exp E3() {
+	   switch (anticipo.clase()) {
+		case EXPRES:
+		case PAP:
+		case NENT:
+		case NREAL:
+		case ID:
+		case MAS:
+		case MENOS:
+			Exp e4 = E4();
+			return RE3(e4);
+			
+		default:
+			errores.errorSintactico(anticipo.fila(), anticipo.columna(), anticipo.clase(), ClaseLexica.PAP,
+					ClaseLexica.NOT, ClaseLexica.MENOS);
+			return null;
+
+		}
    }
    
    /**RE3 -> OP3 E4 
     * RE3 -> cadena vacia
     * Símbolos de diagnostico: '*', '/', '!', '<', '>', '=', and, or
     * */
-   private void RE3() {
+   private Exp RE3(Exp exph) {
       switch(anticipo.clase()) {
           case MUL: case DIV: 
-             OP3();
-             E4();
-             break;
-          case MAYOR: case MENOR: case COMPARACION: case DISTINTO: 
-          case AND: case OR: case MAS: case MENOS: case PCIERRE:
-          case PTOCOMA: case EOF: break;
+             String op = OP3();
+             Exp e4 = E4();
+ 			 return sem.exp(op, exph, e4);
+          case EXPRES:
+  		case PAP:
+  		case NENT:
+  		case NREAL:
+  		case ID:
+  		case EOF:
+  		case PCIE:
+  		case MAS:
+  		case MENOS:
+  		case PTOCOMA:
+  		case AND:
+  		case OR:
+  		case MAYOR:
+  		case MENOR:
+  		case COMPARACION:
+  		case DISTINTO:
+  		case MENORIGUAL:
+  		case MAYORIGUAL:
+  			return exph;
           default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
             		  				  ClaseLexica.MUL, ClaseLexica.DIV,ClaseLexica.MAYOR,
             		  				  ClaseLexica.MENOR,ClaseLexica.DISTINTO,ClaseLexica.IGUAL,
-            		  				  ClaseLexica.AND,ClaseLexica.OR);                                              
+            		  				  ClaseLexica.AND,ClaseLexica.OR);   
+              return null;
       } 
    }
    
@@ -291,25 +398,27 @@ public class AnalizadorSintacticoTiny0 {
     * Simbolos de diagnostico: '(', '-', false, true, id, not, numeroEntero,
     * numeroReal
     * */
-   private void E4() {
+   private Exp E4() {
 	   switch(anticipo.clase()) {
 	       case MENOS:  
 	          empareja(ClaseLexica.MENOS);
-	          E5();
+	          return sem.neg(E5()); //TODO: revisar
 	          break;
 	       case NOT:  
 		      empareja(ClaseLexica.NOT);
-		      E4();
-		      break; 
-	       case NENT: case NREAL: case ID: 
-	       case TRUE: case FALSE: case PAP:
-	    	  E5();
-	    	  break;
+		      return sem.not(E4());
+	       case EXPRES:
+		   case PAP:
+		   case NENT:
+		   case NREAL:
+		   case ID:
+				return E5();
 	       default:    
 	           errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
 	                                   ClaseLexica.PAP,ClaseLexica.MENOS,ClaseLexica.FALSE,
 	                                   ClaseLexica.TRUE,ClaseLexica.ID,ClaseLexica.NOT,
-	                                   ClaseLexica.NENT,ClaseLexica.NREAL);                                              
+	                                   ClaseLexica.NENT,ClaseLexica.NREAL);   
+	           return null;
 	   } 
    }
 
@@ -322,22 +431,34 @@ public class AnalizadorSintacticoTiny0 {
     * Símbolos de diagnostico: '(', false, true, id, numeroEntero,
     * numeroReal
     * */
-   private void E5() {
+   private Exp E5() {
 	   switch(anticipo.clase()) {
-	       case NENT: empareja(ClaseLexica.NENT); break;
-	       case NREAL: empareja(ClaseLexica.NREAL); break; 
-	       case ID: empareja(ClaseLexica.ID); break;
-	       case TRUE: empareja(ClaseLexica.TRUE); break;
-	       case FALSE: empareja(ClaseLexica.FALSE); break;
+	       case NENT: 
+	    	    UnidadLexica entero = anticipo;
+				empareja(ClaseLexica.NENTERO);
+				return sem.numEntero(sem.str(entero.lexema(), entero.fila(), entero.columna()));
+	       case NREAL: 
+	    	    empareja(ClaseLexica.NREAL); break;
+	       		UnidadLexica real = anticipo;
+	       		empareja(ClaseLexica.NREAL);
+	       		return sem.numReal(sem.str(real.lexema(), real.fila(), real.columna()));
+	       case ID: 
+	    	    empareja(ClaseLexica.ID); 
+	       		UnidadLexica id = anticipo;
+	       		empareja(ClaseLexica.ID);
+	       		return sem.id(sem.str(id.lexema(), id.fila(), id.columna()));
+	       case TRUE: empareja(ClaseLexica.TRUE); break; //TODO: revisar
+	       case FALSE: empareja(ClaseLexica.FALSE); break; //TODO: revisar
 	       case PAP: 
 	    	   empareja(ClaseLexica.PAP); 
-	    	   E0(); 
+	    	   Exp e = E0();
 	    	   empareja(ClaseLexica.PCIERRE); 
 	    	   break;
 	       default:    
 	           errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
 	        		   				   ClaseLexica.PAP,ClaseLexica.FALSE,ClaseLexica.TRUE,
-	        		   				   ClaseLexica.ID,ClaseLexica.NENT,ClaseLexica.NREAL);                                              
+	        		   				   ClaseLexica.ID,ClaseLexica.NENT,ClaseLexica.NREAL);      
+	           return null;
 	   } 
    }
    
@@ -345,13 +466,14 @@ public class AnalizadorSintacticoTiny0 {
     * OP1 -> or
     * Simbolos de diagnostico: and, or
     * */
-   private void OP1() {
+   private String OP1() {
      switch(anticipo.clase()) {
-         case AND: empareja(ClaseLexica.AND); break;  
-         case OR: empareja(ClaseLexica.OR); break;  
+         case AND: empareja(ClaseLexica.AND); return "and";  
+         case OR: empareja(ClaseLexica.OR); return "or"; 
          default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
                                       ClaseLexica.AND,ClaseLexica.OR);
+              return null;
      }  
    }
 
@@ -361,18 +483,19 @@ public class AnalizadorSintacticoTiny0 {
     * OP2 -> '!='
     * Simbolos de diagnostico: '>', '<', '!', '='
     * */
-   private void OP2() {
+   private String OP2() {
      switch(anticipo.clase()) {
-         case MAYOR:  empareja(ClaseLexica.MAYOR); ROP2(); break;
-         case MAYORIGUAL: empareja(ClaseLexica.MAYORIGUAL); break;
+         case MAYOR:  empareja(ClaseLexica.MAYOR); return ">"; ROP2(); //TODO:REVISAR
+         case MAYORIGUAL: empareja(ClaseLexica.MAYORIGUAL); return ">=";
          case MENOR:  empareja(ClaseLexica.MENOR); ROP2(); break;
-         case MENORIGUAL: empareja(ClaseLexica.MENORIGUAL); break;
-         case COMPARACION: empareja(ClaseLexica.COMPARACION); break;
-         case DISTINTO: empareja(ClaseLexica.DISTINTO); break;
+         case MENORIGUAL: empareja(ClaseLexica.MENORIGUAL); return "<=";
+         case COMPARACION: empareja(ClaseLexica.COMPARACION); return "==";
+         case DISTINTO: empareja(ClaseLexica.DISTINTO); return "!=";
          default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
                                       ClaseLexica.MAYOR,ClaseLexica.MENOR,ClaseLexica.DISTINTO,
                                       ClaseLexica.IGUAL);
+              return null;
      }  
    }
    
@@ -381,16 +504,18 @@ public class AnalizadorSintacticoTiny0 {
     * Simbolos de diagnostico: '=',(', '-', false, true, id, not, numeroEntero,
     * numeroReal
     * */
-   private void ROP2() {
+   private String ROP2() { //TODO: REVISAR ESTA FUNCION SI ES NECESARIA
      switch(anticipo.clase()) {
-         case IGUAL: empareja(ClaseLexica.IGUAL); break;  
+         case IGUAL: empareja(ClaseLexica.IGUAL); return "="; 
          case PAP: case MENOS: case TRUE: case FALSE:
-         case ID: case NOT: case NENT: case NREAL: break;  
+         case ID: case NOT: case NENT: case NREAL: break;
+         	return;
          default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
             		  				  ClaseLexica.IGUAL,ClaseLexica.PAP,ClaseLexica.MENOS,
             		  				  ClaseLexica.FALSE,ClaseLexica.TRUE,ClaseLexica.ID,
             		  				  ClaseLexica.NOT,ClaseLexica.NENT,ClaseLexica.NREAL);
+              return null;
      }  
    }
    
@@ -400,11 +525,12 @@ public class AnalizadorSintacticoTiny0 {
     * */
    private void OP3() {
      switch(anticipo.clase()) {
-         case MUL: empareja(ClaseLexica.MUL); break;  
-         case DIV: empareja(ClaseLexica.DIV); break;  
+         case MUL: empareja(ClaseLexica.MUL); return "*";
+         case DIV: empareja(ClaseLexica.DIV); return "/";
          default:    
               errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
                                       ClaseLexica.MUL,ClaseLexica.DIV);
+              return null;
      }  
    }
    

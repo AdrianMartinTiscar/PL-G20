@@ -321,13 +321,14 @@ public class TinyASint {
 	public static class True extends Exp {
 		private StringLocalizado cierto;
 
-		public True(StringLocalizado cierto) {
-			super();
-			this.cierto = cierto;
-		}
+		/*
+		 * public True(StringLocalizado cierto) { super(); this.cierto = cierto; }
+		 * 
+		 * public StringLocalizado num() { return cierto; }
+		 */
 
-		public StringLocalizado num() {
-			return cierto;
+		public True() {
+			super();
 		}
 
 		public void procesa(Procesamiento p) {
@@ -342,13 +343,14 @@ public class TinyASint {
 	public static class False extends Exp {
 		private StringLocalizado fals;
 
-		public False(StringLocalizado fals) {
-			super();
-			this.fals = fals;
-		}
+		/*
+		 * public False(StringLocalizado falso) { super(); this.fals = falso; }
+		 * 
+		 * public StringLocalizado num() { return fals; }
+		 */
 
-		public StringLocalizado num() {
-			return fals;
+		public False() {
+			super();
 		}
 
 		public void procesa(Procesamiento p) {
@@ -370,8 +372,9 @@ public class TinyASint {
 		public StringLocalizado id() {
 			return id;
 		}
-		
+
 		public abstract void procesa(Procesamiento p);
+
 		public abstract String getTipo();
 
 	}
@@ -393,10 +396,10 @@ public class TinyASint {
 		}
 
 	}
-	
+
 	public static class Dec_real extends Dec {
 		private String tipo = "real";
-		
+
 		public Dec_real(StringLocalizado id) {
 			super(id);
 		}
@@ -404,14 +407,14 @@ public class TinyASint {
 		public void procesa(Procesamiento p) {
 			p.procesa(this);
 		}
-		
+
 		@Override
 		public String getTipo() {
 			return tipo;
 		}
 
 	}
-	
+
 	public static class Dec_bool extends Dec {
 		private String tipo = "bool";
 
@@ -422,7 +425,7 @@ public class TinyASint {
 		public void procesa(Procesamiento p) {
 			p.procesa(this);
 		}
-		
+
 		@Override
 		public String getTipo() {
 			return tipo;
@@ -618,7 +621,7 @@ public class TinyASint {
 		return new Distinto(arg0, arg1);
 	}
 
-	public Exp neg(Exp arg0) {
+	public Exp negacion(Exp arg0) {
 		return new Negacion(arg0);
 	}
 
@@ -633,7 +636,7 @@ public class TinyASint {
 	public Exp numEntero(StringLocalizado num) {
 		return new NumEntero(num);
 	}
-	
+
 	public Exp numReal(StringLocalizado num) {
 		return new NumReal(num);
 	}
@@ -642,18 +645,18 @@ public class TinyASint {
 		return new Id(num);
 	}
 
-	public Exp falso(StringLocalizado boo) {
-		return new False(boo);
+	public Exp falso(/*StringLocalizado boo*/) {
+		return new False(/*boo*/);
 	}
 
-	public Exp cierto(StringLocalizado boo) {
-		return new True(boo);
+	public Exp cierto() {
+		return new True();
 	}
 
 	public Dec dec_int(StringLocalizado id) {
 		return new Dec_int(id);
 	}
-	
+
 	public Dec dec_real(StringLocalizado id) {
 		return new Dec_real(id);
 	}
@@ -662,12 +665,11 @@ public class TinyASint {
 		return new Dec_bool(id);
 	}
 
-
-	public Decs decs(Dec dec) {
+	public Decs decs_una(Dec dec) {
 		return new Decs_una(dec);
 	}
 
-	public Decs decs(Decs decs, Dec dec) {
+	public Decs decs_varias(Decs decs, Dec dec) {
 		return new Decs_varias(decs, dec);
 	}
 

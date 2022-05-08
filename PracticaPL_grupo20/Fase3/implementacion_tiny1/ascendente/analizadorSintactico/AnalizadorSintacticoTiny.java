@@ -8,7 +8,7 @@ package ascendente.analizadorSintactico;
 import java_cup.runtime.*;
 import ascendente.analizadorLexico.AnalizadorLexicoTiny1;
 import ascendente.analizadorLexico.UnidadLexica;
-import ascendente.gestionErroresTinyGestionErr;
+import ascendente.gestionErroresTiny.GestionErr;
 import procesamiento.SemOps;
 import procesamiento.TinyASint.*;
 import java_cup.runtime.XMLElement;

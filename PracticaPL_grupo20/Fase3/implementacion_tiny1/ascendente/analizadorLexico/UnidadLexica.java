@@ -1,5 +1,7 @@
 package ascendente.analizadorLexico;
 
+import ascendente.analizadorSintactico.ClaseLexica;
+import java_cup.runtime.Symbol;
 
 /*Una unidad lexica se define con una clase, una fila y una columna.*/
 

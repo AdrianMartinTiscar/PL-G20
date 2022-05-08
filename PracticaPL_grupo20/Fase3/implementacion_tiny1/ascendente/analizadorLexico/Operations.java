@@ -1,5 +1,6 @@
 package ascendente.analizadorLexico;
 
+import ascendente.analizadorSintactico.ClaseLexica;
 
 public class Operations {
   private AnalizadorLexicoTiny1 alex;

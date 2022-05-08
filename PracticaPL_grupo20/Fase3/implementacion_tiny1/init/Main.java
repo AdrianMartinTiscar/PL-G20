@@ -9,7 +9,7 @@ import conCup.asint.AnalizadorSintacticoTiny;
 import conCup.asint.*;
 import descendente.ConstructorAST1;
 import procesamiento.Impresion;
-import procesamiento.TinyASint.Prog;
+import procesamiento.TinyASint.Programa;
 
 public class Main {
 
@@ -19,7 +19,7 @@ public class Main {
 					"2 argumentos requeridos: I: archivo a analizar; II: desc (analisis descendente)/ asc (analisis ascendente).");
 		} else {
 			System.out.println("Resultado del analizador " + args[1] + ":");
-			Prog pro = null;
+			Programa pro = null;
 			if (args[1].equals("desc")) {
 				pro = ejecuta_descendente(args[0]);
 			} else if (args[1].equals("asc")) {
@@ -31,14 +31,14 @@ public class Main {
 		}		
 	}
 
-	private static Prog ejecuta_ascendente(String in) throws Exception {
+	private static Programa ejecuta_ascendente(String in) throws Exception {
 		Reader input = new InputStreamReader(new FileInputStream(in));
 		AnalizadorLexicoTiny alex = new AnalizadorLexicoTiny(input);
 		AnalizadorSintacticoTiny constructorast = new AnalizadorSintacticoTiny(alex);
-		return (Prog) constructorast.parse().value;
+		return (Programa) constructorast.parse().value;
 	}
 
-	private static Prog ejecuta_descendente(String in) throws Exception {
+	private static Programa ejecuta_descendente(String in) throws Exception {
 		Reader input = new InputStreamReader(new FileInputStream(in));
 		descendente.ConstructorAST1 constructorast = new descendente.ConstructorAST1(input);
 		return constructorast.ProgramaPrev();

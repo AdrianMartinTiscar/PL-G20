@@ -716,13 +716,13 @@ public class TinyASint {
 	}
 
 	public static class Bloque extends Bloque_vacio{
-		private Prog p;
+		private Programa p;
 
-		public Bloque(Prog p) {
+		public Bloque(Programa p) {
 			this.p = p;
 		}
 
-		public Prog cont() {
+		public Programa cont() {
 			return p;
 		}
 
@@ -1430,14 +1430,14 @@ public class TinyASint {
 		}
 	}
 
-	public static abstract class Prog {
-		public Prog() {
+	public static abstract class Programa {
+		public Programa() {
 		}
 
 		public abstract void procesa(Procesamiento p);
 	}
 
-	public static class Programa_conDecs extends Prog {
+	public static class Programa_conDecs extends Programa {
 		private Decs decs;
 		private Insts ins;
 
@@ -1460,7 +1460,7 @@ public class TinyASint {
 		}
 	}
 
-	public static class Programa_sinDecs extends Prog {
+	public static class Programa_sinDecs extends Programa {
 		private Insts ins;
 
 		public Programa_sinDecs(Insts ins) {
@@ -1564,11 +1564,11 @@ public class TinyASint {
 	}
 
 	// Constructoras
-	public Prog programa_conDecs(Decs decs, Insts inss) {
+	public Programa programa_conDecs(Decs decs, Insts inss) {
 		return new Programa_conDecs(decs, inss);
 	}
 
-	public Prog programa_sinDecs(Insts inss) {
+	public Programa programa_sinDecs(Insts inss) {
 		return new Programa_sinDecs(inss);
 	}
 
@@ -1848,7 +1848,7 @@ public class TinyASint {
 		return new TArray(n, t);
 	}
 
-	public Bloque_vacio bloque(Prog p) {
+	public Bloque_vacio bloque(Programa p) {
 		return new Bloque(p);
 	}
 	public Bloque_vacio bloque_vacio() {

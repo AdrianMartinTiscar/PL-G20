@@ -21,7 +21,7 @@ import procesamiento.TinyASint.LExpresiones;
 import procesamiento.TinyASint.LParamForm;
 import procesamiento.TinyASint.ParamD;
 import procesamiento.TinyASint.ParamForm;
-import procesamiento.TinyASint.Prog;
+import procesamiento.TinyASint.Programa;
 import procesamiento.TinyASint.StringLocalizado;
 import procesamiento.TinyASint.Tipo;
 import procesamiento.TinyASint.Decs;
@@ -528,7 +528,7 @@ class CUP$AnalizadorSintacticoTiny$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 0: // Programa ::= Decs SEPARACION Instrs 
             {
-              Prog RESULT =null;
+              Programa RESULT =null;
 		Decs ds = (Decs)((java_cup.runtime.Symbol) CUP$AnalizadorSintacticoTiny$stack.elementAt(CUP$AnalizadorSintacticoTiny$top-2)).value;
 		Insts is = (Insts)((java_cup.runtime.Symbol) CUP$AnalizadorSintacticoTiny$stack.peek()).value;
 		RESULT = sem.programa_conDecs(ds, is);
@@ -540,7 +540,7 @@ class CUP$AnalizadorSintacticoTiny$actions {
           case 1: // $START ::= Programa EOF 
             {
               Object RESULT =null;
-		Prog start_val = (Prog)((java_cup.runtime.Symbol) CUP$AnalizadorSintacticoTiny$stack.elementAt(CUP$AnalizadorSintacticoTiny$top-1)).value;
+		Programa start_val = (Programa)((java_cup.runtime.Symbol) CUP$AnalizadorSintacticoTiny$stack.elementAt(CUP$AnalizadorSintacticoTiny$top-1)).value;
 		RESULT = start_val;
               CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("$START",0, RESULT);
             }
@@ -551,7 +551,7 @@ class CUP$AnalizadorSintacticoTiny$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 2: // Programa ::= Instrs 
             {
-              Prog RESULT =null;
+              Programa RESULT =null;
 		Insts is = (Insts)((java_cup.runtime.Symbol) CUP$AnalizadorSintacticoTiny$stack.peek()).value;
 		RESULT = sem.programa_sinDecs(is);
               CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("Programa",0, RESULT);
@@ -679,7 +679,7 @@ class CUP$AnalizadorSintacticoTiny$actions {
           case 14: // bloque ::= LLAP Programa LLCIE 
             {
               Bloque_vacio RESULT =null;
-		Prog p = (Prog)((java_cup.runtime.Symbol) CUP$AnalizadorSintacticoTiny$stack.elementAt(CUP$AnalizadorSintacticoTiny$top-1)).value;
+		Programa p = (Programa)((java_cup.runtime.Symbol) CUP$AnalizadorSintacticoTiny$stack.elementAt(CUP$AnalizadorSintacticoTiny$top-1)).value;
 		RESULT = sem.bloque(p);
               CUP$AnalizadorSintacticoTiny$result = parser.getSymbolFactory().newSymbol("bloque",6, RESULT);
             }

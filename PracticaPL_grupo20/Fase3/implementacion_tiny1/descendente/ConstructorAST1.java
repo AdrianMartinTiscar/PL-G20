@@ -4,7 +4,7 @@ package descendente;
 import procesamiento.TinyASint.Exp;
 import procesamiento.TinyASint.Dec;
 import procesamiento.TinyASint.Decs;
-import procesamiento.TinyASint.Prog;
+import procesamiento.TinyASint.Programa;
 import procesamiento.TinyASint.Inst;
 import procesamiento.TinyASint.Insts;
 import procesamiento.TinyASint.Tipo;
@@ -24,15 +24,15 @@ import procesamiento.SemOps;
 public class ConstructorAST1 implements ConstructorAST1Constants {
         private SemOps sem = new SemOps();
 
-  final public Prog ProgramaPrev() throws ParseException {
-                         Prog prog;
+  final public Programa ProgramaPrev() throws ParseException {
+                         Programa prog;
     prog = Programa();
     jj_consume_token(0);
                                                              {if (true) return prog;}
     throw new Error("Missing return statement in function");
   }
 
-  final public Prog Programa() throws ParseException {
+  final public Programa Programa() throws ParseException {
                      Decs decs; Insts instrs;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case proc:
@@ -205,7 +205,7 @@ public class ConstructorAST1 implements ConstructorAST1Constants {
   }
 
   final public Bloque_vacio resbloque() throws ParseException {
-                              Prog prog;
+                              Programa prog;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case ptrue:
     case pfalse:

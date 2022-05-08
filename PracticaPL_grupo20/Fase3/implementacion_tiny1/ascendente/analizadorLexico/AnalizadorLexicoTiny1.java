@@ -9,6 +9,7 @@ import ascendente.gestionErroresTiny.GestionErr;
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")
+public
 class AnalizadorLexicoTiny1 implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file. */

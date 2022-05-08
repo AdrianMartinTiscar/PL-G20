@@ -148,11 +148,11 @@ public class AnalizadorSintacticoTiny0 {
 	    	   UnidadLexica id = anticipo;
 	           empareja(ClaseLexica.ID);
 	           empareja(ClaseLexica.IGUAL);
-	           UnidadLexica e = anticipo;
+	           //UnidadLexica e = anticipo;
 	           Exp exp = E0();
 	           return sem.inst(sem.str(id.lexema(), id.fila(), id.columna()),
 						exp);
-	       default: 
+	       default:
 	    	   errores.errorSintactico(anticipo.fila(),anticipo.columna(),anticipo.clase(),
 	                                         ClaseLexica.ID);
 	    	   return null;
@@ -196,6 +196,9 @@ public class AnalizadorSintacticoTiny0 {
 		case ID:
 		case MAS:
 		case MENOS:
+		case TRUE:
+		case FALSE:	
+		case NOT:
 			Exp exp = E1();
 			return RE0(exp);
 		default:
@@ -240,6 +243,9 @@ public class AnalizadorSintacticoTiny0 {
 		case ID:
 		case MAS:
 		case MENOS:
+		case TRUE:
+		case FALSE:
+		case NOT:
 			Exp e2 = E2();
 			return RE1(e2);
 		default:
@@ -279,6 +285,7 @@ public class AnalizadorSintacticoTiny0 {
 
 	/** E2 -> E3 RE2 */
 	private Exp E2() {
+
 		switch (anticipo.clase()) {
 		//case EXPRES:
 		case PAP:
@@ -287,6 +294,9 @@ public class AnalizadorSintacticoTiny0 {
 		case ID:
 		case MAS:
 		case MENOS:
+		case TRUE:
+		case FALSE:
+		case NOT:
 			Exp e3 = E3();
 			return RE2(e3);
 		default:
@@ -341,9 +351,11 @@ public class AnalizadorSintacticoTiny0 {
 		case ID:
 		case MAS:
 		case MENOS:
+		case TRUE:
+		case FALSE:
+		case NOT:
 			Exp e4 = E4();
 			return RE3(e4);
-
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.columna(), anticipo.clase(), ClaseLexica.PAP,
 					ClaseLexica.NOT, ClaseLexica.MENOS);
@@ -407,6 +419,8 @@ public class AnalizadorSintacticoTiny0 {
 		case NENT:
 		case NREAL:
 		case ID:
+		case TRUE:
+		case FALSE:
 			return E5();
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.columna(), anticipo.clase(), ClaseLexica.PAP,
@@ -431,7 +445,6 @@ public class AnalizadorSintacticoTiny0 {
 			empareja(ClaseLexica.NREAL);
 			return sem.numReal(sem.str(real.lexema(), real.fila(), real.columna()));
 		case ID:
-			empareja(ClaseLexica.ID);
 			UnidadLexica id = anticipo;
 			empareja(ClaseLexica.ID);
 			return sem.id(sem.str(id.lexema(), id.fila(), id.columna()));

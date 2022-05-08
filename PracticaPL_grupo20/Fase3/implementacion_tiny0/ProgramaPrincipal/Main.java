@@ -20,7 +20,7 @@ public class Main {
 		    	 		+ "en el siguiente formato: pruebas_tiny_0/filename.txt\n");
 	 }
 	 else { // Leer fichero de prueba
-		 String filename = "prueba5_tiny0.txt";
+		 String filename = "prueba10_tiny0.txt";
 		 String curDir = System.getProperty("user.dir");
 		 input = new InputStreamReader(new FileInputStream(curDir+"/pruebas_tiny_0/"+filename));
 		 

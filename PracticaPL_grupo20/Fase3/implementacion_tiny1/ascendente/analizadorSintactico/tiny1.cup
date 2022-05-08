@@ -6,25 +6,13 @@ import ascendente.analizadorLexico.UnidadLexica;
 import ascendente.gestionErroresTinyGestionErr;
 
 import procesamiento.SemOps;
-import procesamiento.TinyASint.Bloque_vacio;
-import procesamiento.TinyASint.Campo;
-import procesamiento.TinyASint.Campos;
-import procesamiento.TinyASint.Dec;
-import procesamiento.TinyASint.Inst;
-import procesamiento.TinyASint.InstrOp;
-import procesamiento.TinyASint.Insts;
-import procesamiento.TinyASint.LExpresiones;
-import procesamiento.TinyASint.LParamForm;
-import procesamiento.TinyASint.ParamD;
-import procesamiento.TinyASint.ParamForm;
-import procesamiento.TinyASint.Prog;
-import procesamiento.TinyASint.StringLocalizado;
-import procesamiento.TinyASint.Tipo;
-import procesamiento.TinyASint.Decs;
-import procesamiento.TinyASint.Exp;
-import procesamiento.TinyASint.ParReales;
+import procesamiento.TinyASint.*;
+
 
 scan with {: return getScanner().next_token(); :};
+action code {:
+   private SemOps sem = new SemOps();
+:};
 parser code {: 
    private GestionErr errores;
    public void syntax_error(Symbol unidadLexica) {
@@ -37,10 +25,10 @@ init with {:
    alex.fijaGestionErrores(errores);
 :};
 
-terminal  ID, NENT, NREAL, PAP, PCIERRE, IGUAL, TRUE, FALSE,
+terminal  PAP, PCIERRE, IGUAL, TRUE, FALSE,
 	 AND, OR, NOT, MENOR, MENORIGUAL, MAYOR, MAYORIGUAL, COMPARACION,
 	 DISTINTO, MAS, MENOS, MUL, DIV, SEP, PTOCOMA, INT, REAL, BOOL,
-	LITERALCAD, MODULO, CORABIERTO, CORCERRADO, LLAVEABIERTA, LLAVECERRADA,
+	MODULO, CORABIERTO, CORCERRADO, LLAVEABIERTA, LLAVECERRADA,
 	PUNTO, FLECHA, COMA, AMP, STRING, NULL, PROC, IF, THEN, ELSE, ENDIF, WHILE,
 	DO, ENDWHILE, CALL, RECORD, ARRAY, OF, POINTER, NEW, DELETE, READ, WRITE,
 	NL, VAR, TYPE;
@@ -55,7 +43,7 @@ non terminal  ParamForm ParamForm;
 non terminal  Parametro Parametro;
 non terminal  ListParamForm ListParamForm;
 non terminal  Bloque bloque;
-non terminal  Tipo tipo, tarray, trecord, tpointer;
+non terminal  Tipo tipo, tipo_array, tipo_record, tipo_pointer;
 non terminal  Campos campos;
 non terminal  Campo campo;
 non terminal  Instrucciones Instrucciones;
@@ -66,98 +54,105 @@ non terminal  ListaExpresiones ListaExpresiones;
 non terminal  Expresion Expresion, E0, E1, E2, E3, E4, E5, E6, E7;
 non terminal  String OP1, OP2, OP3;
 
-Programa ::= Decs: ds SEP Instrucciones 
+Programa ::= Decs: ds SEP Instrucciones:is
 	{:RESULT = sem.programa_conDecs(ds, is);:};
-Programa ::= Instrs:is
+Programa ::= Instrucciones:is
     {:RESULT = sem.programa_sinDecs(is);:};
-Decs ::= Dec: d PTOCOMA Decs: ds
-    {:RESULT = sem.declaracion_varias(d, ds);:};
+Decs ::= Decs: ds PTOCOMA Dec: d
+    {:RESULT = sem.decs_varias(ds, d);:};
+Decs ::= Dec: d
+    {:RESULT = sem.decs_una(d);:};
 Dec ::= VAR tipo: t ID: i
-    {:RESULT = sem.dec_habitual(t, i);:};
+    {:RESULT = sem.dec_var(t, i);:};
 Dec ::= TYPE tipo:t ID:i
-    {:RESULT = sem.dec_type(t, sem.tipoin(i));:};
+    {:RESULT = sem.dec_type(t, i);:};
 Dec ::= PROC ID:i ParamForm:p bloque:b
     {:RESULT = sem.dec_proc(i, p, b);:};
-ParamForm ::= PAP Parametro:p ListParamForm:l PCIERRE 
-    {:RESULT = sem.param_formAux(p, l);:};
-ListParamForm ::= COMA Parametro:p ListParamForm:l 
-    {:RESULT = sem.lparamFormAux(p, l);:};
-ListParamForm ::= 
-    {:RESULT = null;:};
+ParamForm ::= PAP ListParamForm:l PCIERRE 
+    {:RESULT = sem.param_form(l);:};
+ParamForm ::= PAP PCIERRE 
+    {:RESULT = sem.param_form_vacio();:};	
+ListParamForm ::= ListParamForm:l COMA Parametro:p 
+    {:RESULT = sem.list_param_form_varios(l, p);:};
+ListParamForm ::= Parametro:p 
+    {:RESULT = sem.list_param_form_uno(p);:};
 Parametro ::= tipo:t AMP ID:i 
-    {:RESULT = sem.paramD(t, i);:};
-Parametro ::= 
-    {:RESULT = null;:};
+    {:RESULT = sem.param_variable(t, i);:};
+Parametro ::= tipo:t ID:i 
+    {:RESULT = sem.param_valor(t, i);:};
 bloque ::= LLAVEABIERTA Programa:p LLAVECERRADA
     {:RESULT = sem.bloque(p);:};
 bloque ::= LLAVECERRADA  LLAVECERRADA
     {:RESULT = sem.bloque_vacio();:};
 
 tipo ::= INT
-    {:RESULT = sem.intt();:};
+    {:RESULT = sem.tipo_int();:};
 tipo ::= BOOL
-    {:RESULT = sem.boolt();:};
+    {:RESULT = sem.tipo_bool();:};
 tipo ::= REAL
-    {:RESULT = sem.realt();:};
+    {:RESULT = sem.tipo_real();:};
 tipo ::= STRING
-    {:RESULT = sem.stringt();:};
+    {:RESULT = sem.tipo_string();:};
+tipo ::= ID:i
+    {:RESULT = sem.id(i);:};
 
-tipo ::= ARRAY CORABIERTO NENT:n CORCERRADO OF tipo: t
-    {:RESULT =sem.tArray(n, t);:};
-tipo ::= RECORD LLAVEABIERTA campo: c campos: cs LLAVECERRADA
-    {:RESULT = sem.trecordAux(c, cs);:};
-campos ::= PTOCOMA campo: c campos: cs
-    {:RESULT = sem.campos(c, cs);:};
-campos ::= 
-    {:RESULT = null;:};
+tipo ::= ARRAY CORABIERTO NENT:n CORCERRADO OF tipo:t
+    {:RESULT =sem.tipo_array(n, t);:};
+tipo ::= RECORD LLAVEABIERTA campos:cs LLAVECERRADA
+    {:RESULT = sem.tipo_record(cs);:};
+tipo ::= POINTER tipo:t
+    {:RESULT = sem.tipo_pointer(t);:};
+campos ::= campos:cs PTOCOMA campo:c 
+    {:RESULT = sem.campos_varios(cs, c);:};
+campos ::= campo:c 
+    {:RESULT = sem.campos_uno(c);:};
 campo ::= tipo:t ID:i
     {:RESULT = sem.campo(t, i);:};
-tipo ::= POINTER tipo:t
-    {:RESULT = sem.tPointer(t);:};
 
-Instrucciones ::= Inst:i PTOCOMA Instrucciones:is
-    {:RESULT = sem.instruccion_varias(i, is);:};
+
+Instrucciones ::= Instrucciones:is PTOCOMA Inst:i
+    {:RESULT = sem.instrucciones_varias(is, i);:};
 Instrucciones ::= Inst
-    {:RESULT = sem.instruccion_una(i);:};
+    {:RESULT = sem.instrucciones_una(i);:};
 
-Inst ::= expr:e0 IGUAL expr:e2
-    {:RESULT = sem.instruccion_asig(e0, e2);:};
-Inst ::= IF expr:e THEN InstOp:i ENDIF
-    {:RESULT = sem.instruccion_ifAux(e,i);:};
-Inst ::= IF expr:e THEN InstOp:i1 ELSE InstOp:i2 ENDIF
-    {:RESULT = sem.instruccion_ifelseAux(e, i1, i2);:};
+Inst ::= Expresion:e0 IGUAL Expresion:e2
+    {:RESULT = sem.inst_asig(e0, e2);:};
+Inst ::= IF Expresion:e THEN InstOp:i ENDIF
+    {:RESULT = sem.inst_ifThen(e,i);:};
+Inst ::= IF Expresion:e THEN InstOp:i1 ELSE InstOp:i2 ENDIF
+    {:RESULT = sem.inst_IfThenElse(e, i1, i2);:};
 
-InstOp ::= Instrucciones
-    {:RESULT = sem.instrOp_varias(is);:};
-instrOpt ::= 
-    {:RESULT = null;:};
+InstOp ::= Instrucciones:is
+    {:RESULT = sem.inst_op_varias(is);:};
+InstOp ::= 
+    {:RESULT = sem.inst_op_vacio();:};
 
 Inst ::= WHILE Expresion:e DO InstOp:i ENDWHILE
-    {:RESULT = sem.instruccion_while(e, i);:};
+    {:RESULT = sem.inst_While(e, i);:};
 Inst ::= READ Expresion: e
-    {:RESULT = sem.instruccion_read(e);:};
+    {:RESULT = sem.inst_Read(e);:};
 Inst ::= WRITE Expresion:e
-    {:RESULT = sem.instruccion_write(e);:};
+    {:RESULT = sem.inst_Write(e);:};
 Inst ::= NL
-    {:RESULT = sem.instruccion_nl();:};
+    {:RESULT = sem.inst_NewLine();:};
 Inst ::= NEW Expresion:e
-    {:RESULT = sem.instruccion_new(e);:};
+    {:RESULT = sem.inst_new(e);:};
 Inst ::= DELETE Expresion:e
-    {:RESULT = sem.instruccion_delete(e);:};
+    {:RESULT = sem.inst_delete(e);:};
 Inst ::= CALL ID:i paramReales: pr
-    {:RESULT = sem.instruccion_call(i, pr);:};
+    {:RESULT = sem.inst_Call(i, pr);:};
 Inst ::= bloque: b
-    {:RESULT = sem.instruccion_bloque(b);:};
+    {:RESULT = sem.inst_bloque(b);:};
 
-paramReales ::= PAP expr:e ListaExpresiones:le PCIERRE
-    {:RESULT = sem.parRealesAux(e, le);:};
+paramReales ::= PAP ListaExpresiones:le PCIERRE
+    {:RESULT = sem.paramReales_varios(le);:};
 paramReales ::= PAP PCIERRE
-    {:RESULT = sem.parReales_ninguna();:};
+    {:RESULT = sem.paramReales_vacio();:};
 
-ListaExpresiones ::= PTOCOMA expr:e ListaExpresiones:le
-    {:RESULT = sem.lExpresionesAux(e, le);:};
-ListaExpresiones ::= 
-    {:RESULT = null;:};
+ListaExpresiones ::= ListaExpresiones:le PTOCOMA Expresion:e 
+    {:RESULT = sem.listaExpresiones_varias(le, e);:};
+ListaExpresiones ::= Expresion:e 
+    {:RESULT = sem.listaExpresiones_una(e);:};
 
 Expresion ::= E0:e 
     {:RESULT = e;:};
@@ -166,8 +161,8 @@ E0 ::= E1: a0 MAS E0:a1
     {:RESULT = sem.suma(a0, a1);:};
 E0 ::= E1:e MENOS E1:e1
     {:RESULT = sem.resta(e, e1);:};
-E0 ::= E1:a
-    {:RESULT = a;:};  
+E0 ::= E1:e
+    {:RESULT = e;:};  
 
 E1 ::= E1:a0 OP1:op E2:a1
     {:RESULT = sem.exp(op, a0, a1);:};
@@ -193,7 +188,7 @@ E4 ::= E5:a
     {:RESULT = a;:};
 
 E5 ::= E5:a0 CORABIERTO Expresion:a1 CORCERRADO
-    {:RESULT = sem.indice(a0, a1);:};
+    {:RESULT = sem.indexacion(a0, a1);:};
 E5 ::= E5:e PUNTO ID:i
     {:RESULT = sem.punto(e, i);:};
 E5 ::= E5:a FLECHA ID: i
@@ -202,14 +197,14 @@ E5 ::= E6:a
     {:RESULT = a;:};
 
 E6 ::= MUL E6:a
-    {:RESULT = sem.indir(a);:};
+    {:RESULT = sem.indice(a);:};
 E6 ::= E7:a
     {:RESULT = a;:};
 
 E7 ::= NENT:n
-    {:RESULT = sem.nEntero(n);:};
+    {:RESULT = sem.numeroEntero(n);:};
 E7 ::= NREAL: n
-    {:RESULT = sem.nReal(n);:};
+    {:RESULT = sem.numeroReal(n);:};
 E7 ::= ID: i
     {:RESULT = sem.id(i);:};
 E7 ::= NULL
@@ -220,7 +215,7 @@ E7 ::= TRUE
     {:RESULT = sem.cierto();:};
 E7 ::= FALSE
     {:RESULT = sem.falso();:};
-E7 ::= PAP E0:a PCIE
+E7 ::= PAP E0:a PCIERRE
     {:RESULT = a;:};
 
 OP1 ::= AND

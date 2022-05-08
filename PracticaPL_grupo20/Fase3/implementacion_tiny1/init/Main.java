@@ -3,10 +3,10 @@ package init;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import conCup.alex.AnalizadorLexicoTiny;
-import conCup.asint.AnalizadorSintacticoTiny;
+import ascendente.analizadorLexico.AnalizadorLexicoTiny1;
+import ascendente.analizadorSintactico.AnalizadorSintacticoTiny;
 
-import conCup.asint.*;
+import ascendente.analizadorSintactico.*;
 import descendente.ConstructorAST1;
 import procesamiento.Impresion;
 import procesamiento.TinyASint.Programa;

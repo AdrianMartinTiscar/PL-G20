@@ -45,7 +45,7 @@ public class ProcesamientoPorDefecto implements Procesamiento{
 	public void procesa(Inst_new in) {}
 	public void procesa(Inst_delete in) {}
 	public void procesa(Inst_call in) {}
-	public void procesa(Instruccion_bloque in) {}
+	public void procesa(Inst_bloque in) {}
 	
 	public void procesa(Bloque b) {}
 	public void procesa(Bloque_vacio b) {}
@@ -87,5 +87,5 @@ public class ProcesamientoPorDefecto implements Procesamiento{
 	public void procesa(Exp e) {}
 	public void procesa(Null e) {}	
 	public void procesa(LiteralCad lc) {}
-	
+		
 }

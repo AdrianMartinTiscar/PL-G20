@@ -595,15 +595,15 @@ public class TinyASint {
 	}
 
 	public static class Param_form extends ParamForm {
-		private ParamD par;
+		private parametro par;
 		private LParamForm pars;
 
-		public Param_form(ParamD par, LParamForm pars) {
+		public Param_form(parametro par, LParamForm pars) {
 			this.par = par;
 			this.pars = pars;
 		}
 
-		public ParamD par() {
+		public parametro par() {
 			return par;
 		}
 
@@ -627,13 +627,13 @@ public class TinyASint {
 
 	//TODO: necesario???
 	public static class Param_form_uno extends ParamForm {
-		private ParamD par;
+		private parametro par;
 
-		public Param_form_uno(ParamD par) {
+		public Param_form_uno(parametro par) {
 			this.par = par;
 		}
 
-		public ParamD par() {
+		public parametro par() {
 			return par;
 		}
 
@@ -642,11 +642,11 @@ public class TinyASint {
 		}
 	}
 
-	public static class ParamD {
+	public static class parametro {
 		private Tipo t;
 		private StringLocalizado i;
 
-		public ParamD(Tipo t, StringLocalizado i) {
+		public parametro(Tipo t, StringLocalizado i) {
 			this.t = t;
 			this.i = i;
 		}
@@ -663,8 +663,23 @@ public class TinyASint {
 			p.procesa(this);
 		}
 	}
-	public static class ParamDAmp extends ParamD{
-		public ParamDAmp(Tipo t, StringLocalizado i) {
+	public static class parametroAmp extends parametro{
+		public parametroAmp(Tipo t, StringLocalizado i) {
+			super(t, i);
+		}
+		public void procesa(Procesamiento p) {
+			p.procesa(this);		}
+	}
+	
+	public static class Param_valor extends parametro{
+		public Param_valor(Tipo t, StringLocalizado i) {
+			super(t, i);
+		}
+		public void procesa(Procesamiento p) {
+			p.procesa(this);		}
+	}
+	public static class Param_variable extends parametro{
+		public Param_variable(Tipo t, StringLocalizado i) {
 			super(t, i);
 		}
 		public void procesa(Procesamiento p) {
@@ -679,15 +694,15 @@ public class TinyASint {
 	}
 
 	public static class List_param_form_varios extends LParamForm {
-		private ParamD par;
+		private parametro par;
 		private LParamForm pars;
 
-		public List_param_form_varios(ParamD par, LParamForm pars) {
+		public List_param_form_varios(parametro par, LParamForm pars) {
 			this.par = par;
 			this.pars = pars;
 		}
 
-		public ParamD par() {
+		public parametro par() {
 			return par;
 		}
 
@@ -701,13 +716,13 @@ public class TinyASint {
 	}
 
 	public static class List_param_form_uno extends LParamForm {
-		private ParamD par;
+		private parametro par;
 
-		public List_param_form_uno(ParamD par) {
+		public List_param_form_uno(parametro par) {
 			this.par = par;
 		}
 
-		public ParamD par() {
+		public parametro par() {
 			return par;
 		}
 
@@ -716,7 +731,7 @@ public class TinyASint {
 		}
 	}
 
-	public static class Bloque extends Bloque_vacio{
+	public static class Bloque {
 		private Programa p;
 
 		public Bloque(Programa p) {
@@ -726,15 +741,6 @@ public class TinyASint {
 		public Programa cont() {
 			return p;
 		}
-
-		public void procesa(Procesamiento p) {
-			p.procesa(this);
-		}
-	}
-	public static class Bloque_vacio {
-		public Bloque_vacio() {
-		}
-
 
 		public void procesa(Procesamiento p) {
 			p.procesa(this);
@@ -765,15 +771,31 @@ public class TinyASint {
 		}
 	}
 
-	public static abstract class TRecord extends Tipo {
-		public TRecord() {
-			super("tRecord");
+	public static abstract class Tipo_record extends Tipo {
+		private Campo c;
+		private Campos cs;
+
+		public Tipo_record(Campo c, Campos cs) {
+			super();
+			this.c = c;
+			this.cs = cs;
 		}
 
-		public abstract void procesa(Procesamiento p);
+		public Campo campo() {
+			return c;
+		}
+
+		public Campos campos() {
+			return cs;
+		}
+
+		public void procesa(Procesamiento p) {
+			p.procesa(this);
+		}
 	}
 
-	public static class TRecord_varias extends TRecord {
+	/*
+	public static class TRecord_varias extends Tipo_record {
 		private Campo c;
 		private Campos cs;
 
@@ -811,7 +833,7 @@ public class TinyASint {
 		public void procesa(Procesamiento p) {
 			p.procesa(this);
 		}
-	}
+	}*/
 
 	public static abstract class Campos {
 		public Campos() {
@@ -998,7 +1020,7 @@ public class TinyASint {
 		}
 	}
 
-	public static class Instruccion_if_nada extends Inst {
+	/*public static class Instruccion_if_nada extends Inst {
 		private Exp val;
 
 		public Instruccion_if_nada(Exp val) {
@@ -1012,7 +1034,7 @@ public class TinyASint {
 		public void procesa(Procesamiento p) {
 			p.procesa(this);
 		}
-	}
+	}*/
 
 	public static class Inst_ifThenElse extends Inst {
 		private Exp val;
@@ -1042,6 +1064,7 @@ public class TinyASint {
 		}
 	}
 
+	/*
 	public static class Instruccion_ifelse_nada extends Inst {
 		private Exp val;
 
@@ -1100,16 +1123,16 @@ public class TinyASint {
 		public void procesa(Procesamiento p) {
 			p.procesa(this);
 		}
-	}
+	}*/
 
 	public static class Instruccion_bloque extends Inst {
-		private Bloque_vacio blo;
+		private Bloque blo;
 
-		public Instruccion_bloque(Bloque_vacio blo) {
+		public Instruccion_bloque(Bloque blo) {
 			this.blo = blo;
 		}
 
-		public Bloque_vacio blo() {
+		public Bloque blo() {
 			return blo;
 		}
 
@@ -1243,6 +1266,7 @@ public class TinyASint {
 		public abstract void procesa(Procesamiento p);
 	}
 
+	/*
 	public static class ParReales_una extends ParReales {
 		private Exp exp;
 
@@ -1258,7 +1282,7 @@ public class TinyASint {
 		public void procesa(Procesamiento p) {
 			p.procesa(this);
 		}
-	}
+	}*/
 
 	public static class ParamReales_varios extends ParReales {
 		private Exp exp;
@@ -1348,16 +1372,10 @@ public class TinyASint {
 		public abstract void procesa(Procesamiento p);
 	}
 
-	public static class InstrOp_una extends InstrOp {
-		private Inst instr;
+	public static class Inst_op_vacio extends InstrOp {
 
 		public InstrOp_una(Inst ins) {
 			super();
-			this.instr = ins;
-		}
-
-		public Inst instrOp() {
-			return this.instr;
 		}
 
 		public void procesa(Procesamiento p) {
@@ -1532,7 +1550,7 @@ public class TinyASint {
 		}
 	}
 
-	public static class TipoIn extends Tipo {
+	/*public static class TipoIn extends Tipo {
 		public TipoIn(String t) {
 			super(t);
 		}
@@ -1540,7 +1558,7 @@ public class TinyASint {
 		public void procesa(Procesamiento p) {
 			p.procesa(this);
 		}
-	}
+	}*/
 
 	public static class LiteralCad extends Exp{
 		private StringLocalizado cadena;
@@ -1703,15 +1721,15 @@ public class TinyASint {
 		return new Inst_ifThen(id, val);
 	}
 
-	public Inst instruccion_if_nada(Exp e) {
+	/*public Inst instruccion_if_nada(Exp e) {
 		return new Instruccion_if_nada(e);
-	}
+	}*/
 
 	public Inst inst_ifThenElse(Exp val, InstrOp in1, InstrOp in2) {
 		return new Inst_ifThenElse(val, in1, in2);
 	}
 
-	public Inst instruccion_ifelse_nada(Exp val) {
+	/*public Inst instruccion_ifelse_nada(Exp val) {
 		return new Instruccion_ifelse_nada(val);
 	}
 
@@ -1721,17 +1739,17 @@ public class TinyASint {
 
 	public Inst instruccion_ifelse_no2(Exp val, InstrOp in1) {
 		return new Instruccion_ifelse_no2(val, in1);
-	}
+	}*/
 
-	public InstrOp instrOp_una(Inst ins) {
-		return new InstrOp_una(ins);
+	public InstrOp Inst_op_vacio() {
+		return new Inst_op_vacio();
 	}
 
 	public InstrOp instrOp_varias(Insts inss) {
 		return new InstrOp_varias(inss);
 	}
 
-	public Inst instruccion_bloque(Bloque_vacio bloque) {
+	public Inst instruccion_bloque(Bloque bloque) {
 		return new Instruccion_bloque(bloque);
 	}
 
@@ -1767,9 +1785,9 @@ public class TinyASint {
 		return new ParamReales_vacio();
 	}
 
-	public ParReales parReales_una(Exp exp) {
+	/*public ParReales parReales_una(Exp exp) {
 		return new ParReales_una(exp);
-	}
+	}*/
 
 	public ParReales paramReales_varios(Exp exp, LExpresiones lexps) {
 		return new ParamReales_varios(exp, lexps);
@@ -1803,9 +1821,9 @@ public class TinyASint {
 		return new Tipo_real();
 	}
 
-	public Tipo tipoin(StringLocalizado in) {
+	/*public Tipo tipoin(StringLocalizado in) {
 		return new TipoIn(in.s);
-	}
+	}*/
 
 	public Flecha flecha(Exp a0, StringLocalizado a1) {
 		return new Flecha(a0, a1);
@@ -1839,14 +1857,18 @@ public class TinyASint {
 		return new Campos_uno(c);
 	}
 
-	//TODO: revisar
+	/*
 	public TRecord tRecord_varias(Campo c, Campos cs) {
 		return new TRecord_varias(c, cs);
 	}
 
-	//TODO: revisar
+	
 	public TRecord tRecord_una(Campo c) {
 		return new TRecord_una(c);
+	}*/
+	
+	public Tipo_record tipo_record(Campo c) {
+		return new Tipo_record(c);
 	}
 
 	public Tipo_array tipo_array(StringLocalizado n, Tipo t) {
@@ -1860,27 +1882,30 @@ public class TinyASint {
 		return new Bloque_vacio();
 	}
 
-	public List_param_form_varios list_param_form_varios(ParamD par, LParamForm pars) {
+	public List_param_form_varios list_param_form_varios(parametro par, LParamForm pars) {
 		return new List_param_form_varios(par, pars);
 	}
 
-	public List_param_form_uno list_param_form_uno(ParamD par) {
+	public List_param_form_uno list_param_form_uno(parametro par) {
 		return new List_param_form_uno(par);
 	}
 
-	//TODO: revisar param valor y param variable
-	public ParamD paramD(Tipo t, StringLocalizado i) {
-		return new ParamD(t, i);
+	public Param_variable param_variable(Tipo t, StringLocalizado i) {
+		return new Param_variable(t, i);
+	}
+	
+	public Param_valor param_valor(Tipo t, StringLocalizado i) {
+		return new Param_valor(t, i);
 	}
 
-	public ParamForm param_form(ParamD par, LParamForm pars) {
+	public ParamForm param_form(parametro par, LParamForm pars) {
 		return new Param_form(par, pars);
 	}
 
-	//TODO: necesario??
-	public ParamForm param_form_uno(ParamD par) {
+	/*
+	public ParamForm param_form_uno(parametro par) {
 		return new Param_form_uno(par);
-	}
+	}*/
 
 	public ParamForm Param_form_vacio() {
 		return new Param_form_vacio();
@@ -1894,7 +1919,7 @@ public class TinyASint {
 		return new Dec_type(a, b);
 	}
 	
-	public ParamD paramDAmp(Tipo t, StringLocalizado i) {
-		return new ParamDAmp(t, i);
+	public parametro parametroAmp(Tipo t, StringLocalizado i) {
+		return new parametroAmp(t, i);
 	}
 }

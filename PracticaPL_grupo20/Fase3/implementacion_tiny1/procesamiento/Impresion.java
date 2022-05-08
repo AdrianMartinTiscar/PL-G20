@@ -157,11 +157,11 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print(d.id().getTipo());
 		
 	}
-	public void procesa(Dec_bloque dec){
+	/*public void procesa(Dec_bloque dec){
 		System.out.print("type ");
 		dec.tipo().procesa(this);
 		System.out.print(dec.id());
-	}
+	}*/
 	public void procesa(Dec_proc dec){
 		System.out.print("proc ");
 		System.out.print(dec.id());
@@ -178,25 +178,26 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print("(");
 		System.out.print(")");
 	}
+	/*
 	public void procesa(Param_form_uno p){
 		System.out.print("(");
 		p.par().procesa(this);
 		System.out.print(")");
-	}
-	public void procesa(Parametro p){
+	}*/
+	public void procesa(Param_valor p){
 		p.tipo().procesa(this);
 		System.out.print(p.id());
 	}
-	public void procesa(ParamDAmp p) {
+	public void procesa(Param_variable p) {
 		p.tipo().procesa(this);
 		System.out.print( "&" + p.id());
 	}
-	public void procesa(LParamForm_varias p){
+	public void procesa(List_param_form_varios p){
 		System.out.print(", ");
 		p.par().procesa(this);
 		p.lpar().procesa(this);
 	}
-	public void procesa(LParamForm_una p){
+	public void procesa(List_param_form_uno p){
 		System.out.print(", ");
 		p.par().procesa(this);
 	}
@@ -210,13 +211,21 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print("}");
 	}
 	
-	public void procesa(TArray arr){
+	public void procesa(Tipo_array arr){
 		System.out.print(" tArray ");
 		System.out.print(" [ ");
 		arr.tam().procesa(this);
 		System.out.print(" ] of ");
 		System.out.print(arr.of().getTipo());
 	}
+	
+	public void procesa(Tipo_record recs){
+		System.out.println(" tRecord {");
+		recs.campo().procesa(this);
+		recs.campos().procesa(this);
+		System.out.print("}");
+	}
+	/*
 	public void procesa(TRecord_varias recs){
 		System.out.println(" tRecord {");
 		recs.campo().procesa(this);
@@ -227,7 +236,7 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print("tRecord {");
 		rec.campo().procesa(this);
 		System.out.print("}");
-	}
+	}*/
 	public void procesa(Campos_uno c){
 		c.campo().procesa(this);
 	}
@@ -239,29 +248,31 @@ public class Impresion extends ProcesamientoPorDefecto {
 	public void procesa(Campo c){
 		c.tipo().procesa(this);
 	}
-	public void procesa(TPointer p){
+	public void procesa(Tipo_pointer p){
 		System.out.print(" tPointer ");
 		p.tipo().procesa(this);
 	}
 	
-	public void procesa(InstrOp_una instOp_una){
+	public void procesa(Inst_op_vacio Inst_op_vacio){
 		instOp_una.instrOp().procesa(this);
 	}
-	public void procesa(InstrOp_varias instOp_varias){
+	
+	public void procesa(Inst_op_varias instOp_varias){
 		instOp_varias.instrOps().procesa(this);
 	}
+	/*
 	public void procesa(ParReales_una parReales_una){
 		System.out.print("(");
 		parReales_una.exp().procesa(this);
 		System.out.print(")");
-	}
-	public void procesa(ParReales_varias parReales_varias){
+	}*/
+	public void procesa(ParamReales_varios parReales_varias){
 		System.out.print("(");
 		parReales_varias.exp().procesa(this);
 		parReales_varias.lexps().procesa(this);		
 		System.out.print(")");
 	}
-	public void procesa(ParReales_ninguna parReales_ninguna){
+	public void procesa(ParamReales_vacio parReales_ninguna){
 		System.out.print("(");
 		System.out.print(")");
 	}
@@ -280,7 +291,7 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print("->");
 		System.out.print(fl.arg1().toString());
 	}
-	public void procesa(Indir fl){
+	public void procesa(Indireccion fl){
 		System.out.print("*");
 		fl.arg0().procesa(this);
 	}
@@ -289,7 +300,7 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print(".");
 		System.out.print(fl.arg1().toString());
 	}
-	public void procesa(Indice fl){
+	public void procesa(Indexacion fl){
 		fl.arg0().procesa(this);
 		System.out.print("[");
 		fl.arg1().procesa(this);
@@ -304,7 +315,7 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print(t.getTipo() + " ");
 	}
 	
-	public void procesa(Instruccion_asig in){
+	public void procesa(Inst_asig in){
 		in.id().procesa(this);
 		System.out.print(" = ");
 		in.val().procesa(this);		
@@ -318,12 +329,13 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print(" endif");
 	}
 	
+	/*
 	public void procesa(Instruccion_if_nada in){//?????????????????????????????????????????
 		System.out.print("if ");
 		in.val().procesa(this);
 		System.out.print(" then ");
 		System.out.print(" endif");		
-	}
+	}*/
 	
 	public void procesa(Instruccion_ifelse in){
 		System.out.print("if ");
@@ -335,14 +347,16 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print(" endif");
 	}
 	
+	/*
 	public void procesa(Instruccion_ifelse_nada in){//¿¿¿¿?????
 		System.out.print("if ");
 		in.val().procesa(this);
 		System.out.print(" then ");
 		System.out.print(" else ");
 		System.out.print(" endif");
-	}
+	}*/
 	
+	/*
 	public void procesa(Instruccion_ifelse_no1 in){
 		System.out.print("if ");
 		in.val().procesa(this);
@@ -350,8 +364,9 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print(" else ");
 		in.op().procesa(this);
 		System.out.print(" endif");
-	}
+	}*/
 	
+	/*
 	public void procesa(Instruccion_ifelse_no2 in){
 		System.out.print("if ");
 		in.val().procesa(this);
@@ -359,9 +374,9 @@ public class Impresion extends ProcesamientoPorDefecto {
 		in.op().procesa(this);
 		System.out.print(" else ");
 		System.out.print(" endif");
-	}
+	}*/
 	
-	public void procesa(Instruccion_bloque in){
+	public void procesa(Inst_bloque in){
 		System.out.print("{ ");
 		in.blo().procesa(this);
 		System.out.print(" }");

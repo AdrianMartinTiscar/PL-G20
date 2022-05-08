@@ -4,15 +4,15 @@ options  {
 PARSER_BEGIN(ConstructorAST1)
 package descendente;
 
-import procesamiento.TinyASint.Exp;
+import procesamiento.TinyASint.Expresion;
 import procesamiento.TinyASint.Dec;
 import procesamiento.TinyASint.Decs;
-import procesamiento.TinyASint.Prog;
+import procesamiento.TinyASint.Programa;
 import procesamiento.TinyASint.Inst;
 import procesamiento.TinyASint.Insts;
 import procesamiento.TinyASint.Tipo;
 import procesamiento.TinyASint.ParamForm;
-import procesamiento.TinyASint.LParamForm;
+import procesamiento.TinyASint.ListaParamForm;
 import procesamiento.TinyASint.ParamD;
 import procesamiento.TinyASint.Campo;
 import procesamiento.TinyASint.Campos;
@@ -21,7 +21,7 @@ import procesamiento.TinyASint.LExpresiones;
 import procesamiento.TinyASint.StringLocalizado;
 import procesamiento.TinyASint.InstrOp;
 import procesamiento.TinyASint.Bloque_vacio;
-import procesamiento.TinyASint.NEntero;
+import procesamiento.TinyASint.NumeroEntero;
 import procesamiento.SemOps;
 
 public class ConstructorAST1 {
@@ -34,10 +34,8 @@ PARSER_END(ConstructorAST1)
   TOKEN:{<#digitoPositivo:["1"-"9"]>}
   TOKEN:{<#digito:<digitoPositivo>|"0">} 
   TOKEN:{<#parteEntera:<digitoPositivo> (<digito>)* |"0">} 
-  TOKEN:{<#parteDecimal: ((<digito>)* <digitoPositivo>) | "0">}
-  TOKEN:{<#parteExponencial: (["E","e"])(["+","-"]) <parteEntera>>}
-  SKIP:{<["\t"," ","\r","\b","\n"]>}  
-  SKIP:{<"#"(~["\n"])*>}  
+  TOKEN:{<#parteDecimal: (<digito>)* <digitoPositivo> |"0">}
+  TOKEN: {<#parteExp:"e" <numeroEntero>|"E" <numeroEntero>>}
   TOKEN: {<pint:"int">}
   TOKEN: {<real:"real">}
   TOKEN: {<bool:"bool">}
@@ -70,22 +68,23 @@ PARSER_END(ConstructorAST1)
   TOKEN: {<type:"type">}
   TOKEN: {<Separacion:"&&">}
   TOKEN: {<PtoComa:";">}
-  TOKEN: {<asig:"=">}
+  TOKEN: {<igual:"=">}
   TOKEN: {<equiv:"==">}
+  TOKEN: {<distinto:"!=">} 
   TOKEN: {<mas: "+">}
   TOKEN: {<menos: "-">}
   TOKEN:{<id:<letra>(<letra>|<digito>|"_")*>}
-  TOKEN:{<Nentero: (["+","-"])? <parteEntera> >}
-  TOKEN:{<Nreal: (["+","-"])? <parteEntera> ("." <parteDecimal>)?(<parteExponencial>)? >  }
-  TOKEN:{<literalCad:"\""(~["\n","\t","\b","\r"])*"\"">}
+  TOKEN:{<numeroEntero: (["+","-"])? <parteEntera> >}
+  TOKEN:{<numeroReal: (["+","-"])? <parteEntera> "." (<parteDecimal>|<parteExp>|<parteDecimal><parteExp>) >}
+  TOKEN: {<literalCad:"\""(~["\b","\r","\n"])*"\"">} 
 
-  Prog ProgramaPrev() : {Prog prog;} {prog=Programa() <EOF> {return prog;}}
-  Prog Programa() : {Decs decs; Insts instrs;}
-					{decs=Decs() <Separacion> instrs=Insts() {return sem.prog(decs, instrs);} |
+  Programa ProgramaPrev() : {Prog prog;} {prog=Programa() <EOF> {return prog;}}
+  Programa Programa() : {Decs decs; Insts instrs;}
+					{decs=Decs() <Separacion> instrs=Inst() {return sem.prog(decs, instrs);} |
 					 instrs=Insts() {return sem.programa_sinDecs(instrs);}}
   Decs Decs() : {Dec dec; Decs restDec;}
-				{dec=Dec() restDec=restoDec(dec) {return restDec;}}
-  Decs restoDec(Dec dec) : {Decs decs;}
+				{dec=Dec() RDec=RDec(dec) {return RDec;}}
+  Decs RDecs(Dec dec) : {Decs decs;}
 						   {<PtoComa> decs=Decs() {return sem.declaracion_varias(dec, decs);} |
 						   {return sem.declaracion_una(dec);}}
   Dec Dec() : {Token d; Tipo tipo; Token t; ParamForm param; Bloque_vacio bloque;}

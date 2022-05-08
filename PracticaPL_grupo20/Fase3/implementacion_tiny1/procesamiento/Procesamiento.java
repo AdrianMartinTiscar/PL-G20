@@ -1,12 +1,11 @@
 package procesamiento;
 
-import procesamiento.TinyASint.*;
 public interface Procesamiento {
 
 	void procesa(Programa_sinDecs prog);
 	void procesa(Programa_conDecs prog);
-	void procesa (Decs_una dec);
-	void procesa (Decs_varias decs);
+	void procesa(Decs_una dec);
+	void procesa(Decs_varias decs);
 	void procesa(Dec_var d);
 	void procesa(Dec_type d);
 	void procesa(Dec_proc d);

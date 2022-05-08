@@ -1,6 +1,7 @@
 package procesamiento;
 
 import procesamiento.TinyASint.*;
+
 import procesamiento.ProcesamientoPorDefecto;
 
 public class Impresion extends ProcesamientoPorDefecto {

@@ -1,13 +1,13 @@
-package conCup.asint;
+package ascendente.analizadorSintactico;
 
 import java.io.FileInputStream;
+
+
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import conCup.alex.AnalizadorLexicoTiny;
 
-import conCup.alex.UnidadLexica;
+
 
 /*public class Ascendente {
 	private String fich;
@@ -18,7 +18,7 @@ import conCup.alex.UnidadLexica;
 
 	public void init() throws FileNotFoundException {
 		Reader input = new InputStreamReader(new FileInputStream(fich));
-		AnalizadorLexicoTiny al = new AnalizadorLexicoTiny(input);
+		AnalizadorLexicoTiny1 al = new AnalizadorLexicoTiny1(input);
 		UnidadLexica unidad;
 		try {
 			do {
@@ -29,7 +29,7 @@ import conCup.alex.UnidadLexica;
 		}
 
 		input = new InputStreamReader(new FileInputStream(fich));
-		AnalizadorLexicoTiny alex = new AnalizadorLexicoTiny(input);
+		AnalizadorLexicoTiny1 alex = new AnalizadorLexicoTiny1(input);
 		AnalizadorSintacticoTiny asint = new AnalizadorSintacticoTiny(alex);
 		try {
 			asint.parse();
@@ -39,5 +39,4 @@ import conCup.alex.UnidadLexica;
 			System.out.println(e.getMessage());
 		}
 	}
-}
-*/
+}*/

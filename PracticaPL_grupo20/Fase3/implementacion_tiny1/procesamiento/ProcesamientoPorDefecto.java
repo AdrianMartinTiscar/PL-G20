@@ -5,8 +5,8 @@ import procesamiento.TinyASint.*;
 public class ProcesamientoPorDefecto implements Procesamiento{
 	public void procesa(Programa_sinDecs prog) {}
 	public void procesa(Programa_conDecs prog) {}
-	public void procesa (Decs_una dec) {}
-	public void procesa (Decs_varias decs) {}
+	public void procesa(Decs_una dec) {}
+	public void procesa(Decs_varias decs) {}
 	public void procesa(Dec_var d) {}
 	public void procesa(Dec_type d) {}
 	public void procesa(Dec_proc d) {}

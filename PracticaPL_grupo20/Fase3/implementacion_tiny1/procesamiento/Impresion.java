@@ -17,22 +17,22 @@ public class Impresion extends ProcesamientoPorDefecto {
 		prog.ins().procesa(this);
 	}
 	
-	public void procesa(Declaracion_una dec) {
+	public void procesa(Decs_una dec) {
 		dec.dec().procesa(this);
 	}
 
-	public void procesa(Declaracion_varias decs) {
+	public void procesa(Decs_varias decs) {
 		decs.dec().procesa(this);
 		System.out.println(";");
 		decs.decs().procesa(this);
 	}
 
 
-	public void procesa(Instruccion_una ins) {
+	public void procesa(Instrucciones_una ins) {
 		ins.ins().procesa(this);
 	}
 
-	public void procesa(Instruccion_varias inss) {
+	public void procesa(Instrucciones_varias inss) {
 		inss.ins().procesa(this);
 		System.out.println(";");
 		inss.inss().procesa(this);
@@ -92,7 +92,7 @@ public class Impresion extends ProcesamientoPorDefecto {
 	      imprime_arg(menI.arg1(),3);
 	}
 
-	public void procesa(Equivalente eq) {
+	public void procesa(Comparacion eq) {
 	      imprime_arg(eq.arg0(),2); 
 	      System.out.print(" == ");
 	      imprime_arg(eq.arg1(),3);
@@ -134,11 +134,11 @@ public class Impresion extends ProcesamientoPorDefecto {
 	      imprime_arg(neg.arg0(),5);
 	}
 
-	public void procesa(Cierto t) {
+	public void procesa(True t) {
 		System.out.print(" true ");
 	}
 
-	public void procesa(Falso f) {
+	public void procesa(False f) {
 		System.out.print(" false ");
 	}
 
@@ -146,7 +146,7 @@ public class Impresion extends ProcesamientoPorDefecto {
 		e.procesa(this);
 	}
 	
-	public void procesa(Dec_habitual dec) {
+	public void procesa(Dec_var dec) {
 		System.out.print("var ");
 		System.out.print(dec.tipo().getTipo());
 		dec.tipo().procesa(this);
@@ -175,7 +175,7 @@ public class Impresion extends ProcesamientoPorDefecto {
 		p.lpar().procesa(this);
 		System.out.print(")");
 	}
-	public void procesa(Param_form_nada p){
+	public void procesa(Param_form_vacio p){
 		System.out.print("(");
 		System.out.print(")");
 	}
@@ -184,7 +184,7 @@ public class Impresion extends ProcesamientoPorDefecto {
 		p.par().procesa(this);
 		System.out.print(")");
 	}
-	public void procesa(ParamD p){
+	public void procesa(Parametro p){
 		p.tipo().procesa(this);
 		System.out.print(p.id());
 	}
@@ -368,7 +368,7 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print(" }");
 	}
 
-	public void procesa(Instruccion_while in) {
+	public void procesa(Inst_while in) {
 		System.out.print("while ");
 		in.val().procesa(this);
 		System.out.print(" do ");	
@@ -376,40 +376,40 @@ public class Impresion extends ProcesamientoPorDefecto {
 		System.out.print(" endwhile ");
 	}
 	
-	public void procesa(Instruccion_read in) {
+	public void procesa(Inst_read in) {
 		System.out.print("read ");
 		in.val().procesa(this);
 	}
 	
-	public void procesa(Instruccion_write in) {
+	public void procesa(Inst_write in) {
 		System.out.print("write ");
 		in.val().procesa(this);
 	}
 	
-	public void procesa(Instruccion_nl in) {
+	public void procesa(Inst_NewLine in) {
 		System.out.print("nl");
 	}
 	
-	public void procesa(Instruccion_new in) {
+	public void procesa(Inst_new in) {
 		System.out.print("new ");
 		in.val().procesa(this);
 	}
 	
-	public void procesa(Instruccion_delete in) {
+	public void procesa(Inst_delete in) {
 		System.out.print("delete ");
 		in.val().procesa(this);
 	}
 	
-	public void procesa(Instruccion_call in) {
+	public void procesa(Inst_call in) {
 		System.out.print("call ");
 		System.out.print(in.str());
 		in.parReales().procesa(this);
 	}
 	
-	public void procesa(NEntero exp){
+	public void procesa(NumeroEntero exp){
 		System.out.print(exp.num().toString());
 	}
-	public void procesa(NReal exp){
+	public void procesa(NumeroReal exp){
 		System.out.print(exp.num().toString());
 	}
 	

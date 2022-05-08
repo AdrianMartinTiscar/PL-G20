@@ -30,8 +30,8 @@ public class ProcesamientoPorDefecto implements Procesamiento{
 	public void procesa(Campos_varios c) {}
 	public void procesa(Campo c) {}
 	
-	public void procesa (Instrucciones_una ins) {}
-	public void procesa (Instrucciones_varias inss) {}
+	public void procesa(Instrucciones_una ins) {}
+	public void procesa(Instrucciones_varias inss) {}
 	
 	public void procesa(Inst_asig in) {}
 	public void procesa(Inst_ifThen in) {}
@@ -45,7 +45,7 @@ public class ProcesamientoPorDefecto implements Procesamiento{
 	public void procesa(Inst_new in) {}
 	public void procesa(Inst_delete in) {}
 	public void procesa(Inst_call in) {}
-	public void procesa(Inst_bloque in) {}
+	public void procesa(Instruccion_bloque in) {}
 	
 	public void procesa(Bloque b) {}
 	public void procesa(Bloque_vacio b) {}

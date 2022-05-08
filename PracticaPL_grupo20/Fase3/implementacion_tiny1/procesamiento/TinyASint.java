@@ -171,8 +171,8 @@ public class TinyASint {
 		}
 	}
 
-	public static class Equivalente extends ExpRelacionales {
-		public Equivalente(Exp arg0, Exp arg1) {
+	public static class Comparacion extends ExpRelacionales {
+		public Comparacion(Exp arg0, Exp arg1) {
 			super(arg0, arg1);
 		}
 
@@ -245,9 +245,9 @@ public class TinyASint {
 		}
 	}
 
-	public static class Indice extends ExpDir {
+	public static class Indexacion extends ExpDir {
 		private Exp ar1;
-		public Indice(Exp arg0, Exp arg1) {
+		public Indexacion(Exp arg0, Exp arg1) {
 			super(arg0);
 			ar1 = arg1;
 		}
@@ -292,8 +292,8 @@ public class TinyASint {
 		}
 	}
 
-	public static class Indir extends ExpDir {
-		public Indir(Exp arg0) {
+	public static class Indice extends ExpDir {
+		public Indice(Exp arg0) {
 			super(arg0);
 		}
 
@@ -360,10 +360,10 @@ public class TinyASint {
 		}
 	}
 
-	public static class NEntero extends Exp {
+	public static class NumeroEntero extends Exp {
 		private StringLocalizado num;
 
-		public NEntero(StringLocalizado num) {
+		public NumeroEntero(StringLocalizado num) {
 			super();
 			this.num = num;
 		}
@@ -381,10 +381,10 @@ public class TinyASint {
 		}
 	}
 
-	public static class NReal extends Exp {
+	public static class NumeroReal extends Exp {
 		private StringLocalizado num;
 
-		public NReal(StringLocalizado num) {
+		public NumeroReal(StringLocalizado num) {
 			super();
 			this.num = num;
 		}
@@ -423,10 +423,10 @@ public class TinyASint {
 		}
 	}
 
-	public static class Cierto extends Exp {
+	public static class True extends Exp {
 		private String cierto;
 
-		public Cierto() {
+		public True() {
 			super();
 			this.cierto = "True";
 		}
@@ -444,10 +444,10 @@ public class TinyASint {
 		}
 	}
 
-	public static class Falso extends Exp {
+	public static class False extends Exp {
 		private String fals;
 
-		public Falso() {
+		public False() {
 			super();
 			this.fals = "False";
 		}
@@ -465,10 +465,10 @@ public class TinyASint {
 		}
 	}
 
-	public static class Nulo extends Exp {
+	public static class Null extends Exp {
 		private String nul;
 
-		public Nulo() {
+		public Null() {
 			super();
 			this.nul = "null";
 		}
@@ -493,11 +493,11 @@ public class TinyASint {
 		public abstract void procesa(Procesamiento p);
 	}
 
-	public static class Dec_habitual extends Dec {
+	public static class Dec_var extends Dec {
 		private Tipo tipo;
 		private StringLocalizado id;
 
-		public Dec_habitual(Tipo tipo, StringLocalizado id) {
+		public Dec_var(Tipo tipo, StringLocalizado id) {
 			this.id = id;
 			this.tipo = tipo;
 		}
@@ -616,8 +616,8 @@ public class TinyASint {
 		}
 	}
 
-	public static class Param_form_nada extends ParamForm {
-		public Param_form_nada() {
+	public static class Param_form_vacio extends ParamForm {
+		public Param_form_vacio() {
 		}
 
 		public void procesa(Procesamiento p) {
@@ -625,6 +625,7 @@ public class TinyASint {
 		}
 	}
 
+	//TODO: necesario???
 	public static class Param_form_uno extends ParamForm {
 		private ParamD par;
 
@@ -677,11 +678,11 @@ public class TinyASint {
 		public abstract void procesa(Procesamiento p);
 	}
 
-	public static class LParamForm_varias extends LParamForm {
+	public static class List_param_form_varios extends LParamForm {
 		private ParamD par;
 		private LParamForm pars;
 
-		public LParamForm_varias(ParamD par, LParamForm pars) {
+		public List_param_form_varios(ParamD par, LParamForm pars) {
 			this.par = par;
 			this.pars = pars;
 		}
@@ -699,10 +700,10 @@ public class TinyASint {
 		}
 	}
 
-	public static class LParamForm_una extends LParamForm {
+	public static class List_param_form_uno extends LParamForm {
 		private ParamD par;
 
-		public LParamForm_una(ParamD par) {
+		public List_param_form_uno(ParamD par) {
 			this.par = par;
 		}
 
@@ -741,17 +742,17 @@ public class TinyASint {
 	}
 
 
-	public static class TArray extends Tipo {
-		private NEntero n;
+	public static class Tipo_array extends Tipo {
+		private NumeroEntero n;
 		private Tipo t;
 
-		public TArray(StringLocalizado n, Tipo t) {
+		public Tipo_array(StringLocalizado n, Tipo t) {
 			super("tArray");
-			this.n = new NEntero(n);
+			this.n = new NumeroEntero(n);
 			this.t = t;
 		}
 
-		public NEntero tam() {
+		public NumeroEntero tam() {
 			return n;
 		}
 
@@ -882,10 +883,10 @@ public class TinyASint {
 		}
 	}
 
-	public static class TPointer extends Tipo {
+	public static class Tipo_pointer extends Tipo {
 		private Tipo t;
 
-		public TPointer(Tipo t) {
+		public Tipo_pointer(Tipo t) {
 			super("tPointer");
 			this.t = t;
 		}
@@ -906,10 +907,10 @@ public class TinyASint {
 		public abstract void procesa(Procesamiento p);
 	}
 
-	public static class Declaracion_una extends Decs {
+	public static class Decs_una extends Decs {
 		private Dec dec;
 
-		public Declaracion_una(Dec dec) {
+		public Decs_una(Dec dec) {
 			super();
 			this.dec = dec;
 		}
@@ -923,11 +924,11 @@ public class TinyASint {
 		}
 	}
 
-	public static class Declaracion_varias extends Decs {
+	public static class Decs_varias extends Decs {
 		private Dec dec;
 		private Decs decs;
 
-		public Declaracion_varias(Dec dec, Decs decs) {
+		public Decs_varias(Dec dec, Decs decs) {
 			super();
 			this.dec = dec;
 			this.decs = decs;
@@ -953,11 +954,11 @@ public class TinyASint {
 		public abstract void procesa(Procesamiento p);
 	}
 
-	public static class Instruccion_asig extends Inst {
+	public static class Inst_asig extends Inst {
 		private Exp id;
 		private Exp val;
 
-		public Instruccion_asig(Exp id, Exp val) {
+		public Inst_asig(Exp id, Exp val) {
 			this.id = id;
 			this.val = val;
 		}
@@ -975,11 +976,11 @@ public class TinyASint {
 		}
 	}
 
-	public static class Instruccion_if extends Inst {
+	public static class Inst_ifThen extends Inst {
 		private Exp val;
 		private InstrOp op;
 
-		public Instruccion_if(Exp val, InstrOp op) {
+		public Inst_ifThen(Exp val, InstrOp op) {
 			this.val = val;
 			this.op = op;
 		}
@@ -1013,12 +1014,12 @@ public class TinyASint {
 		}
 	}
 
-	public static class Instruccion_ifelse extends Inst {
+	public static class Inst_ifThenElse extends Inst {
 		private Exp val;
 		private InstrOp op1;
 		private InstrOp op2;
 
-		public Instruccion_ifelse(Exp val, InstrOp op1, InstrOp op2) {
+		public Inst_ifThenElse(Exp val, InstrOp op1, InstrOp op2) {
 			this.val = val;
 			this.op1 = op1;
 			this.op2 = op2;
@@ -1117,11 +1118,11 @@ public class TinyASint {
 		}
 	}
 
-	public static class Instruccion_while extends Inst {
+	public static class Inst_while extends Inst {
 		private Exp val;
 		private InstrOp op;
 
-		public Instruccion_while(Exp val, InstrOp op) {
+		public Inst_while(Exp val, InstrOp op) {
 			this.val = val;
 			this.op = op;
 		}
@@ -1139,10 +1140,10 @@ public class TinyASint {
 		}
 	}
 
-	public static class Instruccion_read extends Inst {
+	public static class Inst_read extends Inst {
 		private Exp val;
 
-		public Instruccion_read(Exp val) {
+		public Inst_read(Exp val) {
 			this.val = val;
 		}
 
@@ -1155,10 +1156,10 @@ public class TinyASint {
 		}
 	}
 
-	public static class Instruccion_write extends Inst {
+	public static class Inst_write extends Inst {
 		private Exp val;
 
-		public Instruccion_write(Exp val) {
+		public Inst_write(Exp val) {
 			this.val = val;
 		}
 
@@ -1171,9 +1172,9 @@ public class TinyASint {
 		}
 	}
 
-	public static class Instruccion_nl extends Inst {
+	public static class Inst_NewLine extends Inst {
 
-		public Instruccion_nl() {
+		public Inst_NewLine() {
 		}
 
 		public void procesa(Procesamiento p) {
@@ -1181,10 +1182,10 @@ public class TinyASint {
 		}
 	}
 
-	public static class Instruccion_new extends Inst {
+	public static class Inst_new extends Inst {
 		private Exp val;
 
-		public Instruccion_new(Exp val) {
+		public Inst_new(Exp val) {
 			this.val = val;
 		}
 
@@ -1197,10 +1198,10 @@ public class TinyASint {
 		}
 	}
 
-	public static class Instruccion_delete extends Inst {
+	public static class Inst_delete extends Inst {
 		private Exp val;
 
-		public Instruccion_delete(Exp val) {
+		public Inst_delete(Exp val) {
 			this.val = val;
 		}
 
@@ -1213,11 +1214,11 @@ public class TinyASint {
 		}
 	}
 
-	public static class Instruccion_call extends Inst {
+	public static class Inst_call extends Inst {
 		private StringLocalizado str;// QUIZAS ES STRING A SECAS????
 		private ParReales pReal;
 
-		public Instruccion_call(StringLocalizado str, ParReales pReal) {
+		public Inst_call(StringLocalizado str, ParReales pReal) {
 			this.str = str;
 			this.pReal = pReal;
 		}
@@ -1259,11 +1260,11 @@ public class TinyASint {
 		}
 	}
 
-	public static class ParReales_varias extends ParReales {
+	public static class ParamReales_varios extends ParReales {
 		private Exp exp;
 		private LExpresiones lexps;
 
-		public ParReales_varias(Exp exp, LExpresiones lexps) {
+		public ParamReales_varios(Exp exp, LExpresiones lexps) {
 			super();
 			this.exp = exp;
 			this.lexps = lexps;
@@ -1282,9 +1283,9 @@ public class TinyASint {
 		}
 	}
 
-	public static class ParReales_ninguna extends ParReales {
+	public static class ParamReales_vacio extends ParReales {
 
-		public ParReales_ninguna() {
+		public ParamReales_vacio() {
 			super();
 		}
 
@@ -1300,10 +1301,10 @@ public class TinyASint {
 		public abstract void procesa(Procesamiento p);
 	}
 
-	public static class LExpresiones_una extends LExpresiones {
+	public static class ListaExpresiones_una extends LExpresiones {
 		private Exp exp;
 
-		public LExpresiones_una(Exp exp) {
+		public ListaExpresiones_una(Exp exp) {
 			super();
 			this.exp = exp;
 		}
@@ -1317,11 +1318,11 @@ public class TinyASint {
 		}
 	}
 
-	public static class LExpresiones_varias extends LExpresiones {
+	public static class ListaExpresiones_varias extends LExpresiones {
 		private Exp exp;
 		private LExpresiones lexp;
 
-		public LExpresiones_varias(Exp exp, LExpresiones lexp) {
+		public ListaExpresiones_varias(Exp exp, LExpresiones lexp) {
 			super();
 			this.exp = exp;
 			this.lexp = lexp;
@@ -1390,10 +1391,10 @@ public class TinyASint {
 		public abstract void procesa(Procesamiento p);
 	}
 
-	public static class Instruccion_una extends Insts {
+	public static class Instrucciones_una extends Insts {
 		private Inst ins;
 
-		public Instruccion_una(Inst ins) {
+		public Instrucciones_una(Inst ins) {
 			super();
 			this.ins = ins;
 		}
@@ -1407,11 +1408,11 @@ public class TinyASint {
 		}
 	}
 
-	public static class Instruccion_varias extends Insts {
+	public static class Instrucciones_varias extends Insts {
 		private Inst ins;
 		private Insts inss;
 
-		public Instruccion_varias(Insts inss, Inst ins) {
+		public Instrucciones_varias(Insts inss, Inst ins) {
 			super();
 			this.ins = ins;
 			this.inss = inss;
@@ -1491,8 +1492,8 @@ public class TinyASint {
 		public abstract void procesa(Procesamiento p);
 	}
 
-	public static class Intt extends Tipo {
-		public Intt() {
+	public static class Tipo_int extends Tipo {
+		public Tipo_int() {
 			super("Int");
 		}
 
@@ -1501,8 +1502,8 @@ public class TinyASint {
 		}
 	}
 
-	public static class Realt extends Tipo {
-		public Realt() {
+	public static class Tipo_real extends Tipo {
+		public Tipo_real() {
 			super("Real");
 		}
 
@@ -1511,8 +1512,8 @@ public class TinyASint {
 		}
 	}
 
-	public static class Boolt extends Tipo {
-		public Boolt() {
+	public static class Tipo_bool extends Tipo {
+		public Tipo_bool() {
 			super("Bool");
 		}
 
@@ -1521,8 +1522,8 @@ public class TinyASint {
 		}
 	}
 
-	public static class Stringt extends Tipo {
-		public Stringt() {
+	public static class Tipo_string extends Tipo {
+		public Tipo_string() {
 			super("String");
 		}
 
@@ -1608,8 +1609,8 @@ public class TinyASint {
 		return new Mayor_igual(arg0, arg1);
 	}
 
-	public Exp equivalente(Exp arg0, Exp arg1) {
-		return new Equivalente(arg0, arg1);
+	public Exp comparacion(Exp arg0, Exp arg1) {
+		return new Comparacion(arg0, arg1);
 	}
 
 	public Exp distinto(Exp arg0, Exp arg1) {
@@ -1632,20 +1633,22 @@ public class TinyASint {
 		return new Mod(arg0, arg1);
 	}
 
-	/*
-	 * public Exp flecha(Exp arg0, Exp arg1) { return new Flecha(arg0, arg1); }
-	 */
+	
+	public Exp flecha(Exp arg0, Exp arg1) { 
+		return new Flecha(arg0, arg1); 
+	}
+	 
 
 	public Exp num(StringLocalizado num) {
 		return new Num(num);
 	}
 
-	public Exp nEntero(StringLocalizado num) {
-		return new NEntero(num);
+	public Exp numeroEntero(StringLocalizado num) {
+		return new NumeroEntero(num);
 	}
 
-	public Exp nReal(StringLocalizado num) {
-		return new NReal(num);
+	public Exp numeroReal(StringLocalizado num) {
+		return new NumeroReal(num);
 	}
 
 	public Exp id(StringLocalizado num) {
@@ -1653,19 +1656,19 @@ public class TinyASint {
 	}
 
 	public Exp falso() {
-		return new Falso();
+		return new False();
 	}
 
 	public Exp cierto() {
-		return new Cierto();
+		return new True();
 	}
 
 	public Exp nulo() {
-		return new Nulo();
+		return new Null();
 	}
 
-	public Dec dec_habitual(Tipo tipo, StringLocalizado id) {
-		return new Dec_habitual(tipo, id);
+	public Dec dec_var(Tipo tipo, StringLocalizado id) {
+		return new Dec_var(tipo, id);
 	}
 
 	public Dec dec_proc(StringLocalizado id, ParamForm pf, Bloque_vacio block) {
@@ -1676,36 +1679,36 @@ public class TinyASint {
 		return new Dec_bloque(tipo, id);
 	}
 
-	public Decs declaracion_una(Dec dec) {
-		return new Declaracion_una(dec);
+	public Decs decs_una(Dec dec) {
+		return new Decs_una(dec);
 	}
 
-	public Decs declaracion_varias(Dec dec, Decs decs) {
-		return new Declaracion_varias(dec, decs);
+	public Decs decs_varias(Dec dec, Decs decs) {
+		return new Decs_varias(dec, decs);
 	}
 
-	public Insts instruccion_varias(Inst ins, Insts inss) {
-		return new Instruccion_varias(inss, ins);
+	public Insts instrucciones_varias(Inst ins, Insts inss) {
+		return new Instrucciones_varias(inss, ins);
 	}
 
-	public Insts instruccion_una(Inst ins) {
-		return new Instruccion_una(ins);
+	public Insts instrucciones_una(Inst ins) {
+		return new Instrucciones_una(ins);
 	}
 
-	public Inst instruccion_asig(Exp id, Exp val) {
-		return new Instruccion_asig(id, val);
+	public Inst inst_asig(Exp id, Exp val) {
+		return new Inst_asig(id, val);
 	}
 
-	public Inst instruccion_if(Exp id, InstrOp val) {
-		return new Instruccion_if(id, val);
+	public Inst inst_ifThen(Exp id, InstrOp val) {
+		return new Inst_ifThen(id, val);
 	}
 
 	public Inst instruccion_if_nada(Exp e) {
 		return new Instruccion_if_nada(e);
 	}
 
-	public Inst instruccion_ifelse(Exp val, InstrOp in1, InstrOp in2) {
-		return new Instruccion_ifelse(val, in1, in2);
+	public Inst inst_ifThenElse(Exp val, InstrOp in1, InstrOp in2) {
+		return new Inst_ifThenElse(val, in1, in2);
 	}
 
 	public Inst instruccion_ifelse_nada(Exp val) {
@@ -1732,72 +1735,72 @@ public class TinyASint {
 		return new Instruccion_bloque(bloque);
 	}
 
-	public Inst instruccion_while(Exp val, InstrOp op) {
-		return new Instruccion_while(val, op);
+	public Inst inst_while(Exp val, InstrOp op) {
+		return new Inst_while(val, op);
 	}
 
-	public Inst instruccion_read(Exp val) {
-		return new Instruccion_read(val);
+	public Inst inst_read(Exp val) {
+		return new Inst_read(val);
 	}
 
-	public Inst instruccion_write(Exp val) {
-		return new Instruccion_write(val);
+	public Inst inst_write(Exp val) {
+		return new Inst_write(val);
 	}
 
-	public Inst instruccion_nl() {
-		return new Instruccion_nl();
+	public Inst inst_NewLine() {
+		return new Inst_NewLine();
 	}
 
-	public Inst instruccion_new(Exp val) {
-		return new Instruccion_new(val);
+	public Inst inst_new(Exp val) {
+		return new Inst_new(val);
 	}
 
-	public Inst instruccion_delete(Exp val) {
-		return new Instruccion_delete(val);
+	public Inst inst_delete(Exp val) {
+		return new Inst_delete(val);
 	}
 
-	public Inst instruccion_call(StringLocalizado str, ParReales pReal) {
-		return new Instruccion_call(str, pReal);
+	public Inst inst_call(StringLocalizado str, ParReales pReal) {
+		return new Inst_call(str, pReal);
 	}
 
-	public ParReales parReales_ninguna() {
-		return new ParReales_ninguna();
+	public ParReales paramReales_vacio() {
+		return new ParamReales_vacio();
 	}
 
 	public ParReales parReales_una(Exp exp) {
 		return new ParReales_una(exp);
 	}
 
-	public ParReales parReales_varias(Exp exp, LExpresiones lexps) {
-		return new ParReales_varias(exp, lexps);
+	public ParReales paramReales_varios(Exp exp, LExpresiones lexps) {
+		return new ParamReales_varios(exp, lexps);
 	}
 
-	public LExpresiones lExpresiones_varias(Exp exp, LExpresiones lexps) {
-		return new LExpresiones_varias(exp, lexps);
+	public LExpresiones listaExpresiones_varias(Exp exp, LExpresiones lexps) {
+		return new ListaExpresiones_varias(exp, lexps);
 	}
 
-	public LExpresiones lExpresiones_una(Exp exp) {
-		return new LExpresiones_una(exp);
+	public LExpresiones listaExpresiones_una(Exp exp) {
+		return new ListaExpresiones_una(exp);
 	}
 
 	public StringLocalizado str(String s, int fila, int col) {
 		return new StringLocalizado(s, fila, col);
 	}
 
-	public Tipo intt() {
-		return new Intt();
+	public Tipo tipo_int() {
+		return new Tipo_int();
 	}
 
-	public Tipo stringt() {
-		return new Stringt();
+	public Tipo Tipo_string() {
+		return new Tipo_string();
 	}
 
-	public Tipo boolt() {
-		return new Boolt();
+	public Tipo tipo_bool() {
+		return new Tipo_bool();
 	}
 
-	public Tipo realt() {
-		return new Realt();
+	public Tipo Tipo_real() {
+		return new Tipo_real();
 	}
 
 	public Tipo tipoin(StringLocalizado in) {
@@ -1808,20 +1811,20 @@ public class TinyASint {
 		return new Flecha(a0, a1);
 	}
 
-	public Indice indice(Exp a0, Exp a1) {
-		return new Indice(a0, a1);
+	public Indexacion indexacion(Exp a0, Exp a1) {
+		return new Indexacion(a0, a1);
 	}
 
-	public Indir indir(Exp a0) {
-		return new Indir(a0);
+	public Indice indice(Exp a0) {
+		return new Indice(a0);
 	}
 
 	public Punto punto(Exp a0, StringLocalizado a1) {
 		return new Punto(a0, a1);
 	}
 
-	public Tipo tPointer(Tipo t) {
-		return new TPointer(t);
+	public Tipo tipo_pointer(Tipo t) {
+		return new Tipo_pointer(t);
 	}
 
 	public Campo campo(Tipo t, StringLocalizado id) {
@@ -1836,33 +1839,36 @@ public class TinyASint {
 		return new Campos_uno(c);
 	}
 
+	//TODO: revisar
 	public TRecord tRecord_varias(Campo c, Campos cs) {
 		return new TRecord_varias(c, cs);
 	}
 
+	//TODO: revisar
 	public TRecord tRecord_una(Campo c) {
 		return new TRecord_una(c);
 	}
 
-	public TArray tArray(StringLocalizado n, Tipo t) {
-		return new TArray(n, t);
+	public Tipo_array tipo_array(StringLocalizado n, Tipo t) {
+		return new Tipo_array(n, t);
 	}
 
-	public Bloque_vacio bloque(Programa p) {
+	public Bloque bloque(Programa p) {
 		return new Bloque(p);
 	}
 	public Bloque_vacio bloque_vacio() {
 		return new Bloque_vacio();
 	}
 
-	public LParamForm lparamForm_varias(ParamD par, LParamForm pars) {
-		return new LParamForm_varias(par, pars);
+	public List_param_form_varios list_param_form_varios(ParamD par, LParamForm pars) {
+		return new List_param_form_varios(par, pars);
 	}
 
-	public LParamForm lparamForm_una(ParamD par) {
-		return new LParamForm_una(par);
+	public List_param_form_uno list_param_form_uno(ParamD par) {
+		return new List_param_form_uno(par);
 	}
 
+	//TODO: revisar param valor y param variable
 	public ParamD paramD(Tipo t, StringLocalizado i) {
 		return new ParamD(t, i);
 	}
@@ -1871,20 +1877,23 @@ public class TinyASint {
 		return new Param_form(par, pars);
 	}
 
+	//TODO: necesario??
 	public ParamForm param_form_uno(ParamD par) {
 		return new Param_form_uno(par);
 	}
 
-	public ParamForm param_form_nada() {
-		return new Param_form_nada();
+	public ParamForm Param_form_vacio() {
+		return new Param_form_vacio();
 	}
+	
 	public Exp literalCad(StringLocalizado s) {
 		return new LiteralCad(s);
 	}
+	
 	public Dec dec_type(Tipo a, Tipo b) {
 		return new Dec_type(a, b);
-		
 	}
+	
 	public ParamD paramDAmp(Tipo t, StringLocalizado i) {
 		return new ParamDAmp(t, i);
 	}

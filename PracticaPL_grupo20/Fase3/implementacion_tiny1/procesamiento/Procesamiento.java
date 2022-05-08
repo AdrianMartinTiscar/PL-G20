@@ -1,5 +1,7 @@
 package procesamiento;
 
+import procesamiento.TinyASint.*;
+
 public interface Procesamiento {
 
 	void procesa(Programa_sinDecs prog);
@@ -29,8 +31,8 @@ public interface Procesamiento {
 	void procesa(Campos_varios c);
 	void procesa(Campo c);
 	
-	void procesa (Instrucciones_una ins);
-	void procesa (Instrucciones_varias inss);
+	void procesa(Instrucciones_una ins);
+	void procesa(Instrucciones_varias inss);
 	
 	void procesa(Inst_asig in);
 	void procesa(Inst_ifThen in);

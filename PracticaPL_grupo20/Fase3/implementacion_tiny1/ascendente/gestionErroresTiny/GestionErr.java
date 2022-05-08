@@ -1,5 +1,6 @@
 package ascendente.gestionErroresTiny;
 
+import ascendente.analizadorLexico.UnidadLexica;
 
 public class GestionErr {
 	   public void errorLexico(int fila, String lexema) {

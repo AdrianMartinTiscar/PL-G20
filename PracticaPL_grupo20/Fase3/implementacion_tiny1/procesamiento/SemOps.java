@@ -9,7 +9,7 @@ public class SemOps extends TinyASint{
 	    case ">": return mayor(arg0, arg1);
 	    case "<=": return menor_igual(arg0, arg1);
 	    case ">=": return mayor_igual(arg0, arg1);
-	    case "==": return equivalente(arg0, arg1);
+	    case "==": return comparacion(arg0, arg1);
 	    case "!=": return distinto(arg0, arg1);
 	    case "*": return mul(arg0, arg1);
 	    case "/": return div(arg0, arg1);

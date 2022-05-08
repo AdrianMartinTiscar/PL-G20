@@ -375,7 +375,7 @@ public class TinyASint {
 
 		public abstract void procesa(Procesamiento p);
 
-		public abstract String getTipo();
+		public abstract String tipo();
 
 	}
 
@@ -391,7 +391,7 @@ public class TinyASint {
 		}
 
 		@Override
-		public String getTipo() {
+		public String tipo() {
 			return tipo;
 		}
 
@@ -409,7 +409,7 @@ public class TinyASint {
 		}
 
 		@Override
-		public String getTipo() {
+		public String tipo() {
 			return tipo;
 		}
 
@@ -427,7 +427,7 @@ public class TinyASint {
 		}
 
 		@Override
-		public String getTipo() {
+		public String tipo() {
 			return tipo;
 		}
 

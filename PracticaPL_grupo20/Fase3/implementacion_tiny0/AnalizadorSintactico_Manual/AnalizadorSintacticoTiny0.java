@@ -43,7 +43,7 @@ public class AnalizadorSintacticoTiny0 {
 	/**
 	 * Programa -> Decs '&&' Instrucciones
 	 */
-	private Programa Programa() {
+	public Programa Programa() {
 		Decs decs = Decs();
 		empareja(ClaseLexica.SEP);
 		Insts inss = Instrs();

@@ -20,21 +20,20 @@ public class Main {
 		    	 		+ "en el siguiente formato: pruebas_tiny_0/filename.txt\n");
 	 }
 	 else { // Leer fichero de prueba
-		 String filename = "prueba10_tiny0.txt";
-		 input = new InputStreamReader(new FileInputStream("Fase3/pruebas_tiny_0/"+filename));
+		 String filename = "prueba5_tiny0.txt";
+		 String curDir = System.getProperty("user.dir");
+		 input = new InputStreamReader(new FileInputStream(curDir+"/pruebas_tiny_0/"+filename));
 		 
-		 asint.AnalizadorSintacticoTiny constructorast = new asint.AnalizadorSintacticoTiny(input);
-		 constructorast.Programa().procesa((Procesamiento) new Impresion());
-		 
-		 //input = new InputStreamReader(new FileInputStream(args[0]));
-		 
-		 /*AnalizadorSintacticoTiny0 asint = new AnalizadorSintacticoTiny0(input);
+		 AnalizadorSintacticoTiny0 asint = new AnalizadorSintacticoTiny0(input);
 		 try {
-    	    asint.Sp();
-			System.out.println("OK");
+			 asint.Programa().procesa((Procesamiento) new Impresion());
+			 System.out.println("OK");
 		 } catch (Exception e) {
 			System.out.println(e.getMessage());
-		 }*/
+		 }
+			
+		 /*asint.AnalizadorSintacticoTiny0 constructorast = new asint.AnalizadorSintacticoTiny0(input);
+		 constructorast.Programa().procesa((Procesamiento) new Impresion());*/
 	 }
    }
 }   
